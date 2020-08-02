@@ -4,6 +4,7 @@
 */
 
 @import url('https://fonts.googleapis.com/css?family=Grenze&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Spectral+SC:400,800');
 @font-face {
 	font-family: 'ancient';
 	src: url('./assets/jancient.ttf') format("truetype");
@@ -60,4 +61,47 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+	font-family: 'ancient';
+	padding: 5px 0 0
+}
+
+a:hover {
+	color: #815c41
+}
+
+button {
+	font-family: 'ancient' !important;
+}
+
+button:hover {
+	background: #6d0000 !important;
+}
+
+p {
+	font-family: 'Spectral';
+}
+
+h1 {
+	color: #990000;
+	font-family: 'vinque';
+	font-size: 20px;
+}
+
+h2 {
+	color: white;
+	font-size: 17px;
+	font-family: 'vinque';
+}
+
+h5 {
+	font-family: 'vinque';
+	font-size: 20px;
+	margin: 10px 0;
+    border-bottom: 3px solid;
+    padding: 5px;
 }

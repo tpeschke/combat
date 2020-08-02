@@ -82,7 +82,7 @@ app.get('/auth/me', (req, res) => {
     }
 })
 
-app.get('/api/combats', sqlCtrl.getAllCombats);
+app.get('/api/fields', sqlCtrl.getAllFields);
 app.get('/api/combat/:id', sqlCtrl.loadCombatants);
 app.get('/api/status/:id', sqlCtrl.getAllStatuses);
 app.get('/api/hash/:id', sqlCtrl.getHash);

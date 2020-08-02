@@ -18,8 +18,11 @@ import { AppComponent } from './app.component';
 import { LandingComponent } from './components/landing/player/landing/landing.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BattlefieldModule } from './components/landing/battlefield/battlefield/battlefield.module';
-import { SavedFieldsModule } from './components/landing/savedFields/saved-fields/saved-fields.module';
+import { SavedFieldsModule } from './components/landing/savedFields/saved-fields.module';
 import { PlayerViewComponent } from './components/landing/player/playerView/player-view/player-view.component';
+import { FieldService } from './utils/field.service';
+import { GeneralService } from './utils/general.service';
+import { HttpService } from './utils/http.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,7 @@ import { PlayerViewComponent } from './components/landing/player/playerView/play
     BattlefieldModule,
     SavedFieldsModule
   ],
-  providers: [],
+  providers: [FieldService, GeneralService, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,11 +9,76 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+$mat-dark-red: (
+    50:#990000,
+  100:#990000,
+  200:#990000,
+  300:#990000,
+  400:#990000,
+  500:#990000,
+  600:#990000,
+  700:#990000,
+  800:#990000,
+  900:#990000,
+  A100:#990000,
+  A200:#990000,
+  A400:#990000,
+  A700:#990000,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+$mat-khaki: (
+    50:#815c41,
+  100:#815c41,
+  200:#815c41,
+  300:#815c41,
+  400:#815c41,
+  500:#815c41,
+  600:#815c41,
+  700:#815c41,
+  800:#815c41,
+  900:#815c41,
+  A100:#815c41,
+  A200:#815c41,
+  A400:#815c41,
+  A700:#815c41,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$combat-counter-primary: mat-palette($mat-indigo);
-$combat-counter-accent: mat-palette($mat-pink, A200, A100, A400);
+$combat-counter-primary: mat-palette($mat-khaki);
+$combat-counter-accent: mat-palette($mat-dark-red);
 
 // The warn palette is optional (defaults to red).
 $combat-counter-warn: mat-palette($mat-red);

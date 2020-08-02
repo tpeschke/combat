@@ -1,0 +1,42 @@
+.fieldRow:nth-child(odd) {
+    background: lightgray;
+}
+
+.fieldRow {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding: 5px 0
+}
+
+.fieldRow:hover {
+    background: grey
+}
+
+.fieldRow:first-child {
+    background: #815c41;
+}
+
+
+.fieldRow p, .fieldRow h2 {
+    min-width: 15%;
+}
+
+.fieldRow p:first-child, .fieldRow h2:first-child {
+    text-align: left;
+    min-width: 40%;
+    text-indent: 10px;
+}
+
+i {
+    font-size: 20px;
+    color: #222
+}
+
+i:hover {
+    color: white
+}
+
+button {
+    margin-bottom: 15px;
+}

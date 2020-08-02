@@ -1,12 +1,26 @@
 <mat-card>
-  <h1>Welcome to the Bonfire Combat Counter</h1>
-
-  <div>
-    <p>If your GM has given you a hash, you can input it here:</p>
-    <div>
-      <input type="text" placeholder="Hash">
-      <button>Go</button>
+  <div class="landingShell">
+    <div class="left">
+      <p>If your GM has given you a hash, you can input it here:</p>
+      <div>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Hash">
+        </mat-form-field>
+        <button mat-raised-button color="accent">Go</button>
+      </div>
+      <p>This hash is case sensitive.</p>
     </div>
-    <p>This hash is case sensitive.</p>
+
+    <div class="right">
+      <button mat-raised-button color="accent">GM Login</button>
+
+      <h5>Useful Links</h5>
+      <div class="linkShell">
+        <a target="_blank" href="https://drive.google.com/file/d/1SdyiHUEmgYOpuB6sl5ahDY_KcYbvDl8-/view?usp=sharing">Basic Combat Cheat Sheet</a>
+        <a target="_blank" href="https://bestiary.dragon-slayer.net/">Bonfire Bestiary</a>
+        <a target="_blank" href="https://adventure.dragon-slayer.net/">Adventure Archive</a>
+      </div>
+    </div>
   </div>
+
 </mat-card>

@@ -1,0 +1,21 @@
+<mat-card>
+  <button mat-raised-button color="accent">New Field</button>
+
+  <div class="fieldShell">
+    <div class="fieldRow">
+      <h2>Combat Name</h2>
+      <h2>Count</h2>
+      <h2>Fighters</h2>
+      <h2>Dead</h2>
+      <h2> </h2>
+    </div>
+
+    <div class="fieldRow" *ngFor="let field of fields">
+      <p>{{field.name}}</p>
+      <p>{{field.count}}</p>
+      <p>{{field.fightercount}}</p>
+      <p>{{field.deadcount}}</p>
+      <p><i class="fas fa-trash-alt"></i></p>
+    </div>
+  </div>
+</mat-card>
