@@ -36,7 +36,7 @@ time, mark, audio, video {
     box-sizing: border-box;
 }
 body {
-    background: #222;
+    background: black;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -79,7 +79,7 @@ button {
 }
 
 button:hover {
-	background: #6d0000 !important;
+	background: #693803 !important;
 }
 
 p {
@@ -102,6 +102,6 @@ h5 {
 	font-family: 'vinque';
 	font-size: 20px;
 	margin: 10px 0;
-    border-bottom: 3px solid;
+    border-bottom: 2px solid;
     padding: 5px;
 }

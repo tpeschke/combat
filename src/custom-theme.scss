@@ -42,21 +42,54 @@ $mat-dark-red: (
   )
 );
 
-$mat-khaki: (
-    50:#815c41,
-  100:#815c41,
-  200:#815c41,
-  300:#815c41,
-  400:#815c41,
-  500:#815c41,
-  600:#815c41,
-  700:#815c41,
-  800:#815c41,
-  900:#815c41,
-  A100:#815c41,
-  A200:#815c41,
-  A400:#815c41,
-  A700:#815c41,
+$mat-black: (
+  50:#0000,
+  100:#0000,
+  200:#0000,
+  300:#0000,
+  400:#0000,
+  500:#0000,
+  600:#0000,
+  700:#0000,
+  800:#0000,
+  900:#0000,
+  A100:#0000,
+  A200:#0000,
+  A400:#0000,
+  A700:#0000,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+$mat-bonfire-orange: (
+  50:#b45f06,
+  100:#b45f06,
+  200:#b45f06,
+  300:#b45f06,
+  400:#b45f06,
+  500:#b45f06,
+  600:#b45f06,
+  700:#b45f06,
+  800:#b45f06,
+  900:#b45f06,
+  A100:#b45f06,
+  A200:#b45f06,
+  A400:#b45f06,
+  A700:#b45f06,
   contrast: (
     50: $dark-primary-text,
     100: $dark-primary-text,
@@ -77,11 +110,11 @@ $mat-khaki: (
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$combat-counter-primary: mat-palette($mat-khaki);
+$combat-counter-primary: mat-palette($mat-black);
 $combat-counter-accent: mat-palette($mat-dark-red);
 
 // The warn palette is optional (defaults to red).
-$combat-counter-warn: mat-palette($mat-red);
+$combat-counter-warn: mat-palette($mat-bonfire-orange);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $combat-counter-theme: mat-light-theme($combat-counter-primary, $combat-counter-accent, $combat-counter-warn);

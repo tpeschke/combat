@@ -13,8 +13,12 @@
     background: grey
 }
 
+.fieldRow:hover p {
+    color: white
+}
+
 .fieldRow:first-child {
-    background: #815c41;
+    background: #990000;
 }
 
 
