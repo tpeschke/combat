@@ -1,0 +1,29 @@
+mat-card {
+    position: relative;
+}
+
+.headerShell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px
+}
+
+h1 {
+    font-size: 30px;
+}
+
+.backButton {
+    margin-left: 15px
+}
+
+.disabled:hover {
+    background: rgb(224 224 224) !important
+}
+
+.divider {
+    border-top: 1px black solid;
+    border-bottom: 1px black solid;
+    min-height: 10px;
+    margin: 15px 0
+}

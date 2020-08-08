@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 
+class meta {
+  id?: number
+  name?: string
+  count?: number
+  hash?: string
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -8,13 +14,13 @@ export class GeneralService {
   constructor() { }
 
   public fighters = [];
-  public count = 1;
+  public meta:meta = {};
 
-  public sort(fightArr, count) {
-    fightArr.sort((a, b) => a.actioncount - b.actioncount);
+  public sort() {
+    this.fighters.sort((a, b) => a.actioncount - b.actioncount);
 
-    fightArr.forEach(val => {
-      if (val.actioncount > count || val.hidden == 1) {
+    this.fighters.forEach(val => {
+      if (val.actioncount > this.meta.count || val.hidden == 1) {
         val.acting = '1'
       } else {
         val.acting = '0'
@@ -22,7 +28,7 @@ export class GeneralService {
       }
     })
 
-    return fightArr
+    this.fighters = this.fighters
   }
 
   public makeid() {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { GeneralService } from 'src/app/utils/general.service';
 
 @Component({
   selector: 'app-battlefield',
@@ -10,19 +11,17 @@ export class BattlefieldComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private generalService: GeneralService
   ) { }
-
-  private meta = {}
-  private fighters = []
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      if (data['fighter']) {
-        this.meta = data['fighter'].meta
-        this.fighters = data['fighter'].fighters
+      if (data['battle']) {
+        this.generalService.meta = data['battle'].meta
+        this.generalService.fighters = data['battle'].fighters
       } else {
-        this.meta = {namecombat: 'New Battlefield',
-                    countnum: 0}
+        this.generalService.meta = {name: 'New Battlefield', count: 0}
+
       }
     })
   }
