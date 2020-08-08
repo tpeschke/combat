@@ -4,11 +4,13 @@ import { LandingComponent } from './components/landing/player/landing/landing.co
 import { PlayerViewComponent } from './components/landing/player/playerView/player-view/player-view.component';
 import { SavedFieldsComponent } from './components/landing/savedFields/savedFields/saved-fields/saved-fields.component';
 import { FieldResolverService } from './utils/resolvers/field-resolver.service'
+import { BattlefieldComponent } from './components/landing/battlefield/battlefield/battlefield/battlefield.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, pathMatch: "full" },
-  { path: 'player', component: PlayerViewComponent },
   { path: 'fields', component: SavedFieldsComponent, resolve: { fields: FieldResolverService } },
+  { path: 'battle/:hash', component: BattlefieldComponent },
+  { path: ':hash', component: PlayerViewComponent },
   { path: '**', redirectTo: '' },
 ];
 

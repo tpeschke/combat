@@ -5,6 +5,7 @@ import { SavedFieldsComponent } from './savedFields/saved-fields/saved-fields.co
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
   imports: [
     CommonModule,
     MatCardModule,
+    RouterModule,
     MatButtonModule
   ],
   exports: [

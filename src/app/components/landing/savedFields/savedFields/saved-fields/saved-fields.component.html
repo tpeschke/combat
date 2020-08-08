@@ -1,5 +1,5 @@
 <mat-card>
-  <button mat-raised-button color="warn">New Field</button>
+  <button mat-raised-button color="warn" [routerLink]="['/battle', 'new']">New Field</button>
 
   <div class="fieldShell">
     <div class="fieldRow">
@@ -10,7 +10,7 @@
       <h2> </h2>
     </div>
 
-    <div class="fieldRow" *ngFor="let field of fields">
+    <div class="fieldRow" *ngFor="let field of fields" [routerLink]="['/battle', field.hash]">
       <p>{{field.name}}</p>
       <p>{{field.count}}</p>
       <p>{{field.fightercount}}</p>
