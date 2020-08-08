@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './components/landing/player/landing/landing.component';
-import { PlayerViewComponent } from './components/landing/player/playerView/player-view/player-view.component';
-import { SavedFieldsComponent } from './components/landing/savedFields/savedFields/saved-fields/saved-fields.component';
+import { PlayerViewComponent } from './components/landing/player/playerView/player-view.component';
+import { SavedFieldsComponent } from './components/landing/savedFields/savedFields/saved-fields.component';
 import { FieldResolverService } from './utils/resolvers/field-resolver.service'
-import { BattlefieldComponent } from './components/landing/battlefield/battlefield/battlefield/battlefield.component';
+import { BattlefieldComponent } from './components/landing/battlefield/battlefield/battlefield.component';
 import { FighterResolverService } from './utils/resolvers/fighter-resolver.service';
 
 const routes: Routes = [

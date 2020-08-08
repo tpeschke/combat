@@ -52,7 +52,7 @@ module.exports = {
                     return { ...val, weapons }
                 })))
 
-                tempArr.push(db.get.allStatuses(id).then(statuses => {
+                tempArr.push(db.get.allStatuses(battlefield.meta.id).then(statuses => {
                     battlefield.statuses = statuses
                     return true;
                 }))

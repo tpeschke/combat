@@ -19,7 +19,7 @@ import { LandingComponent } from './components/landing/player/landing/landing.co
 import { AppRoutingModule } from './app-routing.module';
 import { BattlefieldModule } from './components/landing/battlefield/battlefield.module';
 import { SavedFieldsModule } from './components/landing/savedFields/saved-fields.module';
-import { PlayerViewComponent } from './components/landing/player/playerView/player-view/player-view.component';
+import { PlayerViewComponent } from './components/landing/player/playerView/player-view.component';
 import { FieldService } from './utils/field.service';
 import { GeneralService } from './utils/general.service';
 import { HttpService } from './utils/http.service';

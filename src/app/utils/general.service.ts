@@ -7,6 +7,9 @@ export class GeneralService {
 
   constructor() { }
 
+  public fighters = [];
+  public count = 1;
+
   public sort(fightArr, count) {
     fightArr.sort((a, b) => a.actioncount - b.actioncount);
 
