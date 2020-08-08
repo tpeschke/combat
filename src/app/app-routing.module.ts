@@ -5,11 +5,12 @@ import { PlayerViewComponent } from './components/landing/player/playerView/play
 import { SavedFieldsComponent } from './components/landing/savedFields/savedFields/saved-fields/saved-fields.component';
 import { FieldResolverService } from './utils/resolvers/field-resolver.service'
 import { BattlefieldComponent } from './components/landing/battlefield/battlefield/battlefield/battlefield.component';
+import { FighterResolverService } from './utils/resolvers/fighter-resolver.service';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, pathMatch: "full" },
   { path: 'fields', component: SavedFieldsComponent, resolve: { fields: FieldResolverService } },
-  { path: 'battle/:hash', component: BattlefieldComponent },
+  { path: 'battle/:hash', component: BattlefieldComponent, resolve: { battle: FighterResolverService } },
   { path: ':hash', component: PlayerViewComponent },
   { path: '**', redirectTo: '' },
 ];

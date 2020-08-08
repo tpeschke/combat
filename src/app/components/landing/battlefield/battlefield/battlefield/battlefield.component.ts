@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-battlefield',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BattlefieldComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+  ) { }
+
+  private meta = {}
+  private fighters = []
 
   ngOnInit() {
+    this.route.data.subscribe(data => {
+      if (data['fighter']) {
+        this.meta = data['fighter'].meta
+        this.fighters = data['fighter'].fighters
+      } else {
+        this.meta = {namecombat: 'New Battlefield',
+                    countnum: 0}
+      }
+    })
   }
 
 }

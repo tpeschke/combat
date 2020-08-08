@@ -83,9 +83,7 @@ app.get('/auth/me', (req, res) => {
 })
 
 app.get('/api/fields', sqlCtrl.getAllFields);
-app.get('/api/combat/:id', sqlCtrl.loadCombatants);
-app.get('/api/status/:id', sqlCtrl.getAllStatuses);
-app.get('/api/hash/:id', sqlCtrl.getHash);
+app.get('/api/battle/:hash', sqlCtrl.getSingleBattle);
 app.get('/api/player/battle/:hash', sqlCtrl.getBattleByHash);
 app.get('/api/player/fighter/:hash', sqlCtrl.getCombatantsbyHash);
 app.get('/api/beast/:hash', sqlCtrl.getBeastbyHash);

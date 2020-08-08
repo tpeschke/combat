@@ -15,4 +15,8 @@ export class FieldService {
   getFields() {
     return this.http.get(local.endpointBase + '/api/fields')
   }
+
+  getFighters(id) {
+    return this.http.get(local.endpointBase + '/api/battle/' + id)
+  }
 }

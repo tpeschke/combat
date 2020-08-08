@@ -21,51 +21,47 @@ module.exports = {
 
     },
 
-    loadCombatants: (req, res) => {
+    getSingleBattle: (req, res) => {
         const db = req.app.get('db')
-        var { id } = req.params
-        
-        db.get.combatants(id).then(result => {
-            result.forEach(v => {
-                if (isNaN(+v.actioncount)) {
-                    v.actioncount = v.actioncount.split(",")
-                } else {
-                    v.actioncount = +v.actioncount
-                }
-            })
-            let tempArr = []
-            result.forEach(val => tempArr.push(db.get.weapon(val.id).then(weapons => {
-                selected = weapons.filter(v => v.selected === '1')
-                if (selected.length === 0) {
-                    weapons.push({weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1'})
-                    val.encumbrance = 10;
-                } else {
-                    val.encumbrance = selected[0].encumb
-                }
-                return { ...val, weapons }
-            })))
+        let { hash } = req.params
+        var { id : userId } = req.user
+            , battlefield = {}
 
-            Promise.all(tempArr).then(final => {
-                res.send(final)
+        db.get.singleField(userId, hash).then(field => {
+            battlefield.meta = field[0]
+
+            db.get.combatants(battlefield.meta.id).then(result => {
+                result.forEach(v => {
+                    if (isNaN(+v.actioncount)) {
+                        v.actioncount = v.actioncount.split(",")
+                    } else {
+                        v.actioncount = +v.actioncount
+                    }
+                })
+                battlefield.fighters = result;
+
+                let tempArr = []
+                battlefield.fighters.forEach(val => tempArr.push(db.get.weapon(val.id).then(weapons => {
+                    selected = weapons.filter(v => v.selected === '1')
+                    if (selected.length === 0) {
+                        weapons.push({ weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' })
+                        val.encumbrance = 10;
+                    } else {
+                        val.encumbrance = selected[0].encumb
+                    }
+                    return { ...val, weapons }
+                })))
+
+                tempArr.push(db.get.allStatuses(id).then(statuses => {
+                    battlefield.statuses = statuses
+                    return true;
+                }))
+
+                Promise.all(tempArr).then(final => {
+                    res.send(battlefield)
+                })
             })
         })
-    },
-
-    getAllStatuses: (req, res) => {
-
-        const db = req.app.get('db')
-
-        var { id } = req.params
-
-        db.get.all_Statuses(id).then(result => res.status(200).send(result))
-    },
-
-    getHash: (req, res) => {
-        const db = req.app.get('db')
-
-        var { id } = req.params
-
-        db.get.hash(id).then(result => res.status(200).send(result))
     },
 
     getBattleByHash: (req, res) => {
@@ -112,7 +108,7 @@ module.exports = {
         db.get.totalFieldNumber(id).then(totalCount => {
             if (+totalCount[0].count >= 1 && !patreon) {
                 res.status(403).send('You need to link your Patreon to this account to add more fields. You can do so by logging on through the BonfireSRD')
-            } else if (totalCount[0].count === '0' || +totalCount[0].count <= patreon ) {
+            } else if (totalCount[0].count === '0' || +totalCount[0].count <= patreon) {
                 db.get.newFieldNumber(id)
                     .then(num => {
                         let newName = 'New Battlefield'
@@ -122,7 +118,7 @@ module.exports = {
                         db.add.new_Field(newName, id, urlhash)
                             .then(result => res.status(200).send(result))
                     })
-            } else if (totalCount[0].count > patreon ) {
+            } else if (totalCount[0].count > patreon) {
                 res.status(403).send('To add more fields, you need to increase your Patreon Tier')
             }
         })
