@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FieldService } from '../../../../../utils/field.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-saved-fields',
@@ -9,14 +9,14 @@ import { FieldService } from '../../../../../utils/field.service';
 export class SavedFieldsComponent implements OnInit {
 
   constructor(
-    private fieldSerivce: FieldService
+    private route: ActivatedRoute,
   ) { }
 
   private fields = []
 
   ngOnInit() {
-    this.fieldSerivce.getFields().subscribe(results => {
-      this.fields = results
+    this.route.data.subscribe(data => {
+      this.fields = data['fields']
     })
   }
 
