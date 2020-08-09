@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CounterService } from 'src/app/utils/counter.service';
 
 @Component({
   selector: 'app-counter',
@@ -8,7 +9,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class CounterComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private counterService: CounterService
+  ) { }
 
   ngOnInit() {
   }
