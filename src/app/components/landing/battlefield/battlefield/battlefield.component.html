@@ -1,6 +1,6 @@
 <mat-card>
   <div class="headerShell">
-    <h1>{{counterService.meta.name}}</h1>
+    <h1>{{counterService.name}}</h1>
     <div>
       <button mat-raised-button color="accent" matTooltip="Save"><i class="fas fa-save"></i></button>
       <!-- make the icon spin when it is autosaving -->
@@ -9,9 +9,11 @@
     </div>
   </div>
 
-  <!-- <div class="divider"></div> -->
-
   <app-counter></app-counter>
 
-  battlefield works!
+  <h1>On Deck</h1>
+  <app-fightersection></app-fightersection>
+
+  <h1>Acting</h1>
+  <app-fightersection></app-fightersection>
 </mat-card>

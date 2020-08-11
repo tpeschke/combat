@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Observable, interval } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 
-class meta {
-  id?: number
-  name?: string
-  count?: number
-  hash?: string
-}
 @Injectable({
   providedIn: 'root'
 })
@@ -13,16 +9,20 @@ export class CounterService {
 
   constructor() { }
 
-  
   public fighters = [];
-  public meta:meta = {};
+
+  public id = null;
+  public name = null;
+  public count = null;
+  public hash = null;
+
   public timeId = null;
 
   public sort() {
     this.fighters.sort((a, b) => a.actioncount - b.actioncount);
 
     this.fighters.forEach(val => {
-      if (val.actioncount > this.meta.count || val.hidden == 1) {
+      if (val.actioncount > this.count || val.hidden == 1) {
         val.acting = '1'
       } else {
         val.acting = '0'
@@ -34,35 +34,19 @@ export class CounterService {
   }
 
   public incrementCount() {
-    this.meta.count = ++this.meta.count
+    this.count = ++this.count
     this.sort()
   }
 
   public decrementCount() {
-    if (this.meta.count > 1) {
-      this.meta.count = --this.meta.count
+    if (this.count > 1) {
+      this.count = --this.count
       this.sort()
     }
   }
 
   public resetCount() {
-    this.meta.count = 1
+    this.count = 1
     this.sort()
-  }
-
-  public startAutoCountOne() {
-    let incrementCount = this.incrementCount.bind(this)
-    clearInterval(this.timeId)
-    this.timeId = setInterval(incrementCount, 1000)
-  }
-
-  public startAutoCountTwo() {
-    let incrementCount = this.incrementCount.bind(this)
-    clearInterval(this.timeId)
-    this.timeId = setInterval(incrementCount, 500)
-  }
-
-  public stopAutoCount() {
-    clearInterval(this.timeId)
   }
 }

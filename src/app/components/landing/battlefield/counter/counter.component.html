@@ -1,13 +1,13 @@
 <div class="counterShell">
   <i class="fas fa-redo" (click)="counterService.resetCount()" matTooltip="Reset Count"></i>
-  <i class="fas fa-stop" (click)="counterService.stopAutoCount()" matTooltip="Stop Autocount"></i>
+  <i class="fas fa-stop" (click)="stopAutoCount()" matTooltip="Stop Autocount"></i>
   <i class="fas fa-chevron-left" (click)="counterService.decrementCount()" matTooltip="-1 Second"></i>
   <div>
     <h3 class="clockTitle">The Clock</h3>
     <div class="divider"></div>
-    <h3>{{counterService.meta.count}}</h3>
+    <h3>{{counterService.count}}</h3>
   </div>
   <i class="fas fa-chevron-right" (click)="counterService.incrementCount()" matTooltip="+1 Count"></i>
-  <i class="fas fa-step-forward" (click)="counterService.startAutoCountOne()" matTooltip="+1 Count/Second"></i>
-  <i class="fas fa-fast-forward" (click)="counterService.startAutoCountTwo()" matTooltip="+1 Count/.5 Second"></i>
+  <i class="fas fa-step-forward" (click)="startAutoCount(1000)" matTooltip="+1 Count/Second"></i>
+  <i class="fas fa-fast-forward" (click)="startAutoCount(500)" matTooltip="+1 Count/.5 Second"></i>
 </div>
