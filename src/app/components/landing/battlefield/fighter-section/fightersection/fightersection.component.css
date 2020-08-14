@@ -1,0 +1,38 @@
+.outerShell {
+    background: lightgray;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.fighterRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.header {
+    background: grey;
+}
+
+.header p {
+    color: whitesmoke
+}
+
+p {
+    width: 10%;
+    text-align: center;
+}
+
+.icon {
+    width: 5%;
+}
+
+i:hover {
+    color: #b45f06; 
+}
+
+.name {
+    width: 30%;
+    text-align: left;
+}

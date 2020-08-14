@@ -1,5 +1,30 @@
-<div *ngFor="let fighter of counterService.fighters">
-  <div *ngIf="fighter.acting === type">
-    {{fighter.namefighter}} // {{fighter.actioncount}}
+<div class="outerShell">
+  <div class="fighterRow header">
+    <p class="icon"> </p>
+    <p class="icon"> </p>
+    <p class="name">Name</p>
+    <p class="icon"> </p>
+    <p>Damage</p>
+    <p>Stress</p>
+    <p>Recover</p>
+    <p>Action</p>
+    <p class="icon"> </p>
+    <p class="icon"> </p>
+    <p class="icon"> </p>
+  </div>
+  <div *ngFor="let fighter of counterService.fighters">
+    <div class="fighterRow" *ngIf="fighter.acting === type">
+      <p class="icon"><i class="fas fa-eye"></i></p>
+      <p class="icon"> </p>
+      <p class="name">{{fighter.namefighter}}</p>
+      <p class="icon"><i class="fas fa-scroll"></i></p>
+      <p>{{fighter.health}}</p>
+      <p>{{fighter.stress}}</p>
+      <p>Recover</p>
+      <p>{{fighter.actioncount}}</p>
+      <p class="icon"><i class="fas fa-frown"></i></p>
+      <p class="icon"><i class="fas fa-skull-crossbones"></i></p>
+      <p class="icon"><i class="fas fa-edit"></i></p>
+    </div>
   </div>
 </div>
