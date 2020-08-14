@@ -38,16 +38,15 @@ module.exports = {
                         v.actioncount = +v.actioncount
                     }
                 })
-                battlefield.fighters = result;
 
                 let tempArr = []
-                battlefield.fighters.forEach(val => tempArr.push(db.get.weapon(val.id).then(weapons => {
+                result.forEach(val => tempArr.push(db.get.weapon(val.id).then(weapons => {
                     selected = weapons.filter(v => v.selected === '1')
                     if (selected.length === 0) {
                         weapons.push({ weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' })
-                        val.encumbrance = 10;
+                        val.selected = { weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' }
                     } else {
-                        val.encumbrance = selected[0].encumb
+                        val.selected = selected[0]
                     }
                     return { ...val, weapons }
                 })))
@@ -58,6 +57,7 @@ module.exports = {
                 }))
 
                 Promise.all(tempArr).then(final => {
+                    battlefield.fighters = final
                     res.send(battlefield)
                 })
             })

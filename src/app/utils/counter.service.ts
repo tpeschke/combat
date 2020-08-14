@@ -20,14 +20,17 @@ export class CounterService {
   public sort() {
     this.fighters.sort((a, b) => a.actioncount - b.actioncount);
 
-    let newFighters = this.fighters.map(val => {
-      if (val.actioncount > this.count || val.hidden == 1) {
-        val.acting = '1'
-      } else {
-        val.acting = '0'
-        val.topcheck = '0'
+    let newFighters = []
+    this.fighters.map(val => {
+      if (val.actioncount) {
+        if (val.actioncount > this.count || val.hidden == 1) {
+          val.acting = '1'
+        } else {
+          val.acting = '0'
+          val.topcheck = '0'
+        }
+        newFighters.push({...val}) 
       }
-      return {...val}
     })
 
     this.fighters = newFighters
