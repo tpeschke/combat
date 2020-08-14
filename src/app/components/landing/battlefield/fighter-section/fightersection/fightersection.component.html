@@ -1,3 +1,5 @@
-<p>
-  fightersection works!
-</p>
+<div *ngFor="let fighter of counterService.fighters">
+  <div *ngIf="fighter.acting === type">
+    {{fighter.namefighter}} // {{fighter.actioncount}}
+  </div>
+</div>

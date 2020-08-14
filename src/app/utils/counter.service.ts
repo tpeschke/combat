@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, interval } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +20,17 @@ export class CounterService {
   public sort() {
     this.fighters.sort((a, b) => a.actioncount - b.actioncount);
 
-    this.fighters.forEach(val => {
+    let newFighters = this.fighters.map(val => {
       if (val.actioncount > this.count || val.hidden == 1) {
         val.acting = '1'
       } else {
         val.acting = '0'
         val.topcheck = '0'
       }
+      return {...val}
     })
 
-    this.fighters = this.fighters
+    this.fighters = newFighters
   }
 
   public incrementCount() {

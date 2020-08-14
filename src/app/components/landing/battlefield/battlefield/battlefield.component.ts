@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CounterService } from 'src/app/utils/counter.service';
 
@@ -11,9 +11,11 @@ export class BattlefieldComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private counterService: CounterService,
-    private ref: ChangeDetectorRef
+    private counterService: CounterService
   ) { }
+
+  onDeckFighters = []
+  actingFighters = []
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -23,13 +25,21 @@ export class BattlefieldComponent implements OnInit {
         this.counterService.hash = data['battle'].meta.hash
         this.counterService.id = data['battle'].meta.id
         this.counterService.fighters = data['battle'].fighters
+        this.divideFighters()
       } else {
         this.counterService.name = 'New Battlefield'
         this.counterService.count = 1
       }
-    })
+    }).unsubscribe();
   }
 
-  
-
+  divideFighters() {
+    this.counterService.fighters.forEach(fighter => {
+      if (fighter.acting === '1') {
+        this.actingFighters.push(fighter)
+      } else {
+        this.onDeckFighters.push(fighter)
+      }
+    })
+  }
 }

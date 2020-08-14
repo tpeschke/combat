@@ -111,6 +111,7 @@ const port = config.SERVER_PORT
 
 massive(config.CONNECTION_STRING).then(dbInstance => {
     app.set('db', dbInstance);
+    console.log(`Database is now hooked up`);
 });
 
 const io = socket(app.listen(port, _ => {
