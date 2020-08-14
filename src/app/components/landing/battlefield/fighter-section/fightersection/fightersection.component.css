@@ -21,6 +21,7 @@
 
 p {
     width: 10%;
+    font-size: 17px;
     text-align: center;
 }
 
@@ -35,4 +36,12 @@ i:hover {
 .name {
     width: 30%;
     text-align: left;
+}
+
+.fighterColor {
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    border: 1px solid;
+    margin: 0 auto;
 }

@@ -15,7 +15,7 @@
   <div *ngFor="let fighter of counterService.fighters">
     <div class="fighterRow" *ngIf="fighter.acting === type">
       <p class="icon"><i class="fas fa-eye"></i></p>
-      <p class="icon"> </p>
+    <div class="icon"><div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div></div>
       <p class="name">{{fighter.namefighter}}</p>
       <p class="icon"><i class="fas fa-scroll"></i></p>
       <p>{{fighter.health}}</p>
