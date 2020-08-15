@@ -13,9 +13,14 @@
     <p class="icon"> </p>
   </div>
   <div *ngFor="let fighter of counterService.fighters">
-    <div *ngIf="fighter.acting === type" [ngClass]="fighter.actioncount == counterService.count ? 'activeThisSecond fighterRow' : 'fighterRow'">
-      <p class="icon"><i class="fas fa-eye"></i></p>
-    <div class="icon"><div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div></div>
+    <div *ngIf="fighter.acting === type && fighter.dead === '0'"
+      [ngClass]="fighter.actioncount == counterService.count ? 'activeThisSecond fighterRow' : fighter.hidden === '1' ? 'fighterHidden fighterRow' : 'fighterRow'">
+      <p class="icon">
+        <i *ngIf="fighter.hidden === '0'" class="fas fa-eye"></i>
+        <i *ngIf="fighter.hidden === '1'" class="fas fa-eye-slash"></i></p>
+      <div class="icon">
+        <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
+      </div>
       <p class="name">{{fighter.namefighter}}</p>
       <p class="icon"><i class="fas fa-shield-alt"></i></p>
       <p>{{fighter.health}}</p>

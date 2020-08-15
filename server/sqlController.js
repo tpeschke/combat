@@ -64,7 +64,7 @@ module.exports = {
         })
     },
 
-    getBattleByHash: (req, res) => {
+    getFieldByHash: (req, res) => {
         const db = req.app.get('db')
 
         var { hash } = req.params
@@ -72,12 +72,12 @@ module.exports = {
         db.get.battle_By_Hash(hash).then(result => res.send(result))
     },
 
-    getCombatantsbyHash: (req, res) => {
+    getBattleByHash: (req, res) => {
         const db = req.app.get('db')
 
         var { hash } = req.params;
 
-        db.get.fighter_By_Hash(hash).then(a => {
+        db.get.battleByHash(hash).then(a => {
             let tempArr = []
             a.forEach(f => {
                 tempArr.push(db.get.weapon_by_hash(f.id).then(w => {

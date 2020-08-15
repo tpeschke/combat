@@ -17,9 +17,6 @@ export class BattlefieldComponent implements OnInit {
     private fieldService: FieldService
   ) { }
 
-  onDeckFighters = []
-  actingFighters = []
-
   ngOnInit() {
     this.route.data.subscribe(data => {
       if (data['battle']) {
@@ -28,22 +25,12 @@ export class BattlefieldComponent implements OnInit {
         this.counterService.hash = data['battle'].meta.hash
         this.counterService.id = data['battle'].meta.id
         this.counterService.fighters = data['battle'].fighters
-        this.divideFighters()
+        this.counterService.sort()
       } else {
         this.counterService.name = 'New Battlefield'
         this.counterService.count = 1
       }
     }).unsubscribe();
-  }
-
-  divideFighters() {
-    this.counterService.fighters.forEach(fighter => {
-      if (fighter.acting === '1') {
-        this.actingFighters.push(fighter)
-      } else {
-        this.onDeckFighters.push(fighter)
-      }
-    })
   }
 
   copyHash() {

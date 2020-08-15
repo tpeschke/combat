@@ -19,13 +19,26 @@
 
   <div class="workspaceShell">
     <div class="left">
-      <h2>The Dead</h2>
+      <h2 class="lowerHeader">The Dead</h2>
       <div class="innerShell">
-
+        <div *ngFor="let fighter of counterService.fighters">
+          <div *ngIf="fighter.dead === '1'" class="deadShell">
+            <div class="deadNameShell">
+              <div class="icon">
+                <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
+              </div>
+              <p>{{fighter.namefighter}}</p>
+            </div>
+            <div class="deadIconShell">
+              <p class="icon"><i class="fas fa-sun"></i></p>
+              <p><i class="fas fa-trash"></i></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="right">
-      <h2>Workspace</h2>
+      <h2 class="lowerHeader">Workspace</h2>
       <div class="innerShell">
         <div class="battleHashShell"><h4>Battle Hash:</h4> <p>{{counterService.hash}}</p> <button (click)="copyHash()" mat-raised-button color="accent">Copy Complete URL</button></div>
         <mat-checkbox color="warn" (change)="togglePlayerView($event.checked)">Player View On</mat-checkbox>

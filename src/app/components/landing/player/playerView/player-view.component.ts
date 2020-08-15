@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-player-view',
   templateUrl: './player-view.component.html',
-  styleUrls: ['./player-view.component.css']
+  styleUrls: ['../../battlefield/fighter-section/fightersection.component.css']
 })
 export class PlayerViewComponent implements OnInit {
 
@@ -14,13 +14,28 @@ export class PlayerViewComponent implements OnInit {
     private router: Router
   ) { }
 
-  public canPlayersView = false
+  public canPlayersView = true
+  public hash;
+  public fighters = [];
+  public statuses = []
 
   ngOnInit() {
-    this.fieldService.subscribeToBattle(this.router.url.split('/')[1])
+    this.hash = this.router.url.split('/')[1]
+    this.fetchFighters()
+    this.fieldService.subscribeToBattle(this.hash)
       .subscribe(data => {
         this[data.type] = data.value
+        this.fetchFighters()
       })
+  }
+
+  fetchFighters() {
+    if (this.canPlayersView) {
+      this.fieldService.getFightersForPlayers(this.hash).subscribe(data => {
+        this.fighters = data[0]
+        this.statuses = data[0]
+      })
+    }
   }
 
 }

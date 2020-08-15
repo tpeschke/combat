@@ -22,6 +22,11 @@ h2 {
     padding-left: 15px
 }
 
+.lowerHeader {
+    font-size: 25px;
+    background: #222;
+}
+
 .backButton {
     margin-left: 15px
 }
@@ -65,4 +70,41 @@ h2 {
     border-radius: 5px;
     text-align: center;
     width: 30%
+}
+
+.deadShell {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deadShell div {
+    display: flex;
+}
+
+.deadNameShell {
+    width: 50%;
+}
+
+.deadIconShell {
+    width: 25%;
+    justify-content: space-evenly;
+}
+
+.icon {
+    width: 10%;
+}
+
+i {
+    margin: 0 50%;
+}
+
+i:hover {
+    color: #b45f06; 
+}
+
+.fighterColor {
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    border: 1px solid;
 }

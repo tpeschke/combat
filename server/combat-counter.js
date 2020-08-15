@@ -84,8 +84,8 @@ app.get('/auth/me', (req, res) => {
 
 app.get('/api/fields', sqlCtrl.getAllFields);
 app.get('/api/battle/:hash', sqlCtrl.getSingleBattle);
+app.get('/api/player/field/:hash', sqlCtrl.getFieldByHash);
 app.get('/api/player/battle/:hash', sqlCtrl.getBattleByHash);
-app.get('/api/player/fighter/:hash', sqlCtrl.getCombatantsbyHash);
 app.get('/api/beast/:hash', sqlCtrl.getBeastbyHash);
 
 app.post('/api/newfield', sqlCtrl.newField);
