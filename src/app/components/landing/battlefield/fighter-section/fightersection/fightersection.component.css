@@ -11,6 +11,10 @@
     padding: 5px;
 }
 
+.activeThisSecond {
+    background: #4caf506b;
+}
+
 .header {
     background: grey;
 }
