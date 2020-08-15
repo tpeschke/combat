@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CounterService } from 'src/app/utils/counter.service';
 import variables from '../../../../local.js';
+import { FieldService } from 'src/app/utils/field.service.js';
 
 @Component({
   selector: 'app-battlefield',
@@ -12,7 +13,8 @@ export class BattlefieldComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private counterService: CounterService
+    private counterService: CounterService,
+    private fieldService: FieldService
   ) { }
 
   onDeckFighters = []
@@ -56,5 +58,10 @@ export class BattlefieldComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+  }
+
+  togglePlayerView(checked) {
+    let {hash} = this.counterService
+    this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: checked})
   }
 }

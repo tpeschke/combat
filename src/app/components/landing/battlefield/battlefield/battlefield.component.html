@@ -28,7 +28,7 @@
       <h2>Workspace</h2>
       <div class="innerShell">
         <div class="battleHashShell"><h4>Battle Hash:</h4> <p>{{counterService.hash}}</p> <button (click)="copyHash()" mat-raised-button color="accent">Copy Complete URL</button></div>
-        <mat-checkbox color="warn">Player View On</mat-checkbox>
+        <mat-checkbox color="warn" (change)="togglePlayerView($event.checked)">Player View On</mat-checkbox>
       </div>
     </div>
   </div>

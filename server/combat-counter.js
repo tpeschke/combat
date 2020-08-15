@@ -127,63 +127,7 @@ io.on('connection', socket => {
         }, interval)
     })
 
-    socket.on('battleSend', data => {
+    socket.on('battle', data => {
         io.emit(`${data.hash}`, data)
-    })
-
-    socket.on('updateCount', data => {
-        io.emit(`${data.hash}-count`, data)
-    })
-
-    socket.on('playerTop', data => {
-        io.emit(`${data.hash}-top`, data)
-    })
-
-    socket.on('playerKill', data => {
-        io.emit(`${data.hash}-kill`, data)
-    })
-
-    socket.on('playerUnTop', data => {
-        io.emit(`${data.hash}-untop`, data)
-    })
-
-    socket.on('playerResurrect', data => {
-        io.emit(`${data.hash}-resurrect`, data)
-    })
-
-    socket.on('playerHealth', data => {
-        io.emit(`${data.hash}-health`, data)
-    })
-
-    socket.on('playerAddStatus', data => {
-        io.emit(`${data.hash}-addStatus`, data)
-    })
-
-    socket.on('playerDelStatus', data => {
-        io.emit(`${data.hash}-delStatus`, data)
-    })
-
-    socket.on('playerAdd', data => {
-        io.emit(`${data.hash}-add`, data)
-    })
-
-    socket.on('playerRemove', data => {
-        io.emit(`${data.hash}-remove`, data)
-    })
-
-    socket.on('playerClear', data => {
-        io.emit(`${data.hash}-clear`)
-    })
-
-    socket.on('playerEdit', data => {
-        io.emit(`${data.hash}-edit`, data)
-    })
-
-    socket.on('playerWeapon', data => {
-        io.emit(`${data.hash}-weapon`, data)
-    })
-
-    socket.on('playerHide', data => {
-        io.emit(`${data.hash}-hide`, data)
     })
 })

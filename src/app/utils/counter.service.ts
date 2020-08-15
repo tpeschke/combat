@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { FieldService } from './field.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CounterService {
 
-  constructor() { }
+  constructor(
+    private fieldService: FieldService
+  ) { }
 
   public fighters = [];
 
@@ -38,6 +40,7 @@ export class CounterService {
 
   public incrementCount() {
     this.count = ++this.count
+    this.fieldService.sendBattleData({hash: this.hash, type: 'count', value: this.count})
     this.sort()
   }
 

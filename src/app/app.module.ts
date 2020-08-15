@@ -24,6 +24,10 @@ import { FieldService } from './utils/field.service';
 import { GeneralService } from './utils/general.service';
 import { HttpService } from './utils/http.service';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import variables from './local.js'
+
+const config: SocketIoConfig = { url: variables.endpointBase, options: {} };
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +50,8 @@ import { HttpService } from './utils/http.service';
     FormsModule,
     BrowserAnimationsModule,
     BattlefieldModule,
-    SavedFieldsModule
+    SavedFieldsModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [FieldService, GeneralService, HttpService],
   bootstrap: [AppComponent]
