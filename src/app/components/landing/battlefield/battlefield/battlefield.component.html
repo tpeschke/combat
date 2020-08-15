@@ -16,4 +16,20 @@
 
   <h2>Acting</h2>
   <app-fighter-section [type]="'1'"></app-fighter-section>
+
+  <div class="workspaceShell">
+    <div class="left">
+      <h2>The Dead</h2>
+      <div class="innerShell">
+
+      </div>
+    </div>
+    <div class="right">
+      <h2>Workspace</h2>
+      <div class="innerShell">
+        <div class="battleHashShell"><h4>Battle Hash:</h4> <p>{{counterService.hash}}</p> <button (click)="copyHash()" mat-raised-button color="accent">Copy Complete URL</button></div>
+        <mat-checkbox color="warn">Player View On</mat-checkbox>
+      </div>
+    </div>
+  </div>
 </mat-card>

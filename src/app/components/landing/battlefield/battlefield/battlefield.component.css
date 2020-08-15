@@ -19,6 +19,7 @@ h2 {
     font-size: 30px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    padding-left: 15px
 }
 
 .backButton {
@@ -34,4 +35,34 @@ h2 {
     border-bottom: 1px black solid;
     min-height: 10px;
     margin: 15px 0
+}
+
+.workspaceShell {
+    display: flex;
+    justify-content: space-between;
+}
+
+.workspaceShell .left, .workspaceShell .right {
+    width: 49%;
+}
+
+.workspaceShell .left .innerShell, .workspaceShell .right .innerShell {
+    background: lightgray;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 15px;
+}
+
+.battleHashShell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.battleHashShell p {
+    background: white;
+    padding: 7px;
+    border-radius: 5px;
+    text-align: center;
+    width: 30%
 }

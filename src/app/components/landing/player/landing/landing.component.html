@@ -4,9 +4,9 @@
       <p>If your GM has given you a hash, you can input it here:</p>
       <div>
         <mat-form-field>
-          <input matInput type="text" placeholder="Hash">
+          <input (change)="enterHash($event)" matInput type="text" placeholder="Hash">
         </mat-form-field>
-        <button mat-raised-button color="accent">Go</button>
+        <button mat-raised-button [routerLink]="[hash]" color="accent">Go</button>
       </div>
       <p>This hash is case sensitive.</p>
     </div>

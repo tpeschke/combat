@@ -12,4 +12,10 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
   }
 
+  public hash = null;
+
+  enterHash(event) {
+    this.hash = event.target.value
+  }
+
 }

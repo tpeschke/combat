@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CounterService } from 'src/app/utils/counter.service';
+import variables from '../../../../local.js';
 
 @Component({
   selector: 'app-battlefield',
@@ -41,5 +42,19 @@ export class BattlefieldComponent implements OnInit {
         this.onDeckFighters.push(fighter)
       }
     })
+  }
+
+  copyHash() {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = variables.url + this.counterService.hash;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
   }
 }
