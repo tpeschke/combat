@@ -105,3 +105,8 @@ h5 {
     border-bottom: 2px solid;
     padding: 5px;
 }
+
+.dialogStyling {
+	position: relative !important;
+	width: 400px
+}

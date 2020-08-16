@@ -22,6 +22,7 @@ export class FightersectionComponent implements OnInit {
 
   openWeaponSelect(id, weapons) {
     this.dialog.open(WeaponSelectComponent, {
+      panelClass: 'dialogStyling',
       data: {
         id,
         weapons
