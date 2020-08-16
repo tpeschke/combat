@@ -27,8 +27,18 @@ export class PlayerViewComponent implements OnInit {
     this.fieldService.getBattleInfo({hash: this.hash})
     this.fieldService.subscribeToBattle(this.hash)
       .subscribe(data => {
-        this[data.type] = data.value
-        if (data.type === 'canPlayersView' && data.value) { this.fieldService.getBattleInfo({hash: this.hash}) }
+        let {type, value, id, fighterProperty} = data;
+        if (type === 'fighterChange') {
+          for (let i = 0; i < this.fighters.length; i++) {
+            if (this.fighters[i].id === id) {
+              this.fighters[i][fighterProperty] = value
+              i = this.fighters.length
+            }
+          }
+        } else {
+          this[type] = value
+        }
+        if (type === 'canPlayersView' && value) { this.fieldService.getBattleInfo({hash: this.hash}) }
         if (this.fighters.length === 0) {this.fetchFighters()}
       })
   }

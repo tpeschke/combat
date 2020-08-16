@@ -34,7 +34,7 @@ export class CounterService {
         newFighters.push({...val}) 
       }
     })
-
+    
     this.fighters = newFighters
   }
 
