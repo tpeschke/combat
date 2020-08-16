@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FieldService } from 'src/app/utils/field.service';
 import { Router } from '@angular/router';
+import { CounterService } from 'src/app/utils/counter.service';
 
 @Component({
   selector: 'app-player-view',
@@ -28,12 +29,8 @@ export class PlayerViewComponent implements OnInit {
     this.fieldService.subscribeToBattle(this.hash)
       .subscribe(data => {
         this[data.type] = data.value
-        if (data.type === 'canPlayersView' && data.value) {
-          this.fieldService.getBattleInfo({hash: this.hash})
-        }
-        if (this.fighters.length === 0) {
-          this.fetchFighters()
-        }
+        if (data.type === 'canPlayersView' && data.value) { this.fieldService.getBattleInfo({hash: this.hash}) }
+        if (this.fighters.length === 0) {this.fetchFighters()}
       })
   }
 
