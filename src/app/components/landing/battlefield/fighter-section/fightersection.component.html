@@ -14,14 +14,36 @@
   </div>
   <div *ngFor="let fighter of counterService.fighters">
     <div *ngIf="fighter.acting === type && fighter.dead === '0'" [ngClass]="fighter.actioncount == counterService.count ? 'activeThisSecond fighterRow' : fighter.hidden === '1' ? 'fighterHidden fighterRow' : 'fighterRow'">
+      
       <p (click)="toggleHidden(fighter.hidden, fighter.id)" class="icon">
         <i *ngIf="fighter.hidden === '0'" class="fas fa-eye"></i>
         <i *ngIf="fighter.hidden === '1'" class="fas fa-eye-slash"></i></p>
+
       <div class="icon">
         <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
       </div>
+
       <p class="name">{{fighter.namefighter}}</p>
-      <p class="icon"><i class="fas fa-shield-alt"></i></p>
+
+      <div class="icon weaponSquareShell">
+        <i class="fas fa-shield-alt"></i>
+        <div class="weaponSquare">
+          <div class="weaponHeader"><p>{{fighter.selected.weapon}}</p><i class="fas fa-edit"></i></div>
+          <p class="speed">{{fighter.selected.speed}}</p>
+          <p class="attack">{{fighter.selected.atk}}</p>
+          <p class="init">{{fighter.selected.init}}</p>
+          <p class="defense">{{fighter.selected.def}}</p>
+          <p class="encumbrance">{{fighter.selected.encumb}}</p>
+          <div class="damageReduction">
+            <p class="armor">{{fighter.selected.dr}}</p>
+            <p *ngIf="fighter.selected.shield_dr" class="shield"><i class="fas fa-shield-alt shieldIcon"></i>{{fighter.selected.shield_dr}}</p>
+          </div>
+          <p class="measure">{{fighter.selected.measure}}</p>
+          <p class="damage">{{fighter.selected.damage}}</p>
+          <p class="parry">{{fighter.selected.parry}}</p>
+        </div>
+      </div>
+
       <p>{{fighter.health}}</p>
       <p>{{fighter.stress}}</p>
       <p>{{fighter.selected.speed}}</p>

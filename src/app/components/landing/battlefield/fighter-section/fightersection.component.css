@@ -54,6 +54,135 @@ i:hover {
     margin: 0 auto;
 }
 
+.weaponSquareShell {
+    position: relative;
+}
+
+.weaponSquare {
+    position: absolute;
+    top: 22px;
+    width: 200px;
+    height: 191px;
+    background: whitesmoke;
+    z-index: 1;
+    background-image: url('../../../../../assets/square.png');
+    background-repeat: no-repeat;
+    background-size: 200px;
+    display: none;
+}
+
+.weaponHeader {
+    width: 200px;
+    background: whitesmoke;
+    top: -27px;
+    position: absolute;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.weaponHeader p {
+    width: unset
+}
+
+.speed {
+    position: absolute;
+    font-size: 35px;
+    top: 20px;
+    left: 10px;
+}
+
+.attack {
+    position: absolute;
+    font-size: 35px;
+    top: 20px;
+    left: 90px;
+}
+
+.init {
+    position: absolute;
+    font-size: 35px;
+    top: 20px;
+    right: 10px;
+}
+
+.defense {
+    position: absolute;
+    font-size: 35px;
+    top: 78px;
+    left: 35px;
+}
+
+.encumbrance {
+    position: absolute;
+    font-size: 30px;
+    top: 78px;
+    left: 90px;
+}
+
+.damageReduction {
+    position: absolute;
+    font-size: 35px;
+    top: 70px;
+    right: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 65px;
+    height: 55px;
+}
+
+.armor {
+    width: 65px
+}
+
+.shield {
+    width: 65px
+}
+
+.shieldIcon {
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+.shield:hover {
+    color: black !important
+}
+
+.measure {
+    position: absolute;
+    font-size: 35px;
+    bottom: 20px;
+    left: 10px;
+}
+
+.damage {
+    position: absolute;
+    font-size: 25px;
+    bottom: 20px;
+    left: 65px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 75px;
+    height: 50px;
+}
+
+.parry {
+    position: absolute;
+    font-size: 35px;
+    bottom: 20px;
+    right: 10px;
+}
+
+.weaponSquareShell:hover .weaponSquare {
+    display: inherit;
+}
+
+/* PLAYER STYLINGS */
+
 h2 {
     background: #990000;
     padding: 5px;
@@ -62,7 +191,6 @@ h2 {
     border-top-right-radius: 5px;
     padding-left: 15px
 }
-
 
 .playerViewShell {
     display: flex;
@@ -76,7 +204,6 @@ h2 {
 .playerView {
     justify-content: flex-start;
 }
-
 
 .playerView p {
     width: 40%;
