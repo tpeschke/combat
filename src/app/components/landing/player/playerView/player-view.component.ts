@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FieldService } from 'src/app/utils/field.service';
 import { Router } from '@angular/router';
-import { CounterService } from 'src/app/utils/counter.service';
 
 @Component({
   selector: 'app-player-view',
