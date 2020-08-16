@@ -130,4 +130,8 @@ io.on('connection', socket => {
     socket.on('battle', data => {
         io.emit(`${data.hash}`, data)
     })
+
+    socket.on('battle-fetch', data => {
+        io.emit(`${data.hash}-fetch`, data)
+    })
 })

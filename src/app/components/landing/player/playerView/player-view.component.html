@@ -1,47 +1,60 @@
 <mat-card *ngIf="!canPlayersView">
-  This encountered is currently locked by your GM.
+  <h3 class="clockTitle">{{name}}</h3>
+  <div class="counterShell">
+      <p class="closedWarning">This combat is currently locked by your GM.</p>
+  </div>
 </mat-card>
 
-<mat-card class="playerViewShell" *ngIf="canPlayersView">
-  <div class="left">
-    <h2>The Quick</h2>
-    <div class="outerShell">
-      <div class="fighterRow header playerView">
-        <p class="icon"> </p>
-        <p class="icon"> </p>
-        <p class="name">Name</p>
-        <p>weapon</p>
-      </div>
-      <div *ngFor="let fighter of fighters">
-        <div *ngIf="fighter.dead === '0' && fighter.hidden === '0'" class="fighterRow playerView">
-          <div class="icon">
-            <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
+<mat-card *ngIf="canPlayersView">
+  <h3 class="clockTitle">{{name}}</h3>
+  <div class="counterShell">
+    <div>
+      <h3 class="clockTitle">The Clock</h3>
+      <div class="divider"></div>
+      <h3>{{count}}</h3>
+    </div>
+  </div>
+  <div class="playerViewShell">
+    <div class="left">
+      <h2>The Quick</h2>
+      <div class="outerShell">
+        <div class="fighterRow header playerView">
+          <p class="icon"> </p>
+          <p class="icon"> </p>
+          <p class="name">Name</p>
+          <p>weapon</p>
+        </div>
+        <div *ngFor="let fighter of fighters">
+          <div *ngIf="fighter.dead === '0' && fighter.hidden === '0'" class="fighterRow playerView">
+            <div class="icon">
+              <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
+            </div>
+            <div class="icon"><i class="fas fa-tint" [ngStyle]="{color: '#990000' + fighter.wound}"></i></div>
+            <p class="name">{{fighter.namefighter}}</p>
+            <p>{{fighter.weapon}}</p>
           </div>
-          <div class="icon"><i class="fas fa-tint" [ngStyle]="{color: '#990000' + fighter.wound}"></i></div>
-          <p class="name">{{fighter.namefighter}}</p>
-          <p>{{fighter.weapon}}</p>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="right">
-    <h2>The Dead</h2>
-    <div class="outerShell">
-      <div class="fighterRow header playerView">
-        <p class="icon"> </p>
-        <p class="icon"> </p>
-        <p class="name">Name</p>
-        <p>weapon</p>
-      </div>
-      <div *ngFor="let fighter of fighters">
-        <div *ngIf="fighter.dead === '1'" class="fighterRow playerView">
-          <div class="icon">
-            <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
-          </div>
+    <div class="right">
+      <h2>The Dead</h2>
+      <div class="outerShell">
+        <div class="fighterRow header playerView">
           <p class="icon"> </p>
-          <p class="name">{{fighter.namefighter}}</p>
-          <p>{{fighter.weapon}}</p>
+          <p class="icon"> </p>
+          <p class="name">Name</p>
+          <p>weapon</p>
+        </div>
+        <div *ngFor="let fighter of fighters">
+          <div *ngIf="fighter.dead === '1'" class="fighterRow playerView">
+            <div class="icon">
+              <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
+            </div>
+            <p class="icon"> </p>
+            <p class="name">{{fighter.namefighter}}</p>
+            <p>{{fighter.weapon}}</p>
+          </div>
         </div>
       </div>
     </div>

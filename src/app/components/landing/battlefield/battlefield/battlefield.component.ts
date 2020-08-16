@@ -17,6 +17,8 @@ export class BattlefieldComponent implements OnInit {
     private fieldService: FieldService
   ) { }
 
+  public canPlayersView = false;
+
   ngOnInit() {
     this.route.data.subscribe(data => {
       if (data['battle']) {
@@ -30,6 +32,13 @@ export class BattlefieldComponent implements OnInit {
         this.counterService.name = 'New Battlefield'
         this.counterService.count = 1
       }
+      this.fieldService.subscribeToBattleInfo(this.counterService.hash).subscribe(_ => {
+        let {hash, count} = this.counterService
+        if (this.canPlayersView) {
+          this.fieldService.sendBattleData({hash, type: 'count', value: count})
+        }
+        this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: this.canPlayersView})
+      })
     }).unsubscribe();
   }
 
@@ -49,6 +58,7 @@ export class BattlefieldComponent implements OnInit {
 
   togglePlayerView(checked) {
     let {hash} = this.counterService
+    this.canPlayersView = checked
     this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: checked})
   }
 }

@@ -69,7 +69,7 @@ module.exports = {
 
         var { hash } = req.params
 
-        db.get.battle_By_Hash(hash).then(result => res.send(result))
+        db.get.fieldByHash(hash).then(result => res.send(result))
     },
 
     getBattleByHash: (req, res) => {

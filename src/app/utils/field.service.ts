@@ -18,6 +18,10 @@ export class FieldService {
     return this.socket.fromEvent<any>(hash);
   }
 
+  subscribeToBattleInfo(hash) {
+    return this.socket.fromEvent<any>(`${hash}-fetch`);
+  }
+
   getFields() {
     return this.http.get(local.endpointBase + '/api/fields')
   }
@@ -30,7 +34,15 @@ export class FieldService {
     return this.http.get(local.endpointBase + '/api/player/battle/' + hash)
   }
 
+  getBattleName(hash) {
+    return this.http.get(local.endpointBase + '/api/player/field/' + hash)
+  }
+
   sendBattleData(data){
     this.socket.emit('battle', data)
+  }
+
+  getBattleInfo(data) {
+    this.socket.emit('battle-fetch', data)
   }
 }

@@ -14,18 +14,26 @@ export class PlayerViewComponent implements OnInit {
     private router: Router
   ) { }
 
-  public canPlayersView = true
+  public canPlayersView = false
   public hash;
+  public count;
+  public name;
   public fighters = [];
   public statuses = []
 
   ngOnInit() {
     this.hash = this.router.url.split('/')[1]
-    this.fetchFighters()
+    this.fieldService.getBattleName(this.hash).subscribe(name => this.name = name[0].namecombat)
+    this.fieldService.getBattleInfo({hash: this.hash})
     this.fieldService.subscribeToBattle(this.hash)
       .subscribe(data => {
         this[data.type] = data.value
-        this.fetchFighters()
+        if (data.type === 'canPlayersView' && data.value) {
+          this.fieldService.getBattleInfo({hash: this.hash})
+        }
+        if (this.fighters.length === 0) {
+          this.fetchFighters()
+        }
       })
   }
 
