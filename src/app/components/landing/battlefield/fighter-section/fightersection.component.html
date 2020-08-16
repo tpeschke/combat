@@ -13,8 +13,9 @@
     <p class="icon"> </p>
   </div>
   <div *ngFor="let fighter of counterService.fighters">
-    <div *ngIf="fighter.acting === type && fighter.dead === '0'" [ngClass]="fighter.actioncount == counterService.count ? 'activeThisSecond fighterRow' : fighter.hidden === '1' ? 'fighterHidden fighterRow' : 'fighterRow'">
-      
+    <div *ngIf="fighter.acting === type && fighter.dead === '0'"
+      [ngClass]="fighter.actioncount == counterService.count ? 'activeThisSecond fighterRow' : fighter.hidden === '1' ? 'fighterHidden fighterRow' : 'fighterRow'">
+
       <p (click)="toggleHidden(fighter.hidden, fighter.id)" class="icon">
         <i *ngIf="fighter.hidden === '0'" class="fas fa-eye"></i>
         <i *ngIf="fighter.hidden === '1'" class="fas fa-eye-slash"></i></p>
@@ -28,7 +29,10 @@
       <div class="icon weaponSquareShell">
         <i class="fas fa-shield-alt"></i>
         <div class="weaponSquare" (click)="openWeaponSelect(fighter.id, fighter.weapons)">
-          <div class="weaponHeader"><p>{{fighter.selected.weapon}}</p><i (click)="openWeaponSelect(fighter.id, fighter.weapons)" class="fas fa-edit"></i></div>
+          <div class="weaponHeader">
+            <p>{{fighter.selected.weapon}}</p><i (click)="openWeaponSelect(fighter.id, fighter.weapons)"
+              class="fas fa-edit"></i>
+          </div>
           <p class="speed">{{fighter.selected.speed}}</p>
           <p class="attack">{{fighter.selected.atk}}</p>
           <p class="init">{{fighter.selected.init}}</p>
@@ -36,7 +40,8 @@
           <p class="encumbrance">{{fighter.selected.encumb}}</p>
           <div class="damageReduction">
             <p class="armor">{{fighter.selected.dr}}</p>
-            <p *ngIf="fighter.selected.shield_dr" class="shield"><i class="fas fa-shield-alt shieldIcon"></i>{{fighter.selected.shield_dr}}</p>
+            <p *ngIf="fighter.selected.shield_dr" class="shield"><i
+                class="fas fa-shield-alt shieldIcon"></i>{{fighter.selected.shield_dr}}</p>
           </div>
           <p class="measure">{{fighter.selected.measure}}</p>
           <p class="damage">{{fighter.selected.damage}}</p>
@@ -44,7 +49,11 @@
         </div>
       </div>
 
-      <p>{{fighter.health}}</p>
+      <div class="inputShell">
+        <input value="{{fighter.health}}">
+        <p>W</p>
+      </div>
+
       <p>{{fighter.stress}}</p>
       <p>{{fighter.selected.speed}}</p>
       <p>{{fighter.actioncount}}</p>
