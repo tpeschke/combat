@@ -73,12 +73,15 @@ i:hover {
 
 .weaponHeader {
     width: 200px;
-    background: whitesmoke;
+    background: black;
+    color: whitesmoke;
     top: -27px;
     position: absolute;
     padding: 5px;
     display: flex;
     justify-content: space-between;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .weaponHeader p {
@@ -134,7 +137,7 @@ i:hover {
 }
 
 .armor {
-    width: 65px
+    width: 65px;
 }
 
 .shield {

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CounterService } from 'src/app/utils/counter.service';
 import { FieldService } from 'src/app/utils/field.service';
+import { MatDialog } from '@angular/material';
+import { WeaponSelectComponent } from '../utils/weapon-select/weapon-select.component';
 
 @Component({
   selector: 'app-fighter-section',
@@ -12,10 +14,20 @@ export class FightersectionComponent implements OnInit {
 
   constructor(
     public counterService: CounterService,
+    private dialog: MatDialog,
     public fieldService: FieldService
   ) { }
 
   ngOnInit() { }
+
+  openWeaponSelect(id, weapons) {
+    this.dialog.open(WeaponSelectComponent, {
+      data: {
+        id,
+        weapons
+      }
+    });
+  }
 
   toggleHidden(isOnOrOff, id) {
     let { fighters } = this.counterService

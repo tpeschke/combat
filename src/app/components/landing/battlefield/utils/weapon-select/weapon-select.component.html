@@ -1,0 +1,35 @@
+<h3>Weapon Selecter</h3>
+
+<mat-accordion>
+  <div class="weaponShell" *ngFor="let weapon of weapons">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header [ngClass]="weapon.selected === '1' ? 'selectedBackground' : ''">
+        <mat-panel-title>
+          {{weapon.weapon}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Recovery: {{weapon.speed}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="weaponSquare">
+        <p class="speed">{{weapon.speed}}</p>
+        <p class="attack">{{weapon.atk}}</p>
+        <p class="init">{{weapon.init}}</p>
+        <p class="defense">{{weapon.def}}</p>
+        <p class="encumbrance">{{weapon.encumb}}</p>
+        <div class="damageReduction">
+          <p class="armor">{{weapon.dr}}</p>
+          <p *ngIf="weapon.shield_dr" class="shield"><i class="fas fa-shield-alt shieldIcon"></i>{{weapon.shield_dr}}</p>
+        </div>
+        <p class="measure">{{weapon.measure}}</p>
+        <p class="damage">{{weapon.damage}}</p>
+        <p class="parry">{{weapon.parry}}</p>
+      </div>
+
+  </mat-expansion-panel>
+  <div [ngClass]="weapon.selected === '1' ? 'weaponSelectButton selectedBackground' : 'weaponSelectButton'">
+    <i *ngIf="weapon.selected === '0'" (click)="selectWeapon($event, weapon.id)" class="fas fa-check-circle"></i>
+  </div>
+  </div>
+</mat-accordion>

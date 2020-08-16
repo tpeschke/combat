@@ -1,0 +1,148 @@
+.selectedBackground {
+    background: lightgrey !important
+}
+
+.mat-expansion-panel {
+    min-width: 90%;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    box-shadow: none;
+}
+
+.mat-expansion-panel-header-title {
+    min-width: 50%;
+}
+
+.mat-expansion-panel-header-description {
+    text-align: center;
+    min-width: 150px;
+}
+
+.weaponShell {
+    display: flex;
+}
+
+.weaponSelectButton {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.weaponSelectButton:hover {
+    background: #b45f06; 
+}
+
+.weaponSelectButton:hover i {
+    color: whitesmoke; 
+}
+
+.weaponSquare {
+    width: 200px;
+    height: 191px;
+    position: relative;
+    background: whitesmoke;
+    z-index: 1;
+    background-image: url('../../../../../../assets/square.png');
+    background-repeat: no-repeat;
+    background-size: 200px;
+    margin: 10px auto 0 auto;
+}
+
+.speed {
+    position: absolute;
+    font-size: 35px;
+    top: 20px;
+    left: 10px;
+}
+
+.attack {
+    position: absolute;
+    font-size: 35px;
+    top: 20px;
+    left: 90px;
+}
+
+.init {
+    position: absolute;
+    font-size: 35px;
+    top: 20px;
+    right: 10px;
+}
+
+.defense {
+    position: absolute;
+    font-size: 35px;
+    top: 78px;
+    left: 35px;
+}
+
+.encumbrance {
+    position: absolute;
+    font-size: 30px;
+    top: 84px;
+    left: 90px;
+}
+
+.damageReduction {
+    position: absolute;
+    font-size: 35px;
+    top: 70px;
+    right: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 65px;
+    height: 55px;
+}
+
+.armor {
+    width: 65px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.shield {
+    width: 65px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.shieldIcon {
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+.shield:hover {
+    color: black !important
+}
+
+.measure {
+    position: absolute;
+    font-size: 35px;
+    bottom: 20px;
+    left: 10px;
+}
+
+.damage {
+    position: absolute;
+    font-size: 25px;
+    bottom: 20px;
+    left: 65px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 75px;
+    height: 50px;
+}
+
+.parry {
+    position: absolute;
+    font-size: 35px;
+    bottom: 20px;
+    right: 10px;
+}
