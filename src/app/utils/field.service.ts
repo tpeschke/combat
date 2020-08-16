@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import local from '../local';
 import { Socket } from 'ngx-socket-io';
 

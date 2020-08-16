@@ -32,6 +32,7 @@ export class BattlefieldComponent implements OnInit {
         this.counterService.name = 'New Battlefield'
         this.counterService.count = 1
       }
+      
       this.fieldService.subscribeToBattleInfo(this.counterService.hash).subscribe(_ => {
         let {hash, count} = this.counterService
         if (this.canPlayersView) {
