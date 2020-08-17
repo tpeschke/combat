@@ -226,3 +226,8 @@ input:focus{
     width: 100%;
     text-align: left;
 }
+
+.bottomButtons {
+    display: flex;
+    justify-content: space-between;
+}

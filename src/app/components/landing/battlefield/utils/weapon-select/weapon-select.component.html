@@ -48,5 +48,8 @@
     </mat-accordion>
   </div>
 
-  <button mat-raised-button color="accent">Add Another Weapon</button>
+  <div class="bottomButtons">
+    <button (click)="addWeapon()" mat-raised-button color="accent">Add Another Weapon</button>
+    <button (click)="dialogRef.close()" mat-raised-button color="warn">Close</button>
+  </div>
 </div>

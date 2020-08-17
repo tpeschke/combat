@@ -63,4 +63,19 @@ export class WeaponSelectComponent implements OnInit {
     }
   }
 
+  addWeapon() {
+    let { fighters } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.id) {
+        fighters[i].weapons.push({
+          weapon: 'New Weapon',
+          speed: 10,
+          encumb: 10,
+          selected: '0'
+        })
+        i = fighters.length
+      }
+    }
+  }
+
 }
