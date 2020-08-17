@@ -79,6 +79,7 @@ h2 {
 
 .deadShell div {
     display: flex;
+    justify-content: space-evenly;
 }
 
 .deadNameShell {
@@ -96,6 +97,10 @@ h2 {
 
 i:hover {
     color: #b45f06; 
+}
+
+.fa-save:hover, .fa-chevron-right:hover {
+    color: inherit
 }
 
 .fighterColor {

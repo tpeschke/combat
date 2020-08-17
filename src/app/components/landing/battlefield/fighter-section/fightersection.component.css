@@ -65,6 +65,10 @@ i:hover {
     color: #b45f06; 
 }
 
+.fa-tint:hover {
+    color: inherit
+}
+
 .name {
     width: 30%;
     text-align: left;

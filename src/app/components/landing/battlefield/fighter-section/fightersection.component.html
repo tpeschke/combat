@@ -51,7 +51,12 @@
 
       <div class="inputShell">
         <input value="{{fighter.health}}">
-        <p>W</p>
+        <p *ngIf="(fighter.health * 100 / fighter.max_health) === 0" matTooltip="Fresh">F</p>
+        <p *ngIf="(fighter.health * 100 / fighter.max_health) > 0 && (fighter.health * 100 / fighter.max_health) < 25" matTooltip="Tired">T</p>
+        <p *ngIf="(fighter.health * 100 / fighter.max_health) >= 25 && (fighter.health * 100 / fighter.max_health) < 50" matTooltip="Hurt">H</p>
+        <p *ngIf="(fighter.health * 100 / fighter.max_health) >= 50 && (fighter.health * 100 / fighter.max_health) < 75" matTooltip="Blooded">B</p>
+        <p *ngIf="(fighter.health * 100 / fighter.max_health) >= 75 && (fighter.health * 100 / fighter.max_health) < 100" matTooltip="Wounded">W</p>
+        <div *ngIf="(fighter.health * 100 / fighter.max_health) >= 100" matTooltip="Bleeding Out"><i class="fas fa-tint"></i></div>
       </div>
 
       <p>{{fighter.stress}}</p>
