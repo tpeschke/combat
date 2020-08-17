@@ -50,7 +50,7 @@
       </div>
 
       <div class="inputShell">
-        <input value="{{fighter.health}}">
+        <input (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}">
         <p *ngIf="(fighter.health * 100 / fighter.max_health) === 0" matTooltip="Fresh">F</p>
         <p *ngIf="(fighter.health * 100 / fighter.max_health) > 0 && (fighter.health * 100 / fighter.max_health) < 25" matTooltip="Tired">T</p>
         <p *ngIf="(fighter.health * 100 / fighter.max_health) >= 25 && (fighter.health * 100 / fighter.max_health) < 50" matTooltip="Hurt">H</p>
