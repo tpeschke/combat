@@ -104,35 +104,34 @@ h3 {
     position: absolute;
     font-size: 35px;
     top: 20px;
-    left: 10px;
 }
 
 .attack {
     position: absolute;
     font-size: 35px;
     top: 20px;
-    left: 90px;
+    left: 78px;
 }
 
 .init {
     position: absolute;
     font-size: 35px;
     top: 20px;
-    right: 10px;
+    right: 0px;
 }
 
 .defense {
     position: absolute;
     font-size: 35px;
     top: 78px;
-    left: 35px;
+    left: 25px;
 }
 
 .encumbrance {
     position: absolute;
     font-size: 30px;
     top: 84px;
-    left: 90px;
+    left: 78px;;
 }
 
 .damageReduction {
@@ -173,7 +172,6 @@ h3 {
     position: absolute;
     font-size: 35px;
     bottom: 20px;
-    left: 10px;
 }
 
 .damage {
@@ -193,9 +191,38 @@ h3 {
     position: absolute;
     font-size: 35px;
     bottom: 20px;
-    right: 10px;
+    right: 0px;
 }
 
 button {
     margin-top: 15px
+}
+
+
+input {
+    width: 45px;
+    background: none;
+    border: none;
+    text-align: center;
+    border-bottom: 1px solid grey;
+    padding: 0;
+    font-family: 'ancient';
+}
+
+input:focus{
+    outline: none;
+}
+
+.armorShell {
+    display: flex;
+    align-items: center;
+}
+
+.armorShell input {
+    width: 35px
+}
+
+.weaponName {
+    width: 100%;
+    text-align: left;
 }

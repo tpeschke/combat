@@ -45,4 +45,22 @@ export class WeaponSelectComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  changeWeaponProperty(weaponId, event, property) {
+    let { fighters } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.id) {
+        fighters[i].weapons = fighters[i].weapons.map((weapon, weaponIndex) => {
+          if (weapon.id === weaponId) {
+            fighters[i].weapons[weaponIndex][property] = event.target.value
+            if (weapon.selected === '1') {
+              fighters[i].selected[property] = event.target.value
+            }
+          }
+          return weapon
+        })
+        i = fighters.length
+      }
+    }
+  }
+
 }

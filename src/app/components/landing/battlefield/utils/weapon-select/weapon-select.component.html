@@ -6,38 +6,39 @@
 <div class="dialogShell">
   <h3>Weapon Selecter</h3>
 
-
   <div class="accordianShell">
     <mat-accordion>
       <div class="weaponShell" *ngFor="let weapon of weapons">
         <mat-expansion-panel>
           <mat-expansion-panel-header [ngClass]="weapon.selected === '1' ? 'selectedBackground' : ''">
             <mat-panel-title>
-              {{weapon.weapon}}
+              <input class="weaponName" (change)="changeWeaponProperty(weapon.id, $event, 'weapon')" value="{{weapon.weapon}}">
             </mat-panel-title>
             <mat-panel-description>
               Recovery: {{weapon.speed}}
             </mat-panel-description>
           </mat-expansion-panel-header>
-  
+
           <!-- make this editable -->
           <!-- Also add an input of the name -->
           <div class="weaponSquare">
-            <p class="speed">{{weapon.speed}}</p>
-            <p class="attack">{{weapon.atk}}</p>
-            <p class="init">{{weapon.init}}</p>
-            <p class="defense">{{weapon.def}}</p>
-            <p class="encumbrance">{{weapon.encumb}}</p>
+            <input class="speed" (change)="changeWeaponProperty(weapon.id, $event, 'speed')" value="{{weapon.speed}}">
+            <input class="attack" (change)="changeWeaponProperty(weapon.id, $event, 'atk')" value="{{weapon.atk}}">
+            <input class="init" (change)="changeWeaponProperty(weapon.id, $event, 'init')" value="{{weapon.init}}">
+            <input class="defense" (change)="changeWeaponProperty(weapon.id, $event, 'def')" value="{{weapon.def}}">
+            <input class="encumbrance" (change)="changeWeaponProperty(weapon.id, $event, 'encumb')" value="{{weapon.encumb}}">
             <div class="damageReduction">
-              <p class="armor">{{weapon.dr}}</p>
-              <p *ngIf="weapon.shield_dr" class="shield"><i class="fas fa-shield-alt shieldIcon"></i>{{weapon.shield_dr}}
-              </p>
+              <input class="armor" (change)="changeWeaponProperty(weapon.id, $event, 'dr')" value="{{weapon.dr}}">
+              <div class="armorShell">
+                <i class="fas fa-shield-alt shieldIcon"></i>
+                <input class="shield" (change)="changeWeaponProperty(weapon.id, $event, 'shield_dr')" value="{{weapon.shield_dr}}">
+              </div>
             </div>
-            <p class="measure">{{weapon.measure}}</p>
-            <p class="damage">{{weapon.damage}}</p>
-            <p class="parry">{{weapon.parry}}</p>
+            <input class="measure" (change)="changeWeaponProperty(weapon.id, $event, 'measure')" value="{{weapon.measure}}">
+            <input class="damage" (change)="changeWeaponProperty(weapon.id, $event, 'damage')" value="{{weapon.damage}}">
+            <input class="parry" (change)="changeWeaponProperty(weapon.id, $event, 'parry')" value="{{weapon.parry}}">
           </div>
-  
+
         </mat-expansion-panel>
 
         <div [ngClass]="weapon.selected === '1' ? 'weaponSelectButton selectedBackground' : 'weaponSelectButton'">
