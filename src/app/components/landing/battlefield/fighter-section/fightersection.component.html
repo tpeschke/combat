@@ -17,8 +17,8 @@
       [ngClass]="fighter.actioncount == counterService.count ? 'activeThisSecond fighterRow' : fighter.hidden === '1' ? 'fighterHidden fighterRow' : 'fighterRow'">
 
       <p (click)="toggleHidden(fighter.hidden, fighter.id)" class="icon">
-        <i *ngIf="fighter.hidden === '0'" class="fas fa-eye"></i>
-        <i *ngIf="fighter.hidden === '1'" class="fas fa-eye-slash"></i></p>
+        <i matTooltip="Visible" *ngIf="fighter.hidden === '0'" class="fas fa-eye"></i>
+        <i matTooltip="Hidden" *ngIf="fighter.hidden === '1'" class="fas fa-eye-slash"></i></p>
 
       <div class="icon">
         <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
