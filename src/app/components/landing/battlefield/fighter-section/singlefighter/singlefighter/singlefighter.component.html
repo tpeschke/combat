@@ -81,12 +81,16 @@
       <p (click)="selectInitDice(20)">d20</p>
     </div>
   </div>
-
 </div>
+
 <div *ngIf="!fighter.actioncount.length" class="inputShell">
   <input (change)="changeInitiative($event)" class="actionInput" [value]="fighter.actioncount">
 </div>
 
-<p class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
+<div *ngIf="trauma" class="icon">
+  <input id="focusInput" (change)="enterTrauma($event)" (blur)="showTrauma()" matTooltip="Enter How Much They Failed By" class="actionInput">
+</div>
+<p *ngIf="!trauma" (click)="showTrauma()" class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
+
 <p class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
 <p class="icon"><i matTooltip="Edit" class="fas fa-edit"></i></p>

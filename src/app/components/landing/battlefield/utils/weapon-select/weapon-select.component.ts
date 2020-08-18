@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CounterService } from 'src/app/utils/counter.service';
 import { FieldService } from 'src/app/utils/field.service';
+import { GeneralService } from 'src/app/utils/general.service';
 
 @Component({
   selector: 'app-weapon-select',
@@ -14,7 +15,8 @@ export class WeaponSelectComponent implements OnInit {
     public dialogRef: MatDialogRef<WeaponSelectComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public counterService: CounterService,
-    public fieldService: FieldService
+    public fieldService: FieldService,
+    public generalService: GeneralService
   ) { }
 
   public id = this.data.id
@@ -68,6 +70,7 @@ export class WeaponSelectComponent implements OnInit {
     for (let i = 0; i < fighters.length; i++) {
       if (fighters[i].id === this.id) {
         fighters[i].weapons.push({
+          id: this.generalService.makeid(),
           weapon: 'New Weapon',
           speed: 10,
           encumb: 10,

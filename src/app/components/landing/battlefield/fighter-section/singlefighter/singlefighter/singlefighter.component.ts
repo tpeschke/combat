@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { CounterService } from 'src/app/utils/counter.service';
 import { MatDialog } from '@angular/material';
 import { FieldService } from 'src/app/utils/field.service';
@@ -12,6 +12,7 @@ import { GeneralService } from 'src/app/utils/general.service';
 })
 export class SinglefighterComponent implements OnInit {
   @Input() fighter: any;
+  @ViewChild('inputFocus') public inputFocus: ElementRef;
 
   constructor(
     public counterService: CounterService,
@@ -19,6 +20,8 @@ export class SinglefighterComponent implements OnInit {
     public fieldService: FieldService,
     public generalService: GeneralService
   ) { }
+
+  public trauma = false;
 
   ngOnInit() {
     this.calculateWoundCategory();
@@ -92,7 +95,6 @@ export class SinglefighterComponent implements OnInit {
     for (let i = 0; i < fighters.length; i++) {
       if (fighters[i].id === fighterId) {
         fighters[i].stress = +event.target.value
-        // this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: wound, id: fighterId, fighterProperty: 'wound' })
         i = fighters.length
       }
     }
@@ -155,6 +157,30 @@ export class SinglefighterComponent implements OnInit {
         fighters[i].actioncount[0] = +dice
         this.counterService.sort()
         i = fighters.length
+      }
+    }
+  }
+
+  showTrauma() {
+    this.trauma = !this.trauma;
+    if (this.trauma) {
+      setTimeout(_ => {
+        document.getElementById('focusInput').focus()
+      }, 10)
+    }
+  }
+
+  enterTrauma(event) {
+    if (event.target.value) {
+      let { fighters } = this.counterService
+      for (let i = 0; i < fighters.length; i++) {
+        if (fighters[i].id === this.fighter.id) {
+          fighters[i].actioncount = this.counterService.count + (+event.target.value * 3)
+          fighters[i].topcheck = '1'
+          this.counterService.sort()
+          this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: '1', id: this.fighter.id, fighterProperty: 'topcheck' })
+          i = fighters.length
+        }
       }
     }
   }

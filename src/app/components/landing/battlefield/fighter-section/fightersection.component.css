@@ -16,7 +16,11 @@
 }
 
 .fighterHidden {
-    background:#00000050
+    background:#959595
+}
+
+.fighterTop {
+    background: #99000080;
 }
 
 .inputShell {
@@ -281,7 +285,8 @@ h3 {
 }
 
 .actionInput {
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .stressEncumbrancePenalty {
@@ -315,7 +320,7 @@ button:hover {
 }
 
 .disabledButton:hover {
-    background: lightgrey !important;
+    background: inherit !important;
     color: darkgray !important;
 }
 
