@@ -106,6 +106,7 @@ export class SinglefighterComponent implements OnInit {
           } else {
             fighters[i].actioncount = this.fighter.selected.speed + this.fighter.actioncount
           }
+          this.counterService.sort()
         }
         i = fighters.length
       }
@@ -118,6 +119,7 @@ export class SinglefighterComponent implements OnInit {
       if (fighters[i].id === this.fighter.id) {
         if (!this.fighter.actioncount.length) {
           fighters[i].actioncount = this.counterService.count
+          this.counterService.sort()
         }
         i = fighters.length
       }
