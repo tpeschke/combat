@@ -11,6 +11,7 @@
     <p class="icon"> </p>
     <p class="icon"> </p>
     <p class="icon"> </p>
+    <p class="icon"> </p>
   </div>
   <div *ngFor="let fighter of counterService.fighters">
     <app-singlefighter *ngIf="fighter.acting === type && fighter.dead === '0'" [fighter]="fighter" [ngClass]="fighter.actioncount == counterService.count ? 'activeThisSecond fighterRow' : fighter.hidden === '1' ? 'fighterHidden fighterRow' : 'fighterRow'"></app-singlefighter>
