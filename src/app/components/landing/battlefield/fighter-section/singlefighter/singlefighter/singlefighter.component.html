@@ -1,0 +1,63 @@
+<p (click)="toggleHidden(fighter.hidden, fighter.id)" class="icon">
+  <i matTooltip="Visible" *ngIf="fighter.hidden === '0'" class="fas fa-eye"></i>
+  <i matTooltip="Hidden" *ngIf="fighter.hidden === '1'" class="fas fa-eye-slash"></i></p>
+
+<div class="icon">
+  <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
+</div>
+
+<p class="name">{{fighter.namefighter}}</p>
+
+<div class="icon weaponSquareShell">
+  <i class="fas fa-shield-alt"></i>
+  <div class="weaponSquare" (click)="openWeaponSelect(fighter.id, fighter.weapons)">
+    <div class="weaponHeader">
+      <p>{{fighter.selected.weapon}}</p><i (click)="openWeaponSelect(fighter.id, fighter.weapons)"
+        class="fas fa-edit"></i>
+    </div>
+    <p class="speed">{{fighter.selected.speed}}</p>
+    <p class="attack">{{fighter.selected.atk}}</p>
+    <p class="init">{{fighter.selected.init}}</p>
+    <p class="defense">{{fighter.selected.def}}</p>
+    <p class="encumbrance">{{fighter.selected.encumb}}</p>
+    <div class="damageReduction">
+      <p class="armor">{{fighter.selected.dr}}</p>
+      <p *ngIf="fighter.selected.shield_dr" class="shield"><i
+          class="fas fa-shield-alt shieldIcon"></i>{{fighter.selected.shield_dr}}</p>
+    </div>
+    <p class="measure">{{fighter.selected.measure}}</p>
+    <p class="damage">{{fighter.selected.damage}}</p>
+    <p class="parry">{{fighter.selected.parry}}</p>
+  </div>
+</div>
+
+<div class="inputShell">
+  <input (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}">
+  <p *ngIf="fighter.woundCategory === 0" matTooltip="Fresh">F</p>
+  <p *ngIf="fighter.woundCategory === 1" matTooltip="Tired">T</p>
+  <p *ngIf="fighter.woundCategory === 25" matTooltip="Hurt">H</p>
+  <p *ngIf="fighter.woundCategory === 50" matTooltip="Blooded">B</p>
+  <p *ngIf="fighter.woundCategory === 75" matTooltip="Wounded">W</p>
+  <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"><i class="fas fa-tint"></i>
+  </div>
+</div>
+
+<div class="inputShell">
+  <input (change)="changeStress($event, fighter.id)" class="stressInput" value={{fighter.stress}}>
+  <p *ngIf="fighter.woundCategory === 0" class="stressEncumbrancePenalty">+0</p>
+  <p *ngIf="fighter.woundCategory === 1" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">
+    +{{fighter.selected.encumb}}</p>
+  <p *ngIf="fighter.woundCategory === 25" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">
+    +{{fighter.selected.encumb * 2}}</p>
+  <p *ngIf="fighter.woundCategory === 50" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">
+    +{{fighter.selected.encumb * 3}}</p>
+  <p *ngIf="fighter.woundCategory === 75" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">
+    +{{fighter.selected.encumb * 4}}</p>
+  <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"><i class="fas fa-tint"></i>
+  </div>
+</div>
+<p>{{fighter.selected.speed}}</p>
+<p>{{fighter.actioncount}}</p>
+<p class="icon"><i class="fas fa-frown"></i></p>
+<p class="icon"><i class="fas fa-skull-crossbones"></i></p>
+<p class="icon"><i class="fas fa-edit"></i></p>

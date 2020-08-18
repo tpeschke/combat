@@ -275,3 +275,12 @@ h3 {
 .closedWarning {
     width: 100%
 }
+
+.stressInput {
+    width: 60%;
+}
+
+.stressEncumbrancePenalty {
+    width: 40% !important;
+    color: #990000
+}

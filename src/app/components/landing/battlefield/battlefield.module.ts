@@ -6,9 +6,10 @@ import { CounterComponent } from './counter/counter.component';
 import { RouterModule } from '@angular/router';
 import { FightersectionComponent } from './fighter-section/fightersection.component';
 import { WeaponSelectComponent } from './utils/weapon-select/weapon-select.component';
+import { SinglefighterComponent } from './fighter-section/singlefighter/singlefighter/singlefighter.component';
 
 @NgModule({
-  declarations: [BattlefieldComponent, CounterComponent, FightersectionComponent, WeaponSelectComponent],
+  declarations: [BattlefieldComponent, CounterComponent, FightersectionComponent, WeaponSelectComponent, SinglefighterComponent],
   imports: [
     CommonModule,
     MatCardModule,

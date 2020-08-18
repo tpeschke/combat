@@ -13,58 +13,6 @@
     <p class="icon"> </p>
   </div>
   <div *ngFor="let fighter of counterService.fighters">
-    <div *ngIf="fighter.acting === type && fighter.dead === '0'"
-      [ngClass]="fighter.actioncount == counterService.count ? 'activeThisSecond fighterRow' : fighter.hidden === '1' ? 'fighterHidden fighterRow' : 'fighterRow'">
-
-      <p (click)="toggleHidden(fighter.hidden, fighter.id)" class="icon">
-        <i matTooltip="Visible" *ngIf="fighter.hidden === '0'" class="fas fa-eye"></i>
-        <i matTooltip="Hidden" *ngIf="fighter.hidden === '1'" class="fas fa-eye-slash"></i></p>
-
-      <div class="icon">
-        <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
-      </div>
-
-      <p class="name">{{fighter.namefighter}}</p>
-
-      <div class="icon weaponSquareShell">
-        <i class="fas fa-shield-alt"></i>
-        <div class="weaponSquare" (click)="openWeaponSelect(fighter.id, fighter.weapons)">
-          <div class="weaponHeader">
-            <p>{{fighter.selected.weapon}}</p><i (click)="openWeaponSelect(fighter.id, fighter.weapons)"
-              class="fas fa-edit"></i>
-          </div>
-          <p class="speed">{{fighter.selected.speed}}</p>
-          <p class="attack">{{fighter.selected.atk}}</p>
-          <p class="init">{{fighter.selected.init}}</p>
-          <p class="defense">{{fighter.selected.def}}</p>
-          <p class="encumbrance">{{fighter.selected.encumb}}</p>
-          <div class="damageReduction">
-            <p class="armor">{{fighter.selected.dr}}</p>
-            <p *ngIf="fighter.selected.shield_dr" class="shield"><i
-                class="fas fa-shield-alt shieldIcon"></i>{{fighter.selected.shield_dr}}</p>
-          </div>
-          <p class="measure">{{fighter.selected.measure}}</p>
-          <p class="damage">{{fighter.selected.damage}}</p>
-          <p class="parry">{{fighter.selected.parry}}</p>
-        </div>
-      </div>
-
-      <div class="inputShell">
-        <input (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}">
-        <p *ngIf="(fighter.health * 100 / fighter.max_health) === 0" matTooltip="Fresh">F</p>
-        <p *ngIf="(fighter.health * 100 / fighter.max_health) > 0 && (fighter.health * 100 / fighter.max_health) < 25" matTooltip="Tired">T</p>
-        <p *ngIf="(fighter.health * 100 / fighter.max_health) >= 25 && (fighter.health * 100 / fighter.max_health) < 50" matTooltip="Hurt">H</p>
-        <p *ngIf="(fighter.health * 100 / fighter.max_health) >= 50 && (fighter.health * 100 / fighter.max_health) < 75" matTooltip="Blooded">B</p>
-        <p *ngIf="(fighter.health * 100 / fighter.max_health) >= 75 && (fighter.health * 100 / fighter.max_health) < 100" matTooltip="Wounded">W</p>
-        <div *ngIf="(fighter.health * 100 / fighter.max_health) >= 100" matTooltip="Bleeding Out"><i class="fas fa-tint"></i></div>
-      </div>
-
-      <p>{{fighter.stress}}</p>
-      <p>{{fighter.selected.speed}}</p>
-      <p>{{fighter.actioncount}}</p>
-      <p class="icon"><i class="fas fa-frown"></i></p>
-      <p class="icon"><i class="fas fa-skull-crossbones"></i></p>
-      <p class="icon"><i class="fas fa-edit"></i></p>
-    </div>
+    <app-singlefighter *ngIf="fighter.acting === type && fighter.dead === '0'" [fighter]="fighter" [ngClass]="fighter.actioncount == counterService.count ? 'activeThisSecond fighterRow' : fighter.hidden === '1' ? 'fighterHidden fighterRow' : 'fighterRow'"></app-singlefighter>
   </div>
 </div>
