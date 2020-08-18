@@ -63,7 +63,9 @@
 <p class="icon"><i (click)="jumpToCount()" class="fas fa-forward" matTooltip="Jump to Current Count"></i></p>
 
 <div *ngIf="fighter.actioncount.length" class="buttonShell">
-  <button (click)="rollInitiative()" class="initButton">1d{{fighter.actioncount[0]}}+{{fighter.actioncount[1]}}</button>
+  <button *ngIf="fighter.selected.init > 0" (click)="rollInitiative()" class="initButton">1d{{fighter.actioncount[0]}}+{{fighter.selected.init}}</button>
+  <button *ngIf="fighter.selected.init === 0" (click)="rollInitiative()" class="initButton">1d{{fighter.actioncount[0]}}</button>
+  <button *ngIf="fighter.selected.init < 0" (click)="rollInitiative()" class="initButton">1d{{fighter.actioncount[0]}}{{fighter.selected.init}}</button>
   <i (click)="jumpToCount()" class="fas fa-angle-down" matTooltip="Reselect Initiative Dice"></i>
 </div>
 <div *ngIf="!fighter.actioncount.length" class="inputShell">

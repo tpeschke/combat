@@ -45,16 +45,10 @@ export class GeneralService {
         let val = diceExpressionArray[index];
 
         if (val.includes('d')) {
-          let exploding = val.includes('!')
           val = val.split('d')
           let subtotal = 0
-          for (let i = 0; i <= val[0]; i++) {
-            if (exploding) {
-              val[1] = val[1].substring(0, val[1].length - 1)
-              subtotal += this.rollDice(+val[1])
-            } else {
-              subtotal += this.rollDice(+val[1])
-            }
+          for (let i = 0; i < val[0]; i++) {
+            subtotal += this.rollDice(+val[1])
           }
           diceExpressionArray[index] = subtotal
         }
