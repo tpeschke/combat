@@ -39,7 +39,7 @@ input {
     font-family: 'ancient';
 }
 
-input:focus{
+input:focus, button:focus {
     outline: none;
 }
 
@@ -283,4 +283,28 @@ h3 {
 .stressEncumbrancePenalty {
     width: 40% !important;
     color: #990000
+}
+
+.buttonShell {
+    width: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+button {
+    width: 80%;
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+button:hover {
+    background: #b45f06 !important;
+    border-radius: 5px;
+    color: white !important
+}
+
+.buttonShell i {
+    width: 20%;
 }

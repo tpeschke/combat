@@ -56,7 +56,12 @@
   <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"><i class="fas fa-tint"></i>
   </div>
 </div>
-<p>{{fighter.selected.speed}}</p>
+
+<div class="buttonShell">
+  <button (click)="increaseAction()">{{fighter.selected.speed}}</button>
+  <i (click)="jumpToCount()" class="fas fa-forward" matTooltip="Jump to Current Count"></i>
+</div>
+
 <p>{{fighter.actioncount}}</p>
 <p class="icon"><i class="fas fa-frown"></i></p>
 <p class="icon"><i class="fas fa-skull-crossbones"></i></p>

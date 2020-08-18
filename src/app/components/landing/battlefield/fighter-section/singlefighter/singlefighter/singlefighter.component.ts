@@ -95,4 +95,32 @@ export class SinglefighterComponent implements OnInit {
       }
     }
   }
+
+  increaseAction() {
+    let { fighters } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.fighter.id) {
+        if (!this.fighter.actioncount.length) {
+          if (fighters[i].actioncount < this.counterService.count) {
+            fighters[i].actioncount = this.fighter.selected.speed + this.counterService.count
+          } else {
+            fighters[i].actioncount = this.fighter.selected.speed + this.fighter.actioncount
+          }
+        }
+        i = fighters.length
+      }
+    }
+  }
+
+  jumpToCount() {
+    let { fighters } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.fighter.id) {
+        if (!this.fighter.actioncount.length) {
+          fighters[i].actioncount = this.counterService.count
+        }
+        i = fighters.length
+      }
+    }
+  }
 }
