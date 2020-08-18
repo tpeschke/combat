@@ -63,10 +63,25 @@
 <p class="icon"><i (click)="jumpToCount()" class="fas fa-forward" matTooltip="Jump to Current Count"></i></p>
 
 <div *ngIf="fighter.actioncount.length" class="buttonShell">
-  <button *ngIf="fighter.selected.init > 0" (click)="rollInitiative()" class="initButton">1d{{fighter.actioncount[0]}}+{{fighter.selected.init}}</button>
-  <button *ngIf="fighter.selected.init === 0" (click)="rollInitiative()" class="initButton">1d{{fighter.actioncount[0]}}</button>
-  <button *ngIf="fighter.selected.init < 0" (click)="rollInitiative()" class="initButton">1d{{fighter.actioncount[0]}}{{fighter.selected.init}}</button>
-  <i (click)="jumpToCount()" class="fas fa-angle-down" matTooltip="Reselect Initiative Dice"></i>
+  <button *ngIf="fighter.selected.init > 0" (click)="rollInitiative()"
+    class="initButton">d{{fighter.actioncount[0]}}+{{fighter.selected.init}}</button>
+  <button *ngIf="fighter.selected.init === 0" (click)="rollInitiative()"
+    class="initButton">d{{fighter.actioncount[0]}}</button>
+  <button *ngIf="fighter.selected.init < 0" (click)="rollInitiative()"
+    class="initButton">d{{fighter.actioncount[0]}}{{fighter.selected.init}}</button>
+  <div class="diceSelectShell">
+    <i class="fas fa-angle-down"></i>
+    <div class="diceSelect">
+      <p (click)="selectInitDice(1)">d1</p>
+      <p (click)="selectInitDice(4)">d4</p>
+      <p (click)="selectInitDice(6)">d6</p>
+      <p (click)="selectInitDice(8)">d8</p>
+      <p (click)="selectInitDice(10)">d10</p>
+      <p (click)="selectInitDice(12)">d12</p>
+      <p (click)="selectInitDice(20)">d20</p>
+    </div>
+  </div>
+
 </div>
 <div *ngIf="!fighter.actioncount.length" class="inputShell">
   <input (change)="changeInitiative($event)" class="actionInput" [value]="fighter.actioncount">

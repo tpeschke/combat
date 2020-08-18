@@ -147,4 +147,15 @@ export class SinglefighterComponent implements OnInit {
       }
     }
   }
+
+  selectInitDice(dice) {
+    let { fighters } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.fighter.id) {
+        fighters[i].actioncount[0] = +dice
+        this.counterService.sort()
+        i = fighters.length
+      }
+    }
+  }
 }

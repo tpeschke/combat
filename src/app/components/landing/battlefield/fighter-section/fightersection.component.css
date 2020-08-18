@@ -294,6 +294,7 @@ h3 {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    position: relative;
 }
 
 button {
@@ -324,4 +325,35 @@ button:hover {
 
 .buttonShell i {
     width: 20%;
+}
+
+.diceSelectShell {
+    position: relative;
+}
+
+.diceSelect {
+    position: absolute;
+    width: 50px;
+    background: whitesmoke;
+    top: 17px;
+    right: 0;
+    z-index: 1;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: none;
+}
+
+.diceSelectShell:hover .diceSelect {
+    display: inherit;
+}
+
+.diceSelect p {
+    width: 100%;
+    padding: 5px;
+    border-top: 1px solid lightgrey;
+}
+
+.diceSelect p:hover {
+    background: #b45f06;
+    color: whitesmoke
 }
