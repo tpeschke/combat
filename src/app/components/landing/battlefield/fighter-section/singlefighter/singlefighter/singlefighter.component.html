@@ -44,7 +44,7 @@
 
 <div class="inputShell">
   <input (change)="changeStress($event, fighter.id)" class="stressInput" value={{fighter.stress}}>
-  <p *ngIf="fighter.woundCategory === 0" class="stressEncumbrancePenalty">+0</p>
+  <p *ngIf="fighter.woundCategory === 0" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">+0</p>
   <p *ngIf="fighter.woundCategory === 1" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">
     +{{fighter.selected.encumb}}</p>
   <p *ngIf="fighter.woundCategory === 25" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">
@@ -60,7 +60,7 @@
 <button *ngIf="!fighter.actioncount.length" (click)="increaseAction()">{{fighter.selected.speed}}</button>
 <button *ngIf="fighter.actioncount.length" class="disabledButton">{{fighter.selected.speed}}</button>
 
-<p class="icon"><i (click)="jumpToCount()" class="fas fa-forward" matTooltip="Jump to Current Count"></i></p>
+<p class="icon"><i (click)="jumpToCount()" class="fas fa-forward" matTooltip="Jump to Current Second"></i></p>
 
 <div *ngIf="fighter.actioncount.length" class="buttonShell">
   <button *ngIf="fighter.selected.init > 0" (click)="rollInitiative()"
@@ -87,6 +87,6 @@
   <input (change)="changeInitiative($event)" class="actionInput" [value]="fighter.actioncount">
 </div>
 
-<p class="icon"><i class="fas fa-frown"></i></p>
-<p class="icon"><i class="fas fa-skull-crossbones"></i></p>
-<p class="icon"><i class="fas fa-edit"></i></p>
+<p class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
+<p class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
+<p class="icon"><i matTooltip="Edit" class="fas fa-edit"></i></p>
