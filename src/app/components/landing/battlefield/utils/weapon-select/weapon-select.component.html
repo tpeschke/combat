@@ -41,8 +41,8 @@
 
         </mat-expansion-panel>
 
-        <div [ngClass]="weapon.selected === '1' ? 'weaponSelectButton selectedBackground' : 'weaponSelectButton'">
-          <i *ngIf="weapon.selected === '0'" (click)="selectWeapon($event, weapon.id)" class="fas fa-check-circle"></i>
+        <div (click)="selectWeapon($event, weapon.id)"  [ngClass]="weapon.selected === '1' ? 'weaponSelectButton selectedBackground' : 'weaponSelectButton'">
+          <i *ngIf="weapon.selected === '0'" class="fas fa-check-circle"></i>
         </div>
       </div>
     </mat-accordion>
