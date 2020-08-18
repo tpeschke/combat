@@ -42,9 +42,25 @@
       <div class="innerShell">
         <div class="battleHashShell"><h4>Battle Hash:</h4> <p>{{counterService.hash}}</p> <button (click)="copyHash()" mat-raised-button color="accent">Copy Complete URL</button></div>
         <mat-checkbox color="warn" (change)="togglePlayerView($event.checked)">Player View On</mat-checkbox>
-        <p>placeholder</p>
-        <p>placeholder</p>
-        <p>placeholder</p>
+        <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Add Fighter
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+    
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Add Status
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+    
+            </mat-expansion-panel>
+        </mat-accordion>
       </div>
     </div>
   </div>

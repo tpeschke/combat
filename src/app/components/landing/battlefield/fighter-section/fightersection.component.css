@@ -280,6 +280,10 @@ h3 {
     width: 60%;
 }
 
+.actionInput {
+    width: 80%;
+}
+
 .stressEncumbrancePenalty {
     width: 40% !important;
     color: #990000
@@ -293,7 +297,7 @@ h3 {
 }
 
 button {
-    width: 80%;
+    width: 10%;
     border: none;
     padding: 0;
     background: none;
@@ -303,6 +307,10 @@ button:hover {
     background: #b45f06 !important;
     border-radius: 5px;
     color: white !important
+}
+
+.initButton {
+    width: 70%;
 }
 
 .buttonShell i {

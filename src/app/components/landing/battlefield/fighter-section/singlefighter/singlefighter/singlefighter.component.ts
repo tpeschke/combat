@@ -3,6 +3,7 @@ import { CounterService } from 'src/app/utils/counter.service';
 import { MatDialog } from '@angular/material';
 import { FieldService } from 'src/app/utils/field.service';
 import { WeaponSelectComponent } from '../../../utils/weapon-select/weapon-select.component';
+import { GeneralService } from 'src/app/utils/general.service';
 
 @Component({
   selector: 'app-singlefighter',
@@ -15,7 +16,8 @@ export class SinglefighterComponent implements OnInit {
   constructor(
     public counterService: CounterService,
     private dialog: MatDialog,
-    public fieldService: FieldService
+    public fieldService: FieldService,
+    public generalService: GeneralService
   ) { }
 
   ngOnInit() {
@@ -117,10 +119,30 @@ export class SinglefighterComponent implements OnInit {
     let { fighters } = this.counterService
     for (let i = 0; i < fighters.length; i++) {
       if (fighters[i].id === this.fighter.id) {
-        if (!this.fighter.actioncount.length) {
-          fighters[i].actioncount = this.counterService.count
-          this.counterService.sort()
-        }
+        fighters[i].actioncount = this.counterService.count
+        this.counterService.sort()
+        i = fighters.length
+      }
+    }
+  }
+
+  rollInitiative() {
+    let { fighters } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.fighter.id) {
+        fighters[i].actioncount = this.generalService.rollDice(`1d${this.fighter.actioncount[0]}+${this.fighter.actioncount}`)
+        this.counterService.sort()
+        i = fighters.length
+      }
+    }
+  }
+
+  changeInitiative(event) {
+    let { fighters } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.fighter.id) {
+        fighters[i].actioncount = +event.target.value
+        this.counterService.sort()
         i = fighters.length
       }
     }
