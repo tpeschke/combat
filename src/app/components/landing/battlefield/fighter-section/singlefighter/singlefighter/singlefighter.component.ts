@@ -22,6 +22,7 @@ export class SinglefighterComponent implements OnInit {
   ) { }
 
   public trauma = false;
+  public editOn = true;
 
   ngOnInit() {
     this.calculateWoundCategory();
@@ -194,5 +195,9 @@ export class SinglefighterComponent implements OnInit {
           i = fighters.length
         }
       }
+  }
+
+  toggleEdit() {
+    this.editOn = !this.editOn
   }
 }

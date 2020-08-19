@@ -47,6 +47,11 @@ input:focus, button:focus {
     outline: none;
 }
 
+#editInput {
+    width: 80%;
+    margin: 0 auto;
+}
+
 .header {
     background: grey;
 }
@@ -361,4 +366,34 @@ button:hover {
 .diceSelect p:hover {
     background: #b45f06;
     color: whitesmoke
+}
+
+.editOn {
+    border-radius: 0;
+    border: 0;
+    border-bottom: 1px solid;
+    cursor: pointer;
+}
+
+.editOnShell {
+    position: relative;
+}
+
+.colorPicker {
+    position: absolute;
+    width: 225px;
+    border: 1px solid;
+    background: white;
+    border-radius: 5px;
+    top: -5px;
+    z-index: 1;
+}
+
+.colorPicker .fighterColor {
+    height: 25px;
+    width: 100%;
+    border-radius: 4px;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid;
 }
