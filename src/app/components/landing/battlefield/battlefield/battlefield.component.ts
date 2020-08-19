@@ -62,4 +62,27 @@ export class BattlefieldComponent implements OnInit {
     this.canPlayersView = checked
     this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: checked})
   }
+
+  resurrectFighter(id) {
+    let { fighters, hash } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === id) {
+        fighters[i].dead = '0'
+        this.fieldService.sendBattleData({ hash, type: 'fighterChange', value: '0', id, fighterProperty: 'dead' })
+        this.counterService.sort()
+        i = fighters.length
+      }
+    }
+  }
+
+  removeFighter(id) {
+    let { fighters, hash } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === id) {
+        fighters.splice(i, 1)
+        this.fieldService.sendBattleData({ hash, type: 'removeFighter', value: id })
+        i = fighters.length
+      }
+    }
+  }
 }

@@ -79,16 +79,21 @@ h2 {
 
 .deadShell div {
     display: flex;
-    justify-content: space-evenly;
 }
 
 .deadNameShell {
     width: 50%;
+    justify-content: start;
+}
+
+.deadNameShell p {
+    margin-left: 15px
 }
 
 .deadIconShell {
-    width: 25%;
-    justify-content: space-evenly;
+    width: 10%;
+    justify-content: space-between;
+    margin-right: 15px;
 }
 
 .icon {
