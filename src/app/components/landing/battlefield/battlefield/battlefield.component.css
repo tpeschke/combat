@@ -58,10 +58,16 @@ h2 {
     padding: 15px;
 }
 
+h4 {
+    font-size: 20px;
+}
+
 .battleHashShell {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-family: "ancient";
+    margin-bottom: 5px;
 }
 
 .battleHashShell p {
@@ -70,6 +76,44 @@ h2 {
     border-radius: 5px;
     text-align: center;
     width: 30%
+}
+
+.mat-checkbox, .mat-expansion-panel-header-title {
+    font-family: "ancient";
+    font-size: 20px;
+}
+
+.mat-accordion .mat-expansion-panel:first-of-type {
+    margin-top: 10px;
+}
+
+.mat-expansion-panel-header {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.mat-expansion-panel-header:hover, .mat-expansion-panel-header:focus {
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: right !important;
+}
+
+
+.addFighterHeader {
+    background-image: url(../../../../../assets/newFighter.jpg);
+}
+
+.addFighterHeader:hover, .addFighterHeader:focus {
+    background-image: url(../../../../../assets/newFighter.jpg) !important;
+}
+
+.addStatusHeader {
+    background-image: url(../../../../../assets/newStatus.jpg);
+}
+
+.addStatusHeader:hover,.addStatusHeader:focus {
+    background-image: url(../../../../../assets/newStatus.jpg) !important;
 }
 
 .deadShell {
