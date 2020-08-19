@@ -29,7 +29,10 @@ export class CounterService {
           val.acting = '1'
         } else {
           val.acting = '0'
-          val.topcheck = '0'
+          if(val.topcheck = '1') {
+            this.fieldService.sendBattleData({ hash: this.hash, type: 'fighterChange', value: '0', id: val.id, fighterProperty: 'topcheck' })
+            val.topcheck = '0'
+          }
         }
         newFighters.push({...val}) 
       }
@@ -40,7 +43,6 @@ export class CounterService {
 
   public incrementCount() {
     this.count = ++this.count
-    this.fieldService.sendBattleData({hash: this.hash, type: 'count', value: this.count})
     this.sort()
   }
 

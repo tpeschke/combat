@@ -177,8 +177,8 @@ export class SinglefighterComponent implements OnInit {
         if (fighters[i].id === this.fighter.id) {
           fighters[i].actioncount = this.counterService.count + (+event.target.value * 3)
           fighters[i].topcheck = '1'
-          this.counterService.sort()
           this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: '1', id: this.fighter.id, fighterProperty: 'topcheck' })
+          this.counterService.sort()
           i = fighters.length
         }
       }

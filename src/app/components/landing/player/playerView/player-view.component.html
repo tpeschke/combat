@@ -25,7 +25,7 @@
           <p>weapon</p>
         </div>
         <div *ngFor="let fighter of fighters">
-          <div *ngIf="fighter.dead === '0' && fighter.hidden === '0'" class="fighterRow playerView">
+          <div *ngIf="fighter.dead === '0' && fighter.hidden === '0'" [ngClass]="fighter.topcheck === '1' ? 'fighterTop fighterRow playerView' : 'fighterRow playerView'">
             <div class="icon">
               <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
             </div>
