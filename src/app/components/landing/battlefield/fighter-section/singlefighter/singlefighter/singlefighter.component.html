@@ -7,13 +7,13 @@
 </div>
 <div *ngIf="editOn" class="icon editOnShell">
   <div [ngStyle]="{background: colorChange}"
-  [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
-  [(colorPicker)]="colorChange"
-  class="fighterColor editOn"></div>
+    [cpPresetColors]="[fighter.colorcode, '#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']"
+    [(colorPicker)]="colorChange" (colorPickerChange)="captureChange($event, 'colorChange')"
+    class="fighterColor editOn"></div>
 </div>
 
 <p *ngIf="!editOn" class="name">{{fighter.namefighter}}</p>
-<input *ngIf="editOn" class="name" value="{{nameChange}}">
+<input *ngIf="editOn" (change)="captureChange($event.target.value, 'nameChange')" class="name" value="{{nameChange}}">
 
 <div class="icon weaponSquareShell">
   <i class="fas fa-shield-alt"></i>
@@ -49,7 +49,8 @@
   </div>
 </div>
 <div *ngIf="editOn" class="inputShell">
-  <input id="editInput" matTooltip="Max Vitality" (change)="changeDamage($event, fighter.id)" value="{{maxHealthChange}}">
+  <input id="editInput" matTooltip="Max Vitality" (change)="captureChange($event.target.value, 'maxHealthChange')"
+    value="{{maxHealthChange}}">
 </div>
 
 <div *ngIf="!editOn" class="inputShell">
@@ -67,7 +68,8 @@
   </div>
 </div>
 <div *ngIf="editOn" class="inputShell">
-  <input id="editInput" matTooltip="Stress Threshold" (change)="changeDamage($event, fighter.id)" value="{{stessThresholdChange}}">
+  <input id="editInput" matTooltip="Stress Threshold"
+    (change)="captureChange($event.target.value, 'stressThresholdChange')" value="{{stessThresholdChange}}">
 </div>
 
 <button *ngIf="!fighter.actioncount.length" (click)="increaseAction()">{{fighter.selected.speed}}</button>
@@ -101,7 +103,8 @@
 </div>
 
 <div *ngIf="trauma" class="icon">
-  <input id="focusInput" (change)="enterTrauma($event)" (blur)="showTrauma()" matTooltip="Enter How Much They Failed By" class="actionInput">
+  <input id="focusInput" (change)="enterTrauma($event)" (blur)="showTrauma()" matTooltip="Enter How Much They Failed By"
+    class="actionInput">
 </div>
 <p *ngIf="!trauma" (click)="showTrauma()" class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
 

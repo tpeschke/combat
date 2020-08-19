@@ -22,14 +22,13 @@ export class SinglefighterComponent implements OnInit {
   ) { }
 
   public trauma = false;
-  public editOn = true;
+  public editOn = false;
   public nameChange;
   public colorChange;
   public maxHealthChange;
   public stessThresholdChange;
 
   ngOnInit() {
-    console.log(this.fighter.namefighter)
     this.nameChange = this.fighter.namefighter
     this.colorChange = this.fighter.colorcode
     this.maxHealthChange = this.fighter.max_health
@@ -197,16 +196,43 @@ export class SinglefighterComponent implements OnInit {
 
   killFighter() {
     let { fighters } = this.counterService
-      for (let i = 0; i < fighters.length; i++) {
-        if (fighters[i].id === this.fighter.id) {
-          fighters[i].dead = '1'
-          this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: '1', id: this.fighter.id, fighterProperty: 'dead' })
-          i = fighters.length
-        }
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.fighter.id) {
+        fighters[i].dead = '1'
+        this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: '1', id: this.fighter.id, fighterProperty: 'dead' })
+        i = fighters.length
       }
+    }
   }
 
   toggleEdit() {
+    if (this.editOn && this.nameChange || this.colorChange || this.maxHealthChange || this.stessThresholdChange) {
+      let { fighters } = this.counterService
+      for (let i = 0; i < fighters.length; i++) {
+        if (fighters[i].id === this.fighter.id) {
+          fighters[i].namefighter = this.nameChange
+          this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.nameChange, id: this.fighter.id, fighterProperty: 'namefighter' })
+          fighters[i].colorcode = this.colorChange
+          this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.colorChange, id: this.fighter.id, fighterProperty: 'colorcode' })
+          fighters[i].max_health = this.maxHealthChange
+          this.calculateWoundCategory()
+          let wound = this.fighter.woundCategory === 0 ? '00' : this.fighter.woundCategory;
+          if (wound === 1) {
+            wound = 10
+          } else if (wound === 100) {
+            wound = ''
+          }
+          this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: wound, id: this.fighter.id, fighterProperty: 'wound' })
+          fighters[i].stressthreshold = this.stessThresholdChange
+          this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.stessThresholdChange, id: this.fighter.id, fighterProperty: 'stressthreshold' })
+          i = fighters.length
+        }
+      }
+    }
     this.editOn = !this.editOn
+  }
+
+  captureChange(event, type) {
+    this[type] = event
   }
 }

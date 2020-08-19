@@ -37,13 +37,6 @@ export class PlayerViewComponent implements OnInit {
           }
         } else {
           this[type] = value
-          if (type === 'count') {
-            // this.fighters.forEach(fighter =>{
-            //   if (fighter.topcheck >= this.count) {
-            //     fighter.topcheck = '0'
-            //   }
-            // })
-          }
         }
         if (type === 'canPlayersView' && value) { this.fieldService.getBattleInfo({hash: this.hash}) }
         if (this.fighters.length === 0) {this.fetchFighters()}
