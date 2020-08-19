@@ -23,8 +23,17 @@ export class SinglefighterComponent implements OnInit {
 
   public trauma = false;
   public editOn = true;
+  public nameChange;
+  public colorChange;
+  public maxHealthChange;
+  public stessThresholdChange;
 
   ngOnInit() {
+    console.log(this.fighter.namefighter)
+    this.nameChange = this.fighter.namefighter
+    this.colorChange = this.fighter.colorcode
+    this.maxHealthChange = this.fighter.max_health
+    this.stessThresholdChange = this.fighter.stressthreshold
     this.calculateWoundCategory();
   }
 

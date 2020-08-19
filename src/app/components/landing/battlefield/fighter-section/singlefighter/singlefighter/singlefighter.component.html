@@ -6,14 +6,14 @@
   <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
 </div>
 <div *ngIf="editOn" class="icon editOnShell">
-  <div [ngStyle]="{background: fighter.colorcode}"
+  <div [ngStyle]="{background: colorChange}"
   [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
-  [(colorPicker)]="fighter.colorcode"
+  [(colorPicker)]="colorChange"
   class="fighterColor editOn"></div>
 </div>
 
 <p *ngIf="!editOn" class="name">{{fighter.namefighter}}</p>
-<input *ngIf="editOn" class="name" value="{{fighter.namefighter}}">
+<input *ngIf="editOn" class="name" value="{{nameChange}}">
 
 <div class="icon weaponSquareShell">
   <i class="fas fa-shield-alt"></i>
@@ -49,7 +49,7 @@
   </div>
 </div>
 <div *ngIf="editOn" class="inputShell">
-  <input id="editInput" matTooltip="Max Vitality" (change)="changeDamage($event, fighter.id)" value="{{fighter.max_health}}">
+  <input id="editInput" matTooltip="Max Vitality" (change)="changeDamage($event, fighter.id)" value="{{maxHealthChange}}">
 </div>
 
 <div *ngIf="!editOn" class="inputShell">
@@ -67,7 +67,7 @@
   </div>
 </div>
 <div *ngIf="editOn" class="inputShell">
-  <input id="editInput" matTooltip="Stress Threshold" (change)="changeDamage($event, fighter.id)" value="{{fighter.stressthreshold}}">
+  <input id="editInput" matTooltip="Stress Threshold" (change)="changeDamage($event, fighter.id)" value="{{stessThresholdChange}}">
 </div>
 
 <button *ngIf="!fighter.actioncount.length" (click)="increaseAction()">{{fighter.selected.speed}}</button>
@@ -108,4 +108,4 @@
 <p class="icon" (click)="killFighter()"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
 
 <p *ngIf="!editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Edit" class="fas fa-edit"></i></p>
-<p *ngIf="editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Edit" class="fas fa-save"></i></p>
+<p *ngIf="editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Save Changes" class="fas fa-save"></i></p>
