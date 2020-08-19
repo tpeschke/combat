@@ -36,7 +36,6 @@ export class PlayerViewComponent implements OnInit {
             }
           }
         } else if (type === 'removeFighter') {
-          console.log(value)
           for (let i = 0; i < this.fighters.length; i++) {
             if (this.fighters[i].id === value) {
               this.fighters.splice(i, 1)
