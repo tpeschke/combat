@@ -184,4 +184,15 @@ export class SinglefighterComponent implements OnInit {
       }
     }
   }
+
+  killFighter() {
+    let { fighters } = this.counterService
+      for (let i = 0; i < fighters.length; i++) {
+        if (fighters[i].id === this.fighter.id) {
+          fighters[i].dead = '1'
+          this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: '1', id: this.fighter.id, fighterProperty: 'dead' })
+          i = fighters.length
+        }
+      }
+  }
 }

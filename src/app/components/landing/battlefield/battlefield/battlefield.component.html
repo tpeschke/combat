@@ -5,7 +5,7 @@
       <button mat-raised-button color="accent" matTooltip="Save"><i class="fas fa-save"></i></button>
       <!-- make the icon spin when it is autosaving -->
       <button class="disabled" matTooltip="Autosaving" mat-raised-button disabled><i class="fas fa-spinner"></i></button>
-      <button class="backButton" mat-raised-button color="warn" [routerLink]="['/field']"  matTooltip="Back to Fields"><i class="fas fa-chevron-right"></i></button>
+      <button class="backButton" mat-raised-button color="warn" [routerLink]="['/field']" matTooltip="Back to Fields"><i class="fas fa-chevron-right"></i></button>
     </div>
   </div>
 
@@ -30,8 +30,8 @@
               <p>{{fighter.namefighter}}</p>
             </div>
             <div class="deadIconShell">
-              <p class="icon"><i class="fas fa-sun"></i></p>
-              <p><i class="fas fa-trash"></i></p>
+              <p class="icon" matTooltip="Resurrect Fighter"><i class="fas fa-sun"></i></p>
+              <p class="icon" matTooltip="Remove Fighter Permanently"><i class="fas fa-trash"></i></p>
             </div>
           </div>
         </div>
