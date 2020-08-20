@@ -38,11 +38,15 @@ export class BattlefieldComponent implements OnInit {
         this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: this.canPlayersView})
         if (this.canPlayersView) {
           this.fieldService.sendBattleData({hash, type: 'count', value: count})
-          this.fieldService.sendBattleData({hash, type: 'name', value: name})
           this.fieldService.sendBattleData({hash, type: 'fighters', value: formatFightersForPlayers(fighters)})
         }
       })
     }).unsubscribe();
+  }
+
+  changeBattlefieldName(target) {
+    this.counterService.name = target.value
+    this.fieldService.sendBattleData({hash: this.counterService.hash, type: 'name', value: target.value})
   }
 
   copyHash() {

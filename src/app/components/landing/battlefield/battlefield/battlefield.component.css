@@ -9,8 +9,16 @@ mat-card {
     margin-top: 15px
 }
 
-h1 {
+.headerInput {
     font-size: 30px;
+    color: #990000;
+    font-family: 'vinque';
+    border: 0;
+    border-bottom: 1px solid lightgray;
+}
+
+.headerInput:focus {
+    outline: none;
 }
 
 h2 {
