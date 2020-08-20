@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FieldService } from './field.service';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CounterService {
-
   constructor(
     private fieldService: FieldService
   ) { }
@@ -55,6 +55,11 @@ export class CounterService {
 
   public resetCount() {
     this.count = 1
+    this.sort()
+  }
+
+  addFighter(fighter) {
+    this.fighters = [...this.fighters.concat(fighter)]
     this.sort()
   }
 }

@@ -97,6 +97,7 @@ h4 {
     background-size: contain !important;
     background-repeat: no-repeat !important;
     background-position: right !important;
+    background: rgba(0, 0, 0, 0);
 }
 
 
