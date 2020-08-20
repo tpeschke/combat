@@ -48,7 +48,6 @@ export class PlayerViewComponent implements OnInit {
           this[type] = value
         }
         if (type === 'canPlayersView' && value) { this.fieldService.getBattleInfo({hash: this.hash}) }
-        if (this.fighters.length === 0) {this.fetchFighters()}
       })
   }
 

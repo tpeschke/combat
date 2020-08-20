@@ -46,14 +46,13 @@ export class CounterService {
     this.fighters = newFighters
   }
 
-  addFighter(fighters) {
-    this.fighters = this.fighters.concat(fighters)
+  formatFightersForPlayers(fighters) {
     let playerFighters = fighters.map(fighter => {
-      let wound = fighter.health * 100 / fighter.max_health;
+      let wound: any = fighter.health * 100 / fighter.max_health;
       if (wound === 0) {
-        wound = 0
+        wound = '00'
       } else if (wound > 0 && wound < 25) {
-        wound = 1
+        wound = 10
       } else if (wound >= 25 && wound < 50) {
         wound = 25
       } else if (wound >= 50 && wound < 75) {
@@ -61,7 +60,7 @@ export class CounterService {
       } else if (wound >= 75 && wound < 100) {
         wound = 75
       } else if (wound >= 100) {
-        wound = 100
+        wound = ''
       }
       return {
         colorcode: fighter.colorcode,
@@ -75,7 +74,12 @@ export class CounterService {
         wound
       }
     })
-    this.fieldService.sendBattleData({ hash: this.hash, type: 'addFighter', value: playerFighters })
+    return playerFighters
+  }
+
+  addFighter(fighters) {
+    this.fighters = this.fighters.concat(fighters)
+    this.fieldService.sendBattleData({ hash: this.hash, type: 'addFighter', value: this.formatFightersForPlayers(fighters) })
     this.sort()
   }
 

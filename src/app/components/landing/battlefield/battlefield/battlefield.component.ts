@@ -34,11 +34,13 @@ export class BattlefieldComponent implements OnInit {
       }
       
       this.fieldService.subscribeToBattleInfo(this.counterService.hash).subscribe(_ => {
-        let {hash, count} = this.counterService
+        let {hash, count, name, formatFightersForPlayers, fighters} = this.counterService
+        this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: this.canPlayersView})
         if (this.canPlayersView) {
           this.fieldService.sendBattleData({hash, type: 'count', value: count})
+          this.fieldService.sendBattleData({hash, type: 'name', value: name})
+          this.fieldService.sendBattleData({hash, type: 'fighters', value: formatFightersForPlayers(fighters)})
         }
-        this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: this.canPlayersView})
       })
     }).unsubscribe();
   }
@@ -61,6 +63,9 @@ export class BattlefieldComponent implements OnInit {
     let {hash} = this.counterService
     this.canPlayersView = checked
     this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: checked})
+    if(this.canPlayersView) {
+      this.fieldService.sendBattleData({hash, type: 'fighters', value: this.counterService.formatFightersForPlayers(this.counterService.fighters)})
+    }
   }
 
   resurrectFighter(id) {
