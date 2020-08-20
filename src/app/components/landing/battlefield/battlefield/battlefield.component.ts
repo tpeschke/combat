@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CounterService } from 'src/app/utils/counter.service';
 import variables from '../../../../local.js';
@@ -9,7 +9,7 @@ import { FieldService } from 'src/app/utils/field.service.js';
   templateUrl: './battlefield.component.html',
   styleUrls: ['./battlefield.component.css']
 })
-export class BattlefieldComponent implements OnInit {
+export class BattlefieldComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +34,7 @@ export class BattlefieldComponent implements OnInit {
       }
       
       this.fieldService.subscribeToBattleInfo(this.counterService.hash).subscribe(_ => {
-        let {hash, count, name, formatFightersForPlayers, fighters} = this.counterService
+        let {hash, count, formatFightersForPlayers, fighters} = this.counterService
         this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: this.canPlayersView})
         if (this.canPlayersView) {
           this.fieldService.sendBattleData({hash, type: 'count', value: count})
@@ -42,6 +42,12 @@ export class BattlefieldComponent implements OnInit {
         }
       })
     }).unsubscribe();
+  }
+
+  ngOnDestroy() {
+    let {hash} = this.counterService
+    this.canPlayersView = false;
+    this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: false})
   }
 
   changeBattlefieldName(target) {

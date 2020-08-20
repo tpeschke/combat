@@ -1,3 +1,4 @@
+<div (keydown.d)="counterService.incrementCount()"></div>
 <mat-card>
   <div class="headerShell">
     <input (change)="changeBattlefieldName($event.target)" class="headerInput" value="{{counterService.name}}">
@@ -6,7 +7,7 @@
       <!-- make the icon spin when it is autosaving -->
       <button class="disabled" matTooltip="Autosaving" mat-raised-button disabled><i
           class="fas fa-spinner"></i></button>
-      <button class="backButton" mat-raised-button color="warn" [routerLink]="['/field']" matTooltip="Back to Fields"><i
+      <button class="backButton" mat-raised-button color="warn" [routerLink]="['/fields']" matTooltip="Back to Fields"><i
           class="fas fa-chevron-right"></i></button>
     </div>
   </div>

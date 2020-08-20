@@ -91,9 +91,9 @@ export class WeaponSelectComponent implements OnInit {
         if (fighters[i].id === this.id) {
           fighters[i].weapons = fighters[i].weapons.map((weapon, weaponIndex) => {
             if (weapon.id === weaponId) {
-              fighters[i].weapons[weaponIndex][property] = +event.target.value
+              fighters[i].weapons[weaponIndex][property] = this.generalService.stripNonInt(event.target.value)
               if (weapon.selected === '1') {
-                fighters[i].selected[property] = +event.target.value
+                fighters[i].selected[property] = this.generalService.stripNonInt(event.target.value)
               }
             }
             return weapon
@@ -104,7 +104,7 @@ export class WeaponSelectComponent implements OnInit {
     } else {
       this.weapons = this.weapons.map((weapon, weaponIndex) => {
         if (weapon.id === weaponId) {
-          this.weapons[weaponIndex][property] = +event.target.value
+          this.weapons[weaponIndex][property] = this.generalService.stripNonInt(event.target.value)
         }
         return weapon
       })

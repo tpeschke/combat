@@ -83,9 +83,10 @@ export class SinglefighterComponent implements OnInit {
 
   changeDamage(event, fighterId) {
     let { fighters } = this.counterService
+    let { stripNonInt } = this.generalService
     for (let i = 0; i < fighters.length; i++) {
       if (fighters[i].id === fighterId) {
-        fighters[i].health = +event.target.value
+        fighters[i].health = stripNonInt(event.target.value)
         this.calculateWoundCategory()
         let wound = this.fighter.woundCategory === 0 ? '00' : this.fighter.woundCategory;
         if (wound === 1) {
@@ -101,9 +102,10 @@ export class SinglefighterComponent implements OnInit {
 
   changeStress(event, fighterId) {
     let { fighters } = this.counterService
+    let { stripNonInt } = this.generalService
     for (let i = 0; i < fighters.length; i++) {
       if (fighters[i].id === fighterId) {
-        fighters[i].stress = +event.target.value
+        fighters[i].stress = stripNonInt(event.target.value)
         i = fighters.length
       }
     }
@@ -150,9 +152,10 @@ export class SinglefighterComponent implements OnInit {
 
   changeInitiative(event) {
     let { fighters } = this.counterService
+    let { stripNonInt } = this.generalService
     for (let i = 0; i < fighters.length; i++) {
       if (fighters[i].id === this.fighter.id) {
-        fighters[i].actioncount = +event.target.value
+        fighters[i].actioncount = stripNonInt(event.target.value)
         this.counterService.sort()
         i = fighters.length
       }
@@ -184,7 +187,7 @@ export class SinglefighterComponent implements OnInit {
       let { fighters } = this.counterService
       for (let i = 0; i < fighters.length; i++) {
         if (fighters[i].id === this.fighter.id) {
-          fighters[i].actioncount = this.counterService.count + (+event.target.value * 3)
+          fighters[i].actioncount = this.counterService.count + (this.generalService.stripNonInt(event.target.value) * 3)
           fighters[i].topcheck = '1'
           this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: '1', id: this.fighter.id, fighterProperty: 'topcheck' })
           this.counterService.sort()
