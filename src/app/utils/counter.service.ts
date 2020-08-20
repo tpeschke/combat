@@ -25,7 +25,7 @@ export class CounterService {
     let newFighters = []
     this.fighters.map(val => {
       if (val.actioncount) {
-        if (val.actioncount > this.count || val.hidden == 1) {
+        if (val.actioncount > this.count) {
           val.acting = '1'
         } else {
           val.acting = '0'

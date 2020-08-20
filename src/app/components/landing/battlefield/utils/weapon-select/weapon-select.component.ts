@@ -28,56 +28,87 @@ export class WeaponSelectComponent implements OnInit {
   selectWeapon(event, weaponId) {
     event.stopPropagation();
     let { fighters } = this.counterService
-    for (let i = 0; i < fighters.length; i++) {
-      if (fighters[i].id === this.id) {
-        fighters[i].weapons = fighters[i].weapons.map(weapon => {
-          if (weapon.selected === '1') {
-            weapon.selected = '0'
-          }
-          if (weapon.id === weaponId) {
-            weapon.selected = '1'
-            fighters[i].selected = weapon
-            this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: fighters[i].selected.weapon, id: fighters[i].id, fighterProperty: 'weapon' })
-          }
-          return weapon
-        })
-        i = fighters.length
+    if (this.id) {
+      for (let i = 0; i < fighters.length; i++) {
+        if (fighters[i].id === this.id) {
+          fighters[i].weapons = fighters[i].weapons.map(weapon => {
+            if (weapon.selected === '1') {
+              weapon.selected = '0'
+            }
+            if (weapon.id === weaponId) {
+              weapon.selected = '1'
+              fighters[i].selected = weapon
+              this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: fighters[i].selected.weapon, id: fighters[i].id, fighterProperty: 'weapon' })
+            }
+            return weapon
+          })
+          i = fighters.length
+        }
       }
+    } else {
+      this.weapons.forEach(weapon => {
+        if (weapon.id === weaponId) {
+          weapon.selected = '1'
+        } else {
+          weapon.selected = '0'
+        }
+      })
     }
     this.dialogRef.close();
   }
 
   changeWeaponProperty(weaponId, event, property) {
     let { fighters } = this.counterService
-    for (let i = 0; i < fighters.length; i++) {
-      if (fighters[i].id === this.id) {
-        fighters[i].weapons = fighters[i].weapons.map((weapon, weaponIndex) => {
-          if (weapon.id === weaponId) {
-            fighters[i].weapons[weaponIndex][property] = event.target.value
-            if (weapon.selected === '1') {
-              fighters[i].selected[property] = event.target.value
+    if (this.id) {
+      for (let i = 0; i < fighters.length; i++) {
+        if (fighters[i].id === this.id) {
+          fighters[i].weapons = fighters[i].weapons.map((weapon, weaponIndex) => {
+            if (weapon.id === weaponId) {
+              fighters[i].weapons[weaponIndex][property] = event.target.value
+              if (weapon.selected === '1') {
+                fighters[i].selected[property] = event.target.value
+              }
             }
-          }
-          return weapon
-        })
-        i = fighters.length
+            return weapon
+          })
+          i = fighters.length
+        }
       }
+    } else {
+      this.weapons = this.weapons.map((weapon, weaponIndex) => {
+        if (weapon.id === weaponId) {
+          this.weapons[weaponIndex][property] = event.target.value
+        }
+        return weapon
+      })
     }
   }
 
   addWeapon() {
     let { fighters } = this.counterService
-    for (let i = 0; i < fighters.length; i++) {
-      if (fighters[i].id === this.id) {
-        fighters[i].weapons.push({
-          id: this.generalService.makeid(),
-          weapon: 'New Weapon',
-          speed: 10,
-          encumb: 10,
-          selected: '0'
-        })
-        i = fighters.length
+    if (this.id) {
+      for (let i = 0; i < fighters.length; i++) {
+        if (fighters[i].id === this.id) {
+          fighters[i].weapons.push({
+            id: this.generalService.makeid(),
+            weapon: 'New Weapon',
+            speed: 10,
+            encumb: 10,
+            selected: '0',
+            init: 0
+          })
+          i = fighters.length
+        }
       }
+    } else {
+      this.weapons.push({
+        id: this.generalService.makeid(),
+        weapon: 'New Weapon',
+        speed: 10,
+        encumb: 10,
+        init: 0,
+        selected: this.weapons.length === 0 ? '1' : '0'
+      })
     }
   }
 

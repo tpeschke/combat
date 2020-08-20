@@ -1,0 +1,90 @@
+<div class="bestiaryHashShell">
+  <mat-form-field>
+    <input matInput placeholder="Import by Bestiary Hash">
+  </mat-form-field>
+  <button mat-raised-button color="accent">Add</button>
+</div>
+
+<div class="nameShell">
+  <div [ngStyle]="{background: fighter.colorcode}"
+    [cpPresetColors]="[fighter.colorcode, '#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']"
+    [(colorPicker)]="fighter.colorcode" (colorPickerChange)="captureChange($event, 'fighter.colorcode')"
+    class="fighterColor"></div>
+  <mat-form-field>
+    <input matInput placeholder="Fighter Name" value="{{fighter.namefighter}}">
+  </mat-form-field>
+</div>
+
+<div class="damageShell">
+  <mat-form-field>
+    <input matInput placeholder="Starting Damage" value="{{fighter.health}}">
+  </mat-form-field>
+  <p>/</p>
+  <mat-form-field>
+    <input matInput placeholder="Max Vitality" value="{{fighter.max_health}}">
+  </mat-form-field>
+</div>
+
+<div class="damageShell">
+  <mat-form-field>
+    <input matInput placeholder="Starting Stress" value="{{fighter.stress}}">
+  </mat-form-field>
+  <p>/</p>
+  <mat-form-field>
+    <input matInput placeholder="Stress Threshold" value="{{fighter.stressthreshold}}">
+  </mat-form-field>
+</div>
+
+<div class="weaponSelecterShell">
+  <button (click)="openWeaponSelect()" mat-raised-button color="accent">Weapon Selecter</button>
+</div>
+
+<div *ngIf="fighter.selected" class="buttonShell">
+  <p>Initiative: </p>
+  <div *ngIf="fighter.selected.init > 0" (click)="rollInitiative()" class="initButton">
+    d{{fighter.actioncount[0]}}+{{fighter.selected.init}}</div>
+  <div *ngIf="fighter.selected.init === 0" (click)="rollInitiative()" class="initButton">d{{fighter.actioncount[0]}}
+  </div>
+  <div *ngIf="fighter.selected.init < 0" (click)="rollInitiative()" class="initButton">
+    d{{fighter.actioncount[0]}}{{fighter.selected.init}}</div>
+  <div class="diceSelectShell">
+    <i class="fas fa-angle-down"></i>
+    <div class="diceSelect">
+      <p (click)="selectInitDice(20)">d20</p>
+      <p (click)="selectInitDice(12)">d12</p>
+      <p (click)="selectInitDice(10)">d10</p>
+      <p (click)="selectInitDice(8)">d8</p>
+      <p (click)="selectInitDice(6)">d6</p>
+      <p (click)="selectInitDice(4)">d4</p>
+      <p (click)="selectInitDice(1)">d1</p>
+    </div>
+  </div>
+</div>
+<div *ngIf="!fighter.selected" class="buttonShell">
+  <p>Initiative: </p>
+  <div class="initButton">d{{fighter.actioncount[0]}}</div>
+  <div class="diceSelectShell">
+    <i class="fas fa-angle-down"></i>
+    <div class="diceSelect">
+      <p (click)="selectInitDice(1)">d1</p>
+      <p (click)="selectInitDice(4)">d4</p>
+      <p (click)="selectInitDice(6)">d6</p>
+      <p (click)="selectInitDice(8)">d8</p>
+      <p (click)="selectInitDice(10)">d10</p>
+      <p (click)="selectInitDice(12)">d12</p>
+      <p (click)="selectInitDice(20)">d20</p>
+    </div>
+  </div>
+</div>
+
+<div class="multiAddShell">
+  <mat-form-field>
+    <input matInput placeholder="Number to Add" value="{{multiAdd}}">
+  </mat-form-field>
+  <mat-checkbox *ngIf="multiAdd && multiAdd > 1" color="warn" (change)="togglePlayerView($event.checked)">Give Each A
+    Unique Color</mat-checkbox>
+</div>
+
+<div class="addShell">
+  <button mat-raised-button color="warn">Add Fighter</button>
+</div>
