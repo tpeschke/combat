@@ -3,7 +3,7 @@
     <h4>{{status.namestatus}}</h4>
     <p *ngIf="status.timestatus">{{status.timestatus - counterService.count}} Seconds Left</p>
     <p *ngIf="descriptionOpen && status.description">{{status.description}}</p>
-    <button mat-raised-button color="accent" *ngIf="descriptionOpen">Delete Status</button>
+    <button (click)="deleteStatus(status.id)" mat-raised-button color="accent" *ngIf="descriptionOpen">Delete Status</button>
   </mat-card>
 </div>
 <div *ngIf="count">

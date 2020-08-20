@@ -16,3 +16,7 @@ p {
     padding-top: 5px;
     border-top: 1px solid;
 }
+
+button {
+    margin-top: 5px
+}

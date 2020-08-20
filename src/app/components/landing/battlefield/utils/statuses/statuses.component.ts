@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CounterService } from 'src/app/utils/counter.service';
+import { FieldService } from 'src/app/utils/field.service';
 
 @Component({
   selector: 'app-statuses',
@@ -11,7 +12,8 @@ export class StatusesComponent implements OnInit {
   @Input() count: number;
 
   constructor(
-    private counterService: CounterService
+    private counterService: CounterService,
+    private fieldService: FieldService
   ) { }
 
   private descriptionOpen = false
@@ -25,6 +27,17 @@ export class StatusesComponent implements OnInit {
 
   turnOffDescription() {
     this.descriptionOpen = false
+  }
+
+  deleteStatus(statusId) {
+    let { statuses, hash } = this.counterService
+    for(let i = 0; i < statuses.length; i++) {
+      if (statuses[i].id === statusId) {
+        statuses.splice(i, 1)
+        this.fieldService.sendBattleData({ hash, type: 'removeStatus', value: statusId })
+        i = statuses.length
+      }
+    }
   }
 
 }
