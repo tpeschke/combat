@@ -27,6 +27,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
         this.counterService.hash = data['battle'].meta.hash
         this.counterService.id = data['battle'].meta.id
         this.counterService.fighters = data['battle'].fighters
+        this.counterService.statuses = data['battle'].statuses
         this.counterService.sort()
       } else {
         this.counterService.name = 'New Battlefield'

@@ -14,6 +14,12 @@
 
   <app-counter></app-counter>
 
+  <div *ngIf="counterService.statuses.length > 0" class="statusShell">
+    <div *ngFor="let status of counterService.statuses">
+      <app-statuses [status]="status"></app-statuses>
+    </div>
+  </div>
+
   <h2>On Deck</h2>
   <app-fighter-section [type]="'0'"></app-fighter-section>
 

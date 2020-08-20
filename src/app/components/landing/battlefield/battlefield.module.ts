@@ -11,9 +11,10 @@ import { WeaponSelectComponent } from './utils/weapon-select/weapon-select.compo
 import { SinglefighterComponent } from './fighter-section/singlefighter/singlefighter/singlefighter.component';
 import { AddFighterComponent } from './utils/add-fighter/add-fighter.component';
 import { AddStatusComponent } from './utils/add-status/add-status.component';
+import { StatusesComponent } from './utils/statuses/statuses.component';
 
 @NgModule({
-  declarations: [BattlefieldComponent, CounterComponent, FightersectionComponent, WeaponSelectComponent, SinglefighterComponent, AddFighterComponent, AddStatusComponent],
+  declarations: [BattlefieldComponent, CounterComponent, FightersectionComponent, WeaponSelectComponent, SinglefighterComponent, AddFighterComponent, AddStatusComponent, StatusesComponent],
   imports: [
     CommonModule,
     MatCardModule,

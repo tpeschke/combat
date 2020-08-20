@@ -16,6 +16,7 @@ export class CounterService {
   ) { }
 
   public fighters = [];
+  public statuses = []
 
   public id = null;
   public name = null;

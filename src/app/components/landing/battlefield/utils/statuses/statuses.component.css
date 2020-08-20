@@ -1,0 +1,18 @@
+.mat-card {
+    font-family: "ancient";
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 180px;
+    margin-bottom: 15px;
+}
+
+.mat-card:hover {
+    background: gray
+}
+
+p {
+    padding-top: 5px;
+    border-top: 1px solid;
+}

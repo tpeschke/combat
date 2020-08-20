@@ -43,11 +43,10 @@ h2 {
     background: rgb(224 224 224) !important
 }
 
-.divider {
-    border-top: 1px black solid;
-    border-bottom: 1px black solid;
-    min-height: 10px;
-    margin: 15px 0
+.statusShell {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .workspaceShell {
