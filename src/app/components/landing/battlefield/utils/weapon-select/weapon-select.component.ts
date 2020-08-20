@@ -112,4 +112,28 @@ export class WeaponSelectComponent implements OnInit {
     }
   }
 
+  deleteWeapon(weaponId) {
+    let { fighters } = this.counterService
+    if (this.id) {
+      for (let i = 0; i < fighters.length; i++) {
+        if (fighters[i].id === this.id) {
+          for (let x = 0; x < fighters[i].weapons.length; x++) {
+            if (fighters[i].weapons[x].id === weaponId) {
+              fighters[i].weapons.splice(x, 1)
+              x = fighters[i].weapons.length
+            }
+          }
+          i = fighters.length
+        }
+      }
+    } else {
+      for (let i = 0; i < this.weapons.length; i++) {
+        if (this.weapons[i].id === weaponId) {
+          this.weapons.splice(i, 1)
+          i = this.weapons.length
+        }
+      }
+    }
+  }
+
 }

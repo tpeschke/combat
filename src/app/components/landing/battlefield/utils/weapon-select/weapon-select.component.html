@@ -41,6 +41,8 @@
             <input class="parry" (change)="changeWeaponProperty(weapon.id, $event, 'parry')" value="{{weapon.parry}}">
           </div>
 
+          <button *ngIf="weapon.selected === '0'" (click)="deleteWeapon(weapon.id)" mat-raised-button color="warn">Delete Weapon</button>
+
         </mat-expansion-panel>
 
         <div (click)="selectWeapon($event, weapon.id)"
