@@ -79,3 +79,29 @@ create table statuses (
 --      ('Darkness', 16, 1),
 --      ('Fire', 12, 1)
 --      ('Darkness', 25, 2)
+
+create table cctooltips (
+    id serial primary key,
+    userid int,
+    save_field boolean default false,
+    back_to_fields boolean default false,
+    reset_count boolean default false,
+    auto_clock_stop boolean default false,
+    auto_clock_one boolean default false,
+    auto_clock_two boolean default false,
+    decrement_second boolean default false,
+    increment_second boolean default false,
+    status_description boolean default false,
+    hidden boolean default false,
+    wound_category_tier boolean default false,
+    stress_from_wounds boolean default false,
+    stress_threshold boolean default false,
+    jump_to_current_second boolean default false,
+    trauma_fighter boolean default false,
+    trauma_fail boolean default false,
+    kill_fighter boolean default false,
+    edit_fighter boolean default false,
+    save_fighter boolean default false,
+    resurrect_fighter boolean default false,
+    remove_fighter boolean default false
+)

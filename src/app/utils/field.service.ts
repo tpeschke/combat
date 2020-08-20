@@ -50,5 +50,12 @@ export class FieldService {
     this.socket.emit('battle-fetch', data)
   }
 
+  getTooltips() {
+    return this.http.get(local.endpointBase + '/api/tooltips')
+  }
+
+  updateTooltip(type, value) {
+    return this.http.patch(local.endpointBase + '/api/tooltips', {type, value})
+  }
 
 }

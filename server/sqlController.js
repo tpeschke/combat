@@ -216,6 +216,22 @@ module.exports = {
         db.update.theme(theme, id).then(result => res.send())
     },
 
+    getTooltips: (req, res) => {
+        const db = req.app.get('db')
+        let { id } = req.user
+        db.get.tooltips(id).then(result => res.send(result[0]))
+    },
+
+    updateTooltips: (req, res) => {
+        const db = req.app.get('db')
+        let { id } = req.user
+        , {type, value} = req.body
+        if (id) {
+            let sqlScript = `update cctooltips set ${type} = ${value} where userid = ${id}` 
+            db.query(sqlScript).then(result => res.send(result))
+        }
+    },
+
     deleteFighter: (req, res) => {
 
         const db = req.app.get('db')

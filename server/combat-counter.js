@@ -87,6 +87,7 @@ app.get('/api/battle/:hash', sqlCtrl.getSingleBattle);
 app.get('/api/player/field/:hash', sqlCtrl.getFieldByHash);
 app.get('/api/player/battle/:hash', sqlCtrl.getBattleByHash);
 app.get('/api/beast/:hash', sqlCtrl.getBeastbyHash);
+app.get('/api/tooltips', sqlCtrl.getTooltips)
 
 app.post('/api/newfield', sqlCtrl.newField);
 app.post('/api/settings', sqlCtrl.setTooltip);
@@ -98,6 +99,7 @@ app.delete('/api/weapon/:id', sqlCtrl.deleteWeapon);
 
 app.patch('/api/battle', sqlCtrl.saveField);
 app.patch('/api/theme/:theme', sqlCtrl.setTheme);
+app.patch('/api/tooltips', sqlCtrl.updateTooltips)
 
 const path = require('path')
 
