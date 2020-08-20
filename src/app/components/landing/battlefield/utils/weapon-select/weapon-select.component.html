@@ -10,7 +10,7 @@
     <mat-accordion>
       <div class="weaponShell" *ngFor="let weapon of weapons">
         <mat-expansion-panel>
-          <mat-expansion-panel-header [ngClass]="weapon.selected === '1' ? 'selectedBackground' : ''">
+          <mat-expansion-panel-header (keydown.Space)="$event.stopImmediatePropagation();" [ngClass]="weapon.selected === '1' ? 'selectedBackground' : ''">
             <mat-panel-title>
               <input class="weaponName" (change)="changeWeaponProperty(weapon.id, $event, 'weapon')"
                 value="{{weapon.weapon}}">
