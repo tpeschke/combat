@@ -219,7 +219,15 @@ module.exports = {
     getTooltips: (req, res) => {
         const db = req.app.get('db')
         let { id } = req.user
-        db.get.tooltips(id).then(result => res.send(result[0]))
+        db.get.tooltips(id).then(result => {
+            if (result.length > 0) {
+                res.send(result[0])
+            } else {
+                db.add.tooltips(id).then(result => {
+                    res.send(result[0])
+                })
+            }
+        })
     },
 
     updateTooltips: (req, res) => {
