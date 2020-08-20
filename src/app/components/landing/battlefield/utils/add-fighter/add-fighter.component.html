@@ -88,8 +88,8 @@
   <mat-form-field>
     <input (change)="captureMultiAdd($event.target.value)" matInput placeholder="Number to Add" value="{{multiAdd}}">
   </mat-form-field>
-  <mat-checkbox *ngIf="multiAdd && multiAdd > 1" color="warn" (change)="togglePlayerView($event.checked)">Give Each A
-    Unique Color</mat-checkbox>
+  <mat-checkbox *ngIf="multiAdd && multiAdd > 1" color="warn" (change)="toggleUniqueColors($event.checked)">Give Each A Unique Color</mat-checkbox>
+  <mat-checkbox *ngIf="multiAdd && multiAdd > 1" color="warn" (change)="toggleNumbering($event.checked)">Number Each</mat-checkbox>
 </div>
 
 <div class="addShell">

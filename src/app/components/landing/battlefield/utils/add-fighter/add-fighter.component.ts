@@ -24,14 +24,16 @@ export class AddFighterComponent implements OnInit {
     namefighter: '',
     health: 0,
     max_health: 0,
+    dead: '0',
     stress: 0,
     stressthreshold: 0,
+    acting: '0',
     weapons: [{
       id: this.generalService.makeid(),
-      weapon: 'Unarmed',
+      weapon: 'New Weapon',
       speed: 10,
       encumb: 10,
-      selected: '0',
+      selected: '1',
       init: 0
     }],
     selected: null,
@@ -39,8 +41,9 @@ export class AddFighterComponent implements OnInit {
   }
   public multiAdd = null
   public uniqueColors = false
+  public numberEach = false
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   captureChange(value, type) {
     this.fighter[type] = value
@@ -64,7 +67,7 @@ export class AddFighterComponent implements OnInit {
       data: {
         weapons: this.fighter.weapons
       }
-    }).afterClosed().subscribe(_=> {
+    }).afterClosed().subscribe(_ => {
       for (let i = 0; i < this.fighter.weapons.length; i++) {
         if (this.fighter.weapons[i].selected === '1') {
           this.fighter.selected = this.fighter.weapons[i]
@@ -73,8 +76,12 @@ export class AddFighterComponent implements OnInit {
     });
   }
 
-  togglePlayerView(checked) {
+  toggleUniqueColors(checked) {
     this.uniqueColors = checked
+  }
+
+  toggleNumbering(checked) {
+    this.numberEach = checked
   }
 
   addFighter() {
@@ -96,6 +103,8 @@ export class AddFighterComponent implements OnInit {
       health: 0,
       max_health: 0,
       stress: 0,
+      dead: '0',
+      acting: '0',
       stressthreshold: 0,
       weapons: [{
         id: this.generalService.makeid(),

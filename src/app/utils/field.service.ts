@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import local from '../local';
 import { Socket } from 'ngx-socket-io';
-
+ 
 @Injectable({
   providedIn: 'root'
 })

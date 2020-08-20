@@ -1,12 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { FieldService } from './field.service';
-import { from } from 'rxjs';
+import { from, Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import local from '../local';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CounterService {
   constructor(
+    private http: HttpClient,
     private fieldService: FieldService
   ) { }
 
@@ -41,6 +45,11 @@ export class CounterService {
     this.fighters = newFighters
   }
 
+  addFighter(fighter) {
+    this.fighters = this.fighters.concat(fighter)
+    this.sort()
+  }
+
   public incrementCount() {
     this.count = ++this.count
     this.sort()
@@ -55,11 +64,6 @@ export class CounterService {
 
   public resetCount() {
     this.count = 1
-    this.sort()
-  }
-
-  addFighter(fighter) {
-    this.fighters = [...this.fighters.concat(fighter)]
     this.sort()
   }
 }

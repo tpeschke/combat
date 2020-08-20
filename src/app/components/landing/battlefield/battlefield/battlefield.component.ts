@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CounterService } from 'src/app/utils/counter.service';
 import variables from '../../../../local.js';
 import { FieldService } from 'src/app/utils/field.service.js';
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-battlefield',
@@ -14,7 +15,8 @@ export class BattlefieldComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private counterService: CounterService,
-    private fieldService: FieldService
+    private fieldService: FieldService,
+    private zone: NgZone
   ) { }
 
   public canPlayersView = false;
