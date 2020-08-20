@@ -6,6 +6,7 @@ import { SavedFieldsComponent } from './savedFields/saved-fields.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
+import { MatExpansionModule, MatCheckboxModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     MatCardModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   exports: [
     SavedFieldsComponent

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CounterService } from 'src/app/utils/counter.service';
-
+import tooltips from '../../../../utils/tooltips'
 @Component({
   selector: 'app-counter',
   templateUrl: './counter.component.html',
@@ -10,11 +10,14 @@ export class CounterComponent implements OnInit {
 
   constructor(
     private counterService: CounterService,
-    ) { }
+  ) {
+    this.tooltips = tooltips
+  }
 
-    public timeId
+  public timeId
+  public tooltips;
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   startAutoCount(interval) {
     clearInterval(this.timeId)
@@ -25,6 +28,6 @@ export class CounterComponent implements OnInit {
 
   stopAutoCount() {
     clearInterval(this.timeId)
-  }  
+  }
 
 }

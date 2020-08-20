@@ -18,4 +18,57 @@
       <p><i class="fas fa-trash"></i></p>
     </div>
   </div>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h1>Settings</h1>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <h4>Toggle Tool Tips</h4>
+    <div class="tooltipShell">
+      <mat-checkbox [checked]="!tooltips.save_field" (change)="checkCheckbox('save_field, $event')">Save Field
+      </mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.back_to_fields" (change)="checkCheckbox('back_to_fields', $event)">Back to
+        Fields</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.reset_count" (change)="checkCheckbox('reset_count', $event)">Reset Count
+      </mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.auto_clock_stop" (change)="checkCheckbox('auto_clock_stop', $event)">Stop Auto
+        Clock</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.auto_clock_one" (change)="checkCheckbox('auto_clock_one', $event)">Auto-Clock
+        +1 Sec/Sec</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.auto_clock_two" (change)="checkCheckbox('auto_clock_two', $event)">Auto-Clock
+        +1 Sec/.5 Sec</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.increment_second" (change)="checkCheckbox('increment_second', $event)">
+        Increment Second</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.decrement_second" (change)="checkCheckbox('decrement_second', $event)">
+        Decrement Second</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.status_description" (change)="checkCheckbox('status_description', $event)">
+        Status Description Helper</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.hidden" (change)="checkCheckbox('hidden', $event)">Hidden</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.wound_category_tier" (change)="checkCheckbox('wound_category_tier', $event)">
+        Wound Category Tier</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.stress_from_wounds" (change)="checkCheckbox('stress_from_wounds', $event)">
+        Stress From Wounds</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.stress_threshold" (change)="checkCheckbox('stress_threshold', $event)">Stress
+        Threshold</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.jump_to_current_second"
+        (change)="checkCheckbox('jump_to_current_second', $event)">Jump to Current Second</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.trauma_fighter" (change)="checkCheckbox('trauma_fighter', $event)">Trauma Icon
+        Hint</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.trauma_fail" (change)="checkCheckbox('trauma_fail', $event)">Trauma, Fail
+        Amount</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.kill_fighter" (change)="checkCheckbox('kill_fighter', $event)">Kill Fighter
+      </mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.edit_fighter" (change)="checkCheckbox('edit_fighter', $event)">Edit Fighter
+      </mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.save_fighter" (change)="checkCheckbox('save_fighter', $event)">Save Fighter
+      </mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.save_fighter" (change)="checkCheckbox('save_fighter', $event)">Resurrect
+        Fighter</mat-checkbox>
+        <mat-checkbox [checked]="!tooltips.remove_fighter" (change)="checkCheckbox('remove_fighter', $event)">Remove
+          Fighter</mat-checkbox>
+    </div>
+  </mat-expansion-panel>
 </mat-card>

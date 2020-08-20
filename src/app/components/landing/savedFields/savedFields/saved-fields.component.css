@@ -44,3 +44,23 @@ i:hover {
 button {
     margin-bottom: 15px;
 }
+
+.mat-expansion-panel {
+    margin-top: 15px;
+    background: lightgray
+}
+
+h4 {
+    font-size: 18px;
+    font-family: "ancient";
+    border-bottom: 1px solid;
+    padding: 5px;
+    margin: 15px 0 10px;
+}
+
+.tooltipShell {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 150px;
+}

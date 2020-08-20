@@ -1,6 +1,6 @@
 <p (click)="toggleHidden(fighter.hidden, fighter.id)" class="icon">
-  <i matTooltip="Visible" *ngIf="fighter.hidden === '0'" class="fas fa-eye"></i>
-  <i matTooltip="Hidden" *ngIf="fighter.hidden === '1'" class="fas fa-eye-slash"></i></p>
+  <i matTooltip="Visible" [matTooltipDisabled]="tooltips.hidden" *ngIf="fighter.hidden === '0'" class="fas fa-eye"></i>
+  <i matTooltip="Hidden" [matTooltipDisabled]="tooltips.hidden" *ngIf="fighter.hidden === '1'" class="fas fa-eye-slash"></i></p>
 
 <div *ngIf="!editOn" class="icon">
   <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
@@ -40,12 +40,12 @@
 
 <div *ngIf="!editOn" class="inputShell">
   <input (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}">
-  <p *ngIf="fighter.woundCategory === 0" matTooltip="Fresh">F</p>
-  <p *ngIf="fighter.woundCategory === 1" matTooltip="Tired">T</p>
-  <p *ngIf="fighter.woundCategory === 25" matTooltip="Hurt">H</p>
-  <p *ngIf="fighter.woundCategory === 50" matTooltip="Blooded">B</p>
-  <p *ngIf="fighter.woundCategory === 75" matTooltip="Wounded">W</p>
-  <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"><i class="fas fa-tint"></i>
+  <p *ngIf="fighter.woundCategory === 0" matTooltip="Fresh" [matTooltipDisabled]="tooltips.wound_category_tier">F</p>
+  <p *ngIf="fighter.woundCategory === 1" matTooltip="Tired" [matTooltipDisabled]="tooltips.wound_category_tier">T</p>
+  <p *ngIf="fighter.woundCategory === 25" matTooltip="Hurt" [matTooltipDisabled]="tooltips.wound_category_tier">H</p>
+  <p *ngIf="fighter.woundCategory === 50" matTooltip="Blooded" [matTooltipDisabled]="tooltips.wound_category_tier">B</p>
+  <p *ngIf="fighter.woundCategory === 75" matTooltip="Wounded" [matTooltipDisabled]="tooltips.wound_category_tier">W</p>
+  <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out" [matTooltipDisabled]="tooltips.wound_category_tier"><i class="fas fa-tint"></i>
   </div>
 </div>
 <div *ngIf="editOn" class="inputShell">
@@ -55,27 +55,27 @@
 
 <div *ngIf="!editOn" class="inputShell">
   <input (change)="changeStress($event, fighter.id)" class="stressInput" value={{fighter.stress}}>
-  <p *ngIf="fighter.woundCategory === 0" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">+0</p>
-  <p *ngIf="fighter.woundCategory === 1" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">
+  <p *ngIf="fighter.woundCategory === 0" matTooltip="Stress From Wounds" [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">+0</p>
+  <p *ngIf="fighter.woundCategory === 1" matTooltip="Stress From Wounds" [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
     +{{fighter.selected.encumb}}</p>
-  <p *ngIf="fighter.woundCategory === 25" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">
+  <p *ngIf="fighter.woundCategory === 25" matTooltip="Stress From Wounds" [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
     +{{fighter.selected.encumb * 2}}</p>
-  <p *ngIf="fighter.woundCategory === 50" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">
+  <p *ngIf="fighter.woundCategory === 50" matTooltip="Stress From Wounds" [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
     +{{fighter.selected.encumb * 3}}</p>
-  <p *ngIf="fighter.woundCategory === 75" matTooltip="Stress From Wounds" class="stressEncumbrancePenalty">
+  <p *ngIf="fighter.woundCategory === 75" matTooltip="Stress From Wounds" [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
     +{{fighter.selected.encumb * 4}}</p>
-  <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"><i class="fas fa-tint"></i>
+  <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out" [matTooltipDisabled]="tooltips.stress_from_wounds"><i class="fas fa-tint"></i>
   </div>
 </div>
 <div *ngIf="editOn" class="inputShell">
-  <input id="editInput" matTooltip="Stress Threshold"
+  <input id="editInput" matTooltip="Stress Threshold" [matTooltipDisabled]="tooltips.stress_threshold"
     (change)="captureChange($event.target.value, 'stressThresholdChange')" value="{{stessThresholdChange}}">
 </div>
 
 <button *ngIf="!fighter.actioncount.length" (click)="increaseAction()">{{fighter.selected.speed}}</button>
 <button *ngIf="fighter.actioncount.length" class="disabledButton">{{fighter.selected.speed}}</button>
 
-<p class="icon"><i (click)="jumpToCount()" class="fas fa-forward" matTooltip="Jump to Current Second"></i></p>
+<p class="icon"><i (click)="jumpToCount()" class="fas fa-forward" matTooltip="Jump to Current Second"  [matTooltipDisabled]="tooltips.jump_to_current_second"></i></p>
 
 <div *ngIf="fighter.actioncount.length" class="buttonShell">
   <button *ngIf="fighter.selected.init > 0" (click)="rollInitiative()"
@@ -103,12 +103,12 @@
 </div>
 
 <div *ngIf="trauma" class="icon">
-  <input id="focusInput" (change)="enterTrauma($event)" (blur)="showTrauma()" matTooltip="Enter How Much They Failed By"
+  <input id="focusInput" (change)="enterTrauma($event)" (blur)="showTrauma()" matTooltip="Enter How Much They Failed By"  [matTooltipDisabled]="tooltips.trauma_fail" 
     class="actionInput">
 </div>
-<p *ngIf="!trauma" (click)="showTrauma()" class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
+<p *ngIf="!trauma" (click)="showTrauma()" class="icon"><i matTooltip="Trauma" [matTooltipDisabled]="tooltips.trauma_fighter" class="fas fa-frown"></i></p>
 
-<p class="icon" (click)="killFighter()"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
+<p class="icon" (click)="killFighter()"><i matTooltip="Kill" [matTooltipDisabled]="tooltips.kill_fighter" class="fas fa-skull-crossbones"></i></p>
 
-<p *ngIf="!editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Edit" class="fas fa-edit"></i></p>
-<p *ngIf="editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Save Changes" class="fas fa-save"></i></p>
+<p *ngIf="!editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Edit" [matTooltipDisabled]="tooltips.edit_fighter" class="fas fa-edit"></i></p>
+<p *ngIf="editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Save Changes" [matTooltipDisabled]="tooltips.trauma_fighter" class="fas fa-save"></i></p>

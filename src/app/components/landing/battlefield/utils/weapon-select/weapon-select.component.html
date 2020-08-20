@@ -45,7 +45,7 @@
 
         </mat-expansion-panel>
 
-        <div (click)="selectWeapon($event, weapon.id)"
+        <div (click)="selectWeapon($event, weapon.id)" matTooltip="Select Weapon"
           [ngClass]="weapon.selected === '1' ? 'weaponSelectButton selectedBackground' : 'weaponSelectButton'">
           <i *ngIf="weapon.selected === '0'" class="fas fa-check-circle"></i>
         </div>

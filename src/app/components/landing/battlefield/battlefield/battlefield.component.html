@@ -3,11 +3,11 @@
   <div class="headerShell">
     <input (change)="changeBattlefieldName($event.target)" class="headerInput" value="{{counterService.name}}">
     <div>
-      <button mat-raised-button color="accent" matTooltip="Save"><i class="fas fa-save"></i></button>
+      <button mat-raised-button color="accent" matTooltip="Save" [matTooltipDisabled]="tooltips.save_field"><i class="fas fa-save"></i></button>
       <!-- make the icon spin when it is autosaving -->
       <button class="disabled" matTooltip="Autosaving" mat-raised-button disabled><i
           class="fas fa-spinner"></i></button>
-      <button class="backButton" mat-raised-button color="warn" [routerLink]="['/fields']" matTooltip="Back to Fields"><i
+      <button class="backButton" mat-raised-button color="warn" [routerLink]="['/fields']" matTooltip="Back to Fields" [matTooltipDisabled]="tooltips.back_to_fields"><i
           class="fas fa-chevron-right"></i></button>
     </div>
   </div>
@@ -39,9 +39,9 @@
               <p>{{fighter.namefighter}}</p>
             </div>
             <div class="deadIconShell">
-              <p (click)="resurrectFighter(fighter.id)" class="icon" matTooltip="Resurrect Fighter"><i
+              <p (click)="resurrectFighter(fighter.id)" class="icon" matTooltip="Resurrect Fighter"  [matTooltipDisabled]="tooltips.resurrect_fighter"><i
                   class="fas fa-sun"></i></p>
-              <p (click)="removeFighter(fighter.id)" class="icon" matTooltip="Remove Fighter Permanently"><i
+              <p (click)="removeFighter(fighter.id)" class="icon" matTooltip="Remove Fighter Permanently"  [matTooltipDisabled]="tooltips.remove_fighter"><i
                   class="fas fa-trash"></i></p>
             </div>
           </div>

@@ -1,13 +1,13 @@
 <div class="counterShell">
-  <i class="fas fa-redo" (click)="counterService.resetCount()" matTooltip="Reset Clock (Shortcut: X)"></i>
-  <i class="fas fa-stop" (click)="stopAutoCount()" matTooltip="Stop Auto-Clock (Shortcut: S, Space)"></i>
-  <i class="fas fa-chevron-left" (click)="counterService.decrementCount()" matTooltip="-1 Second (Shortcut: A)"></i>
+  <i class="fas fa-redo" (click)="counterService.resetCount()" matTooltip="Reset Clock (Shortcut: X)" [matTooltipDisabled]="tooltips.reset_count"></i>
+  <i class="fas fa-stop" (click)="stopAutoCount()" matTooltip="Stop Auto-Clock (Shortcut: S, Space)" [matTooltipDisabled]="tooltips.auto_clock_stop"></i>
+  <i class="fas fa-chevron-left" (click)="counterService.decrementCount()" matTooltip="-1 Second (Shortcut: A)" [matTooltipDisabled]="tooltips.decrement_second"></i>
   <div>
     <h3 class="clockTitle">The Clock</h3>
     <div class="divider"></div>
     <h3>{{counterService.count}}</h3>
   </div>
-  <i class="fas fa-chevron-right" (click)="counterService.incrementCount()" matTooltip="+1 Second (Shortcut: D)"></i>
-  <i class="fas fa-step-forward" (click)="startAutoCount(1000)" matTooltip="+1 Second/Second (Shortcut: W)"></i>
-  <i class="fas fa-fast-forward" (click)="startAutoCount(500)" matTooltip="+1 Second/.5 Second (Shortcut: E, Space)"></i>
+  <i class="fas fa-chevron-right" (click)="counterService.incrementCount()" matTooltip="+1 Second (Shortcut: D)" [matTooltipDisabled]="tooltips.increment_second"></i>
+  <i class="fas fa-step-forward" (click)="startAutoCount(1000)" matTooltip="+1 Second/Second (Shortcut: W)" [matTooltipDisabled]="tooltips.auto_clock_one"></i>
+  <i class="fas fa-fast-forward" (click)="startAutoCount(500)" matTooltip="+1 Second/.5 Second (Shortcut: E, Space)" [matTooltipDisabled]="tooltips.auto_clock_two"></i>
 </div>

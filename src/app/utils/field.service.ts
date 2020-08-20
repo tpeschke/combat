@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import local from '../local';
+import tooltips from './tooltips'
 import { Socket } from 'ngx-socket-io';
  
 @Injectable({
@@ -48,4 +49,6 @@ export class FieldService {
   getBattleInfo(data) {
     this.socket.emit('battle-fetch', data)
   }
+
+
 }

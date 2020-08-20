@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CounterService } from 'src/app/utils/counter.service';
 import { FieldService } from 'src/app/utils/field.service';
+import tooltips from '../../../../../utils/tooltips'
 
 @Component({
   selector: 'app-statuses',
@@ -14,9 +15,12 @@ export class StatusesComponent implements OnInit {
   constructor(
     private counterService: CounterService,
     private fieldService: FieldService
-  ) { }
+  ) { 
+    this.tooltips = tooltips
+  }
 
   private descriptionOpen = false
+  public tooltips
 
   ngOnInit() {
   }

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CounterService } from 'src/app/utils/counter.service';
 import variables from '../../../../local.js';
+import tooltips from '../../../../utils/tooltips'
 import { FieldService } from 'src/app/utils/field.service.js';
 
 @Component({
@@ -14,10 +15,13 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private counterService: CounterService,
-    private fieldService: FieldService
-  ) { }
+    private fieldService: FieldService,
+    ) {
+      this.tooltips = tooltips
+    }
 
   public canPlayersView = false;
+  public tooltips;
 
   ngOnInit() {
     this.route.data.subscribe(data => {

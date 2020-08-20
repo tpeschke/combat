@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { FieldService } from 'src/app/utils/field.service';
 import { WeaponSelectComponent } from '../../../utils/weapon-select/weapon-select.component';
 import { GeneralService } from 'src/app/utils/general.service';
+import tooltips from '../../../../../../utils/tooltips'
 
 @Component({
   selector: 'app-singlefighter',
@@ -19,7 +20,9 @@ export class SinglefighterComponent implements OnInit {
     private dialog: MatDialog,
     public fieldService: FieldService,
     public generalService: GeneralService
-  ) { }
+  ) { 
+    this.tooltips = tooltips
+  }
 
   public trauma = false;
   public editOn = false;
@@ -27,6 +30,7 @@ export class SinglefighterComponent implements OnInit {
   public colorChange;
   public maxHealthChange;
   public stessThresholdChange;
+  public tooltips;
 
   ngOnInit() {
     this.nameChange = this.fighter.namefighter
