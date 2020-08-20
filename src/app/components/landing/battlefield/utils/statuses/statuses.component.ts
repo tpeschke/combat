@@ -8,6 +8,7 @@ import { CounterService } from 'src/app/utils/counter.service';
 })
 export class StatusesComponent implements OnInit {
   @Input() status: any;
+  @Input() count: number;
 
   constructor(
     private counterService: CounterService

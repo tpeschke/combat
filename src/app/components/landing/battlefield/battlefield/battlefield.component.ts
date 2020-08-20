@@ -35,11 +35,12 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
       }
       
       this.fieldService.subscribeToBattleInfo(this.counterService.hash).subscribe(_ => {
-        let {hash, count, formatFightersForPlayers, fighters} = this.counterService
+        let {hash, count, formatFightersForPlayers, fighters, statuses} = this.counterService
         this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: this.canPlayersView})
         if (this.canPlayersView) {
           this.fieldService.sendBattleData({hash, type: 'count', value: count})
           this.fieldService.sendBattleData({hash, type: 'fighters', value: formatFightersForPlayers(fighters)})
+          this.fieldService.sendBattleData({hash, type: 'statuses', value: statuses})
         }
       })
     }).unsubscribe();

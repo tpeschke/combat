@@ -397,3 +397,9 @@ button:hover {
     border: 0;
     border-bottom: 1px solid;
 }
+
+.statusShell {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}

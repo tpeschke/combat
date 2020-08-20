@@ -59,4 +59,10 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="statuses.length > 0" class="statusShell">
+    <div *ngFor="let status of statuses">
+      <app-statuses [status]="status" [count]="count"></app-statuses>
+    </div>
+  </div>
 </mat-card>

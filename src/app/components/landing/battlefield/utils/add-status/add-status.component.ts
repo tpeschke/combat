@@ -50,8 +50,16 @@ export class AddStatusComponent implements OnInit {
       this.status.id = this.generalService.makeid()
       if (this.status.timestatus) { this.status.timestatus = this.counterService.count + this.status.timestatus }
       this.counterService.statuses = this.counterService.statuses.concat([this.status])
-      //send to player view
+      this.fieldService.sendBattleData({hash: this.counterService.hash, type: 'addStatus', value: [this.status]})
       this.viewPanels.forEach(p => p.close());
+      this.status = {
+        id: null,
+        namestatus: '',
+        colorcode: '#ccc',
+        timestatus: null,
+        description: null,
+        playerDescription: false
+      }
     } 
   }
 

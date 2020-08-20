@@ -16,7 +16,7 @@
 
   <div *ngIf="counterService.statuses.length > 0" class="statusShell">
     <div *ngFor="let status of counterService.statuses">
-      <app-statuses [status]="status"></app-statuses>
+      <app-statuses [status]="status" [count]="null"></app-statuses>
     </div>
   </div>
 

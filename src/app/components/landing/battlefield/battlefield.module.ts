@@ -29,7 +29,8 @@ import { StatusesComponent } from './utils/statuses/statuses.component';
     MatExpansionModule
   ],
   exports: [
-    BattlefieldComponent
+    BattlefieldComponent,
+    StatusesComponent
   ],
   entryComponents: [WeaponSelectComponent]
 })

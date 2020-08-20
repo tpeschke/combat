@@ -1,8 +1,16 @@
-<mat-card (click)="toggleDescription()" *ngIf="!status.timestatus || status.timestatus - counterService.count >= 0" [ngStyle]="{background: status.colorcode}">
-  <h4>{{status.namestatus}}</h4>
-  <p>{{status.timestatus - counterService.count}} Seconds Left</p>
-  <p *ngIf="descriptionOpen && status.description">This is the description. It is fairly limited but I needed to just test 
-    how it'll look and what effect on the width it'll have
-  </p>
-  <button mat-raised-button color="accent" *ngIf="descriptionOpen">Delete Status</button>
-</mat-card>
+<div *ngIf="!count">
+  <mat-card (click)="toggleDescription()" *ngIf="!status.timestatus || status.timestatus - counterService.count >= 0" [ngStyle]="{background: status.colorcode}">
+    <h4>{{status.namestatus}}</h4>
+    <p *ngIf="status.timestatus">{{status.timestatus - counterService.count}} Seconds Left</p>
+    <p *ngIf="descriptionOpen && status.description">{{status.description}}</p>
+    <button mat-raised-button color="accent" *ngIf="descriptionOpen">Delete Status</button>
+  </mat-card>
+</div>
+<div *ngIf="count">
+  <mat-card (click)="toggleDescription()" *ngIf="!status.timestatus || status.timestatus - count >= 0" [ngStyle]="{background: status.colorcode}">
+    <h4>{{status.namestatus}}</h4>
+    <p *ngIf="status.timestatus">{{status.timestatus - count}} Seconds Left</p>
+    <p *ngIf="descriptionOpen && status.description && status.playerDescription">{{status.description}}</p>
+  </mat-card>
+</div>
+

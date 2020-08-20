@@ -44,6 +44,15 @@ export class PlayerViewComponent implements OnInit {
           }
         } else if (type === 'addFighter') {
           this.fighters = this.fighters.concat(data.value)
+        } else if (type === 'removeStatus') {
+          for (let i = 0; i < this.fighters.length; i++) {
+            if (this.statuses[i].id === value) {
+              this.statuses.splice(i, 1)
+              i = this.statuses.length
+            }
+          }
+        } else if (type === 'addStatus') {
+          this.statuses = this.statuses.concat(data.value)
         } else {
           this[type] = value
         }
