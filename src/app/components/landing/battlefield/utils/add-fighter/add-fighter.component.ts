@@ -142,6 +142,14 @@ export class AddFighterComponent implements OnInit {
   }
 
   checkIfFighterIsValid() {
-    return true
+    let isValid = false
+    isValid = this.fighter.namefighter !== '' 
+              && this.fighter.max_health > 0 
+              && this.fighter.max_health >= this.fighter.health
+              && this.fighter.selected.speed > 0
+              && !isNaN(+this.fighter.selected.init)
+              && this.fighter.selected.encumb >= 0
+              && this.fighter.selected.weapon !== ''
+    return isValid
   }
 }

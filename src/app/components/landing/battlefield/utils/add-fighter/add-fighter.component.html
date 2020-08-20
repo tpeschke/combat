@@ -1,4 +1,4 @@
-<mat-expansion-panel>
+<mat-expansion-panel class="topExpansionHeader">
   <mat-expansion-panel-header class="addFighterHeader">
     <mat-panel-title>
       Add Fighter
@@ -23,7 +23,7 @@
     <i (click)="captureChange('0', 'hidden')" matTooltip="Hidden" *ngIf="fighter.hidden === '1'"
       class="fas fa-eye-slash"></i>
     <mat-form-field>
-      <input (change)="captureChange($event.target.value, 'namefighter')" matInput placeholder="Fighter Name"
+      <input (change)="captureChange($event.target.value, 'namefighter')" matInput placeholder="Fighter Name*"
         value="{{fighter.namefighter}}">
     </mat-form-field>
   </div>
@@ -35,7 +35,7 @@
     </mat-form-field>
     <p>/</p>
     <mat-form-field>
-      <input (change)="captureChangeInt($event.target.value, 'max_health')" matInput placeholder="Max Vitality"
+      <input (change)="captureChangeInt($event.target.value, 'max_health')" matInput placeholder="Max Vitality*"
         value="{{fighter.max_health}}">
     </mat-form-field>
   </div>
