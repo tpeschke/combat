@@ -42,6 +42,8 @@ export class PlayerViewComponent implements OnInit {
               i = this.fighters.length
             }
           }
+        } else if (type === 'addFighter') {
+          this.fighters = this.fighters.concat(data.value)
         } else {
           this[type] = value
         }

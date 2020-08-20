@@ -3,6 +3,7 @@ import { WeaponSelectComponent } from '../weapon-select/weapon-select.component'
 import { MatDialog, MatExpansionPanel } from '@angular/material';
 import { CounterService } from 'src/app/utils/counter.service';
 import { GeneralService } from 'src/app/utils/general.service';
+import { FieldService } from 'src/app/utils/field.service';
 
 @Component({
   selector: 'app-add-fighter',
@@ -15,7 +16,8 @@ export class AddFighterComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private counterService: CounterService,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private fieldService: FieldService
   ) { }
 
   public fighter = {
@@ -31,7 +33,7 @@ export class AddFighterComponent implements OnInit {
     acting: '0',
     weapons: [{
       id: this.generalService.makeid(),
-      weapon: 'New Weapon',
+      weapon: 'Unarmed',
       speed: 10,
       encumb: 10,
       selected: '1',
@@ -96,19 +98,13 @@ export class AddFighterComponent implements OnInit {
           let fighterCopy = {...this.fighter}
           fighterCopy.id = this.generalService.makeid()
           if (this.numberEach) { fighterCopy.namefighter = fighterCopy.namefighter + ` ${i + 1}` }
-          if (this.uniqueColors) { 
-            i > 7 ? fighterCopy.colorcode = this.generalService.genHexString() : fighterCopy.colorcode = colors[i]
-          }
+          if (this.uniqueColors) {  i > 7 ? fighterCopy.colorcode = this.generalService.genHexString() : fighterCopy.colorcode = colors[i] }
           newFighters.push({ ...fighterCopy })
         }
         this.counterService.addFighter(newFighters);
-        // add fighters to player view
-        this.counterService.sort()
       } else {
         this.fighter.id = this.generalService.makeid()
         this.counterService.addFighter([this.fighter]);
-        // add fighter to player view
-        this.counterService.sort()
       }
       this.viewPanels.forEach(p => p.close());
       this.multiAdd = null
