@@ -32,6 +32,10 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
       } else {
         this.counterService.name = 'New Battlefield'
         this.counterService.count = 1
+        this.counterService.hash = null
+        this.counterService.id = null
+        this.counterService.fighters = []
+        this.counterService.statuses = []
       }
       
       this.fieldService.subscribeToBattleInfo(this.counterService.hash).subscribe(_ => {

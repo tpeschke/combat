@@ -51,12 +51,12 @@
     <div class="right">
       <h2 class="lowerHeader">Workspace</h2>
       <div class="innerShell">
-        <div class="battleHashShell">
+        <div *ngIf="counterService.hash" class="battleHashShell">
           <h4>Battle Hash:</h4>
           <p>{{counterService.hash}}</p> <button (click)="copyHash()" mat-raised-button color="accent">Copy Complete
             URL</button>
         </div>
-        <mat-checkbox color="warn" (change)="togglePlayerView($event.checked)">Player View On</mat-checkbox>
+        <mat-checkbox *ngIf="counterService.hash" color="warn" (change)="togglePlayerView($event.checked)">Player View On</mat-checkbox>
         <mat-accordion>
           <app-add-fighter></app-add-fighter>
 
