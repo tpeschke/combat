@@ -8,9 +8,9 @@
 
   <div class="bestiaryHashShell">
     <mat-form-field>
-      <input matInput placeholder="Import by Bestiary Hash">
+      <input (change)="changeHash($event.target.value)" matInput placeholder="Import by Bestiary Hash">
     </mat-form-field>
-    <button mat-raised-button color="accent">Add</button>
+    <button (click)="addByHash()" mat-raised-button color="accent">Fill It In!</button>
   </div>
 
   <div class="nameShell">

@@ -97,7 +97,7 @@ module.exports = {
 
     },
     getBeastbyHash: (req, res) => {
-        axios.get(config.beastiaryEndpoint + '/api/combat/' + req.params.hash).then(result => res.send(result.data))
+        axios.get(config.beastiaryEndpoint + '/api/combat/' + req.params.hash, { query: { patreon: req.user.patreon}}).then(result => res.send(result.data))
     },
     newField: (req, res) => {
         var urlhash = makeid()

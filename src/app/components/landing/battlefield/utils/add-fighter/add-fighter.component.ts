@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { WeaponSelectComponent } from '../weapon-select/weapon-select.component';
-import { MatDialog, MatExpansionPanel, MatAccordion } from '@angular/material';
-import { CounterService } from 'src/app/utils/counter.service';
+import { MatDialog, MatExpansionPanel } from '@angular/material';
 import { GeneralService } from 'src/app/utils/general.service';
+import { FieldService } from 'src/app/utils/field.service';
+import { CounterService } from 'src/app/utils/counter.service';
 
 @Component({
   selector: 'app-add-fighter',
@@ -13,9 +14,10 @@ export class AddFighterComponent implements OnInit {
   @ViewChildren(MatExpansionPanel) viewPanels: QueryList<MatExpansionPanel>;
 
   constructor(
-    private dialog: MatDialog,
+    private generalService: GeneralService,
     private counterService: CounterService,
-    private generalService: GeneralService
+    private fieldService: FieldService,
+    private dialog: MatDialog
   ) { }
 
   public fighter = {
@@ -43,9 +45,56 @@ export class AddFighterComponent implements OnInit {
   public multiAdd = null
   public uniqueColors = false
   public numberEach = false
+  public hash = null
 
   ngOnInit() {
     this.fighter.selected = this.fighter.weapons[0]
+  }
+
+  changeHash(value) {
+    this.hash = value.trim()
+  }
+
+  addByHash() {
+    if (this.hash) {
+      this.fieldService.getFightersFromBestiary(this.hash).subscribe((beast: any) => {
+        let max_health = beast.vitality.toUpperCase() !== "N/A" ? this.generalService.rollDice(beast.vitality) : 10000
+          , weapons = []
+          , noBase = true
+          , selected = null
+        beast.combat.forEach(val => {
+          if (val.weapon !== 'Base') {
+            weapons.push({ ...val, id: this.generalService.makeid(), weapon: val.weapon, speed: val.spd, selected: '0', encumb: val.encumb })
+            weapons.push({ ...val, id: this.generalService.makeid(), weapon: `${val.weapon} (IG)`, speed: val.spd + Math.ceil(val.measure / 2), selected: '0', encumb: val.encumb })
+          } else {
+            noBase = false;
+            let newId = this.generalService.makeid()
+            weapons.push({ ...val, id: newId, weapon: "Unarmed", speed: 9 + +val.spd, selected: '1', encumb: +val.encumb, damage: `d6+${+val.damage + 1}` })
+            selected = { ...val, id: newId, weapon: "Unarmed", speed: 9 + +val.spd, selected: '1', encumb: +val.encumb, damage: `d6+${+val.damage + 1}` }
+            weapons.push({ ...val, id: this.generalService.makeid(), weapon: val.weapon, speed: val.spd, selected: '0', encumb: +val.encumb })
+          }
+        })
+        if (weapons.length === 1 || noBase) {
+          weapons[0].selected = '1'
+          selected = weapons[0]
+        }
+        this.fighter = {
+          id: null,
+          hidden: '0',
+          colorcode: '#000000',
+          namefighter: beast.name,
+          health: 0,
+          max_health,
+          dead: '0',
+          stress: 0,
+          stressthreshold: 0,
+          acting: '0',
+          weapons,
+          selected,
+          actioncount: [1]
+        }
+      })
+    }
   }
 
   captureChange(value, type) {
@@ -93,10 +142,10 @@ export class AddFighterComponent implements OnInit {
         let colors = ['#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']
         let newFighters = []
         for (let i = 0; i < this.multiAdd; i++) {
-          let fighterCopy = {...this.fighter}
+          let fighterCopy = { ...this.fighter }
           fighterCopy.id = this.generalService.makeid()
           if (this.numberEach) { fighterCopy.namefighter = fighterCopy.namefighter + ` ${i + 1}` }
-          if (this.uniqueColors) {  i > 7 ? fighterCopy.colorcode = this.generalService.genHexString() : fighterCopy.colorcode = colors[i] }
+          if (this.uniqueColors) { i > 7 ? fighterCopy.colorcode = this.generalService.genHexString() : fighterCopy.colorcode = colors[i] }
           newFighters.push({ ...fighterCopy })
         }
         this.counterService.addFighter(newFighters);
@@ -143,13 +192,13 @@ export class AddFighterComponent implements OnInit {
 
   checkIfFighterIsValid() {
     let isValid = false
-    isValid = this.fighter.namefighter !== '' 
-              && this.fighter.max_health > 0 
-              && this.fighter.max_health >= this.fighter.health
-              && this.fighter.selected.speed > 0
-              && !isNaN(+this.fighter.selected.init)
-              && this.fighter.selected.encumb >= 0
-              && this.fighter.selected.weapon !== ''
+    isValid = this.fighter.namefighter !== ''
+      && this.fighter.max_health > 0
+      && this.fighter.max_health >= this.fighter.health
+      && this.fighter.selected.speed > 0
+      && !isNaN(+this.fighter.selected.init)
+      && this.fighter.selected.encumb >= 0
+      && this.fighter.selected.weapon !== ''
     return isValid
   }
 }

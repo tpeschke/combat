@@ -29,6 +29,10 @@ export class FieldService {
     return this.http.get(local.endpointBase + '/api/battle/' + hash)
   }
 
+  getFightersFromBestiary(hash) {
+    return this.http.get(local.endpointBase + '/api/beast/' + hash)
+  }
+
   getFightersForPlayers(hash) {
     return this.http.get(local.endpointBase + '/api/player/battle/' + hash)
   }
