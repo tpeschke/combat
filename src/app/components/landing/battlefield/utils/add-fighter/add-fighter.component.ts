@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { WeaponSelectComponent } from '../weapon-select/weapon-select.component';
-import { MatDialog, MatExpansionPanel } from '@angular/material';
+import { MatDialog, MatExpansionPanel, MatAccordion } from '@angular/material';
 import { CounterService } from 'src/app/utils/counter.service';
 import { GeneralService } from 'src/app/utils/general.service';
-import { FieldService } from 'src/app/utils/field.service';
 
 @Component({
   selector: 'app-add-fighter',
@@ -16,8 +15,7 @@ export class AddFighterComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private counterService: CounterService,
-    private generalService: GeneralService,
-    private fieldService: FieldService
+    private generalService: GeneralService
   ) { }
 
   public fighter = {

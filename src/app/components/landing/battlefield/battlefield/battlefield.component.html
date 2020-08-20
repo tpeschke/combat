@@ -4,8 +4,10 @@
     <div>
       <button mat-raised-button color="accent" matTooltip="Save"><i class="fas fa-save"></i></button>
       <!-- make the icon spin when it is autosaving -->
-      <button class="disabled" matTooltip="Autosaving" mat-raised-button disabled><i class="fas fa-spinner"></i></button>
-      <button class="backButton" mat-raised-button color="warn" [routerLink]="['/field']" matTooltip="Back to Fields"><i class="fas fa-chevron-right"></i></button>
+      <button class="disabled" matTooltip="Autosaving" mat-raised-button disabled><i
+          class="fas fa-spinner"></i></button>
+      <button class="backButton" mat-raised-button color="warn" [routerLink]="['/field']" matTooltip="Back to Fields"><i
+          class="fas fa-chevron-right"></i></button>
     </div>
   </div>
 
@@ -30,8 +32,10 @@
               <p>{{fighter.namefighter}}</p>
             </div>
             <div class="deadIconShell">
-              <p (click)="resurrectFighter(fighter.id)" class="icon" matTooltip="Resurrect Fighter"><i class="fas fa-sun"></i></p>
-              <p (click)="removeFighter(fighter.id)" class="icon" matTooltip="Remove Fighter Permanently"><i class="fas fa-trash"></i></p>
+              <p (click)="resurrectFighter(fighter.id)" class="icon" matTooltip="Resurrect Fighter"><i
+                  class="fas fa-sun"></i></p>
+              <p (click)="removeFighter(fighter.id)" class="icon" matTooltip="Remove Fighter Permanently"><i
+                  class="fas fa-trash"></i></p>
             </div>
           </div>
         </div>
@@ -40,27 +44,16 @@
     <div class="right">
       <h2 class="lowerHeader">Workspace</h2>
       <div class="innerShell">
-        <div class="battleHashShell"><h4>Battle Hash:</h4> <p>{{counterService.hash}}</p> <button (click)="copyHash()" mat-raised-button color="accent">Copy Complete URL</button></div>
+        <div class="battleHashShell">
+          <h4>Battle Hash:</h4>
+          <p>{{counterService.hash}}</p> <button (click)="copyHash()" mat-raised-button color="accent">Copy Complete
+            URL</button>
+        </div>
         <mat-checkbox color="warn" (change)="togglePlayerView($event.checked)">Player View On</mat-checkbox>
         <mat-accordion>
-            <mat-expansion-panel>
-              <mat-expansion-panel-header class="addFighterHeader">
-                <mat-panel-title>
-                  Add Fighter
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-    
-              <app-add-fighter></app-add-fighter>
-            </mat-expansion-panel>
+          <app-add-fighter></app-add-fighter>
 
-            <mat-expansion-panel>
-              <mat-expansion-panel-header class="addStatusHeader">
-                <mat-panel-title>
-                  Add Status
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-    
-            </mat-expansion-panel>
+          <app-add-status></app-add-status>
         </mat-accordion>
       </div>
     </div>
