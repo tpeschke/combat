@@ -11,3 +11,11 @@
   <i class="fas fa-step-forward" (click)="startAutoCount(1000)" matTooltip="+1 Second/Second (Shortcut: W)" [matTooltipDisabled]="tooltips.auto_clock_one"></i>
   <i class="fas fa-fast-forward" (click)="startAutoCount(500)" matTooltip="+1 Second/.5 Second (Shortcut: E, Space)" [matTooltipDisabled]="tooltips.auto_clock_two"></i>
 </div>
+
+<div (document:keydown.d)="counterService.incrementCount()"></div>
+<div (document:keydown.a)="counterService.decrementCount()"></div>
+<div (document:keydown.x)="counterService.resetCount()"></div>
+<div (document:keydown.s)="stopAutoCount()"></div>
+<div (document:keydown.w)="startAutoCount(1000)"></div>
+<div (document:keydown.e)="startAutoCount(500)"></div>
+<div (document:keydown.space)="toggleAutoCount($event)"></div>
