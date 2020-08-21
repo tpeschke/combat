@@ -27,6 +27,7 @@
     </mat-expansion-panel-header>
 
     <h4>Toggle Tool Tips</h4>
+    <mat-checkbox [checked]="!tooltips.save_field" (change)="checkAllCheckboxes($event)">Turn All Tooltips On</mat-checkbox>
     <div class="tooltipShell">
       <mat-checkbox [checked]="!tooltips.save_field" (change)="checkCheckbox('save_field', $event)">Save Field
       </mat-checkbox>
@@ -67,8 +68,8 @@
       </mat-checkbox>
       <mat-checkbox [checked]="!tooltips.save_fighter" (change)="checkCheckbox('save_fighter', $event)">Resurrect
         Fighter</mat-checkbox>
-        <mat-checkbox [checked]="!tooltips.remove_fighter" (change)="checkCheckbox('remove_fighter', $event)">Remove
-          Fighter</mat-checkbox>
+      <mat-checkbox [checked]="!tooltips.remove_fighter" (change)="checkCheckbox('remove_fighter', $event)">Remove
+        Fighter</mat-checkbox>
     </div>
   </mat-expansion-panel>
 </mat-card>

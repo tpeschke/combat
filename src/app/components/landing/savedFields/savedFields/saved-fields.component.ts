@@ -37,4 +37,12 @@ export class SavedFieldsComponent implements OnInit {
     this.fieldService.updateTooltip(type, !event.checked).subscribe().unsubscribe()
   }
 
+  checkAllCheckboxes(event) {
+    for (let key in tooltips) {
+      if (typeof tooltips[key] === 'boolean') {
+        tooltips.updateTooltipSettings(key, !event.checked)
+      }
+    }
+  }
+
 }
