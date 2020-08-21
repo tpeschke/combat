@@ -21,9 +21,9 @@ export class DeleteComponent implements OnInit {
   ngOnInit() {}
 
   deleteField() {
-    // this.fieldService.deleteField(this.id).subscribe(result => {
+    this.fieldService.deleteField(this.id).subscribe(result => {
       this.dialogRef.close(true)
-    // })
+    })
   }
 
 }

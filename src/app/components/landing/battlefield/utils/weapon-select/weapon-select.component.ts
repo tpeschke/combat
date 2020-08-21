@@ -146,6 +146,7 @@ export class WeaponSelectComponent implements OnInit {
           for (let x = 0; x < fighters[i].weapons.length; x++) {
             if (fighters[i].weapons[x].id === weaponId) {
               fighters[i].weapons.splice(x, 1)
+              this.fieldService.deleteWeapon(weaponId).subscribe().unsubscribe()
               x = fighters[i].weapons.length
             }
           }

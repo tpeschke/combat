@@ -1,6 +1,5 @@
-delete from weapons w
-join combatants c on c.id = w.combatant
-where idcombat = $1;
+delete from weapons
+where combatant in (select id from combatants where idcombat = $1);
 
 delete from combatants
 where idcombat = $1;

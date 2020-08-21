@@ -1,5 +1,5 @@
 delete from combatants
-where id = $1
+where id = $1;
 
-select * from weapons
+delete from weapons
 where combatant = $1;

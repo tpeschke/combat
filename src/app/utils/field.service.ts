@@ -61,5 +61,16 @@ export class FieldService {
   deleteField(id) {
     return this.http.delete(local.endpointBase + '/api/battle/' + id)
   }
+  
+  deleteFighter(id) {
+    return this.http.delete(local.endpointBase + '/api/fighter/' + id)
+  }
 
+  deleteStatus(id) {
+    return this.http.delete(local.endpointBase + '/api/status/' + id)
+  }
+  
+  deleteWeapon(id) {
+    return this.http.delete(local.endpointBase + '/api/weapon/' + id)
+  }
 }

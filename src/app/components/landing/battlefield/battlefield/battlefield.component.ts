@@ -106,6 +106,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
       if (fighters[i].id === id) {
         fighters.splice(i, 1)
         this.fieldService.sendBattleData({ hash, type: 'removeFighter', value: id })
+        this.fieldService.deleteFighter(id).subscribe().unsubscribe()
         i = fighters.length
       }
     }

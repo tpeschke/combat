@@ -39,6 +39,7 @@ export class StatusesComponent implements OnInit {
       if (statuses[i].id === statusId) {
         statuses.splice(i, 1)
         this.fieldService.sendBattleData({ hash, type: 'removeStatus', value: statusId })
+        this.fieldService.deleteStatus(statusId).subscribe().unsubscribe()
         i = statuses.length
       }
     }
