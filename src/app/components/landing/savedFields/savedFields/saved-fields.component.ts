@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import tooltips from '../../../../utils/tooltips'
 import { FieldService } from 'src/app/utils/field.service';
+import { MatDialog } from '@angular/material';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-saved-fields',
@@ -12,6 +14,7 @@ export class SavedFieldsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private dialog: MatDialog,
     private fieldService: FieldService
   ) { }
 
@@ -43,6 +46,23 @@ export class SavedFieldsComponent implements OnInit {
         tooltips.updateTooltipSettings(key, !event.checked)
       }
     }
+  }
+
+  deleteConfirm(event, id) {
+    event.stopPropagation()
+    this.dialog.open(DeleteComponent, {
+      panelClass: 'dialogStyling',
+      data: { id }
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        for(let i = 0; i < this.fields.length; i++) {
+          if (this.fields[i].id === id) {
+            this.fields.splice(i,1)
+            i = this.fields.length
+          }
+        }
+      }
+    })
   }
 
 }

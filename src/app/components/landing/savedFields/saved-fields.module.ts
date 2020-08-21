@@ -7,10 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { MatExpansionModule, MatCheckboxModule } from '@angular/material';
+import { DeleteComponent } from './delete/delete.component';
 
 @NgModule({
   declarations: [
-    SavedFieldsComponent
+    SavedFieldsComponent,
+    DeleteComponent
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,7 @@ import { MatExpansionModule, MatCheckboxModule } from '@angular/material';
   ],
   exports: [
     SavedFieldsComponent
-  ]
+  ],
+  entryComponents: [DeleteComponent]
 })
 export class SavedFieldsModule { }

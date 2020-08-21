@@ -58,4 +58,8 @@ export class FieldService {
     return this.http.patch(local.endpointBase + '/api/tooltips', {type, value})
   }
 
+  deleteField(id) {
+    return this.http.delete(local.endpointBase + '/api/battle/' + id)
+  }
+
 }

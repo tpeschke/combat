@@ -125,13 +125,10 @@ module.exports = {
     },
 
     deleteField: (req, res) => {
-
         const db = req.app.get('db')
-
         let { id } = req.params
             , { user } = req
-
-        db.delete.field(id, user.id).then(result => res.status(200).send(result))
+        db.delete.field(id, user.id).then(result => res.send(result))
     },
 
     saveField: (req, res) => {
@@ -241,28 +238,20 @@ module.exports = {
     },
 
     deleteFighter: (req, res) => {
-
         const db = req.app.get('db')
-
         var { id } = req.params
-
         db.delete.fighter(id).then()
     },
 
     deleteStatus: (req, res) => {
-
         const db = req.app.get('db')
-
         var { id } = req.params
-
         db.delete.status(id).then()
     },
 
     deleteWeapon: (req, res) => {
         const db = req.app.get('db')
-
         var { id } = req.params
-
         db.delete.weapon(id).then()
     }
 

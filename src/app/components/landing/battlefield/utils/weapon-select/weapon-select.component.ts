@@ -22,8 +22,7 @@ export class WeaponSelectComponent implements OnInit {
   public id = this.data.id
   public weapons = this.data.weapons
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   selectWeapon(event, weaponId) {
     event.stopPropagation();

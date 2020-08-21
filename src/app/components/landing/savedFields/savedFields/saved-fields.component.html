@@ -15,7 +15,7 @@
       <p>{{field.count}}</p>
       <p>{{field.fightercount}}</p>
       <p>{{field.deadcount}}</p>
-      <p><i class="fas fa-trash"></i></p>
+      <p><i (click)="deleteConfirm($event, field.id)" class="fas fa-trash"></i></p>
     </div>
   </div>
 
