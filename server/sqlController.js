@@ -129,7 +129,7 @@ module.exports = {
 
         tempArray.push(db.upsert.field(user.id, meta.name, meta.hash, meta.count).then())
         fighters.forEach(val => {
-            db.upsert.fighter(val.namefighter, val.colorcode, !isNaN(val.actioncount) ? `${val.actioncount}` : `${val.actioncount[0]},${val.actioncount[1]}`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.broken, val.stressthreshold, val.id, meta.id).then(result => {
+            db.upsert.fighter(val.namefighter, val.colorcode, val.actioncount.length ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.broken, val.stressthreshold, val.id, meta.id).then(result => {
                 val.weapons.forEach(w => {
                     tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.encumb, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id).then())
                 })

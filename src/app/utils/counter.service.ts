@@ -25,6 +25,9 @@ export class CounterService {
 
   public timeId = null;
 
+  public isSaving = false;
+  public autoSaveTimer = null;
+
   public sort() {
     this.fighters.sort((a, b) => a.actioncount - b.actioncount);
 
@@ -45,6 +48,28 @@ export class CounterService {
     })
 
     this.fighters = newFighters
+  }
+
+  saveField() {
+    this.isSaving = true;
+    this.startAutoSaveTimer()
+    let { name, count, hash, id, fighters, statuses } = this
+    let field = {
+      meta: {
+        name, count, hash, id
+      },
+      fighters, statuses
+    }
+    this.fieldService.saveField(field).subscribe(result => this.isSaving = false)
+  }
+
+  startAutoSaveTimer() {
+    clearInterval(this.autoSaveTimer)
+    this.autoSaveTimer = setInterval(this.saveField, 300000)
+  }
+
+  stopAutoSaveTimer() {
+    clearInterval(this.autoSaveTimer)
   }
 
   formatFightersForPlayers(fighters) {
@@ -86,6 +111,7 @@ export class CounterService {
 
   public incrementCount() {
     this.count = ++this.count
+    if (this.count % 5 === 0) {this.saveField()}
     this.sort()
   }
 

@@ -22,9 +22,9 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
 
   public canPlayersView = false;
   public tooltips;
-  public isSaving = false;
 
   ngOnInit() {
+    this.counterService.startAutoSaveTimer()
     this.route.data.subscribe(data => {
       if (data['battle'].meta.name) {
         this.counterService.count = data['battle'].meta.count
@@ -41,7 +41,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
         this.counterService.id = data['battle'].meta.id
         this.counterService.fighters = []
         this.counterService.statuses = []
-        //instantly auto-save
+        this.counterService.saveField()
       }
       
       this.fieldService.subscribeToBattleInfo(this.counterService.hash).subscribe(_ => {
@@ -57,21 +57,11 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    let {hash} = this.counterService
+    let {hash, stopAutoSaveTimer, saveField} = this.counterService
+    saveField()
+    stopAutoSaveTimer()
     this.canPlayersView = false;
     this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: false})
-  }
-
-  saveField() {
-    this.isSaving = true;
-    let { name, count, hash, id, fighters, statuses } = this.counterService
-    let field = {
-      meta: {
-        name, count, hash, id
-      },
-      fighters, statuses
-    }
-    this.fieldService.saveField(field).subscribe(result => this.isSaving = false)
   }
 
   changeBattlefieldName(target) {

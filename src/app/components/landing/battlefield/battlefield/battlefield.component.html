@@ -3,8 +3,8 @@
   <div class="headerShell">
     <input (change)="changeBattlefieldName($event.target)" class="headerInput" value="{{counterService.name}}">
     <div>
-      <button (click)="saveField()" *ngIf="!isSaving" mat-raised-button color="accent" matTooltip="Save" [matTooltipDisabled]="tooltips.save_field"><i class="fas fa-save"></i></button>
-      <button class="disabled" *ngIf="isSaving" matTooltip="Autosaving" mat-raised-button disabled><i
+      <button (click)="this.counterService.saveField()" *ngIf="!this.counterService.isSaving" mat-raised-button color="accent" matTooltip="Save" [matTooltipDisabled]="tooltips.save_field"><i class="fas fa-save"></i></button>
+      <button class="disabled" *ngIf="this.counterService.isSaving" matTooltip="Autosaving" mat-raised-button disabled><i
           class="fas fa-spinner"></i></button>
       <button class="backButton" mat-raised-button color="warn" [routerLink]="['/fields']" matTooltip="Back to Fields" [matTooltipDisabled]="tooltips.back_to_fields"><i
           class="fas fa-chevron-right"></i></button>
