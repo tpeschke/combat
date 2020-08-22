@@ -47,3 +47,13 @@ mat-toolbar h1 {
     width: 100%;
     background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 50%);
 }
+
+@media (max-width: 800px) { 
+    .logoShell img {
+        z-index: 1;
+    }
+    
+    mat-toolbar h1 {
+        font-size: 20px;
+    }
+}

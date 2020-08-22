@@ -22,3 +22,19 @@
     display: flex;
     flex-direction: column;
 }
+
+@media (max-width: 500px) {
+    .landingShell {
+        flex-direction: column;
+    }
+    
+    .left, .right {
+        width: 100%
+    }
+
+    .left {
+        border: 0;
+        border-bottom: 1px solid lightgrey;
+        padding: 0 0 15px
+    }
+ }

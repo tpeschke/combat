@@ -63,4 +63,5 @@ h4 {
     flex-wrap: wrap;
     flex-direction: column;
     height: 150px;
+    overflow: auto;
 }

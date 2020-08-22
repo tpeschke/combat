@@ -136,3 +136,19 @@ i:hover {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+@media (max-width: 800px) { 
+    .workspaceShell {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .workspaceShell .left, .workspaceShell .right {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .left {
+        margin-bottom: 15px;
+    }
+}
