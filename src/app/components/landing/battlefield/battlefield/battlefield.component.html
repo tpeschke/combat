@@ -3,7 +3,7 @@
   <div class="headerShell">
     <input (change)="changeBattlefieldName($event.target)" class="headerInput" value="{{counterService.name}}">
     <div>
-      <button mat-raised-button color="accent" matTooltip="Save" [matTooltipDisabled]="tooltips.save_field"><i class="fas fa-save"></i></button>
+      <button (click)="saveField()" mat-raised-button color="accent" matTooltip="Save" [matTooltipDisabled]="tooltips.save_field"><i class="fas fa-save"></i></button>
       <!-- make the icon spin when it is autosaving -->
       <button class="disabled" matTooltip="Autosaving" mat-raised-button disabled><i
           class="fas fa-spinner"></i></button>

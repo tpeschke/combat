@@ -61,6 +61,17 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
     this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: false})
   }
 
+  saveField() {
+    let { name, count, hash, id, fighters, statuses } = this.counterService
+    let field = {
+      meta: {
+        name, count, hash, id
+      },
+      fighters, statuses
+    }
+    this.fieldService.saveField(field).subscribe(result => console.log(result))
+  }
+
   changeBattlefieldName(target) {
     this.counterService.name = target.value
     this.fieldService.sendBattleData({hash: this.counterService.hash, type: 'name', value: target.value})

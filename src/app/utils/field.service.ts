@@ -30,6 +30,10 @@ export class FieldService {
     return this.http.get(local.endpointBase + '/api/newfield')
   }
 
+  saveField(field) {
+    return this.http.patch(local.endpointBase + '/api/battle', field)
+  }
+
   getFighters(hash) {
     return this.http.get(local.endpointBase + '/api/battle/' + hash)
   }

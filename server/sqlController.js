@@ -105,11 +105,11 @@ module.exports = {
         var { id, patreon } = req.user
         db.get.totalFieldNumber(id).then(totalCount => {
             if (+totalCount[0].count >= 1 && !patreon) {
-                res.status(403).send({message: 'You need to link your Patreon to this account to add more fields. You can do so by logging on through the BonfireSRD'})
+                res.status(403).send({ message: 'You need to link your Patreon to this account to add more fields. You can do so by logging on through the BonfireSRD' })
             } else if (totalCount[0].count === '0' || +totalCount[0].count <= patreon) {
-                db.add.new_Field(id, hash).then(result => res.send({hash}))
+                db.upsert.field(id, 'New Battlefield', hash, 1).then(result => res.send({ hash }))
             } else if (totalCount[0].count > patreon) {
-                res.status(403).send({message: 'To add more fields, you need to increase your Patreon Tier'})
+                res.status(403).send({ message: 'To add more fields, you need to increase your Patreon Tier' })
             }
         })
     },
@@ -122,45 +122,28 @@ module.exports = {
     },
 
     saveField: (req, res) => {
-        var { name, count, combatId, fighterList, statusList } = req.body
+        let { meta, fighters, statuses } = req.body
+            , { user } = req
         const db = req.app.get('db')
-        var tempArr = []
+        var tempArray = []
 
-        fighterList.forEach(val => {
-            if (!isNaN(val.id)) {
-                db.update.fighters(val.namefighter, val.colorcode, !isNaN(val.actioncount) ? `${val.actioncount}` : `${val.actioncount[0]},${val.actioncount[1]}`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.broken, val.stressthreshold, val.id).then(r => {
-                    val.weapons.forEach(w => {
-                        if (!isNaN(w.id)) {
-                            tempArr.push(db.update.weapons(val.id, w.weapon, w.selected, w.speed, w.id, w.encumb, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype).then().catch(e => console.log("----------113")))
-                        } else if (isNaN(w.id)) {
-                            tempArr.push(db.add.weapons(val.id, w.weapon, w.selected, +w.speed, +w.encumb, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype).then().catch(e => console.log("----------115")))
-                        }
-                    })
-                }).catch(e => console.log(e))
+        tempArray.push(db.upsert.field(user.id, meta.name, meta.hash, meta.count).then())
+        fighters.forEach(val => {
+            db.upsert.fighter(val.namefighter, val.colorcode, !isNaN(val.actioncount) ? `${val.actioncount}` : `${val.actioncount[0]},${val.actioncount[1]}`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.broken, val.stressthreshold, val.id, meta.id).then(result => {
+                val.weapons.forEach(w => {
+                    tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.encumb, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id).then())
+                })
+            })
+        })
+        statuses.forEach(val => {
+            if(val.timestatus - meta.count <= 0) {
+                tempArray.push(db.delete.status(val.id).then())
             } else {
-                db.add.fighter(val.namefighter, val.colorcode, !isNaN(val.actioncount) ? `${val.actioncount}` : `${val.actioncount[0]},${val.actioncount[1]}`, val.topcheck, val.acting, val.dead, combatId, val.hidden, val.max_health, val.health, val.stress, val.panic, val.broken, val.stressthreshold).then(v => {
-                    val.weapons.forEach(w => {
-                        tempArr.push(db.add.weapons(v[0].id, w.weapon, w.selected, +w.speed, w.encumb, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype).then())
-                    })
-                }).catch(_ => console.log('140------------------------------------------'))
+                tempArray.push(db.upsert.status(val.namestatus, val.timestatus, val.description, val.colorcode, val.playerdescription, val.id, meta.id).then())
             }
         })
 
-        statusList.forEach(val => {
-            val.timestatus - count <= 0 ? tempArr.push(db.delete.status(val.id).then()) : null;
-            if (!isNaN(val.id)) {
-                tempArr.push(db.update.status(val.namestatus, val.timestatus, val.description, val.colorcode, val.playerdescription, val.id).then())
-            } else {
-                tempArr.push(db.add.status(val.namestatus, val.timestatus, val.description, val.colorcode, val.playerdescription, combatId).then())
-            }
-        })
-
-        tempArr.push(db.update.field(count, name, req.body.combatId).then())
-
-        // Reload the field with the new IDs
-        Promise.all(tempArr).then(_ => {
-            this.getSingleBattle(req, res)
-        })
+        Promise.all(tempArray).then(finalArray => res.send({ finished: true }))
     },
 
     setTooltip: (req, res) => {
