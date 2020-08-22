@@ -254,6 +254,37 @@ h2 {
     width: 10%
 }
 
+.playerViewPlayerSectionHeader {
+    display: flex;
+    background: grey;
+    color: white;
+    justify-content: space-evenly;
+    padding: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.playerViewPlayerSectionRow {
+    display: flex;
+    background: lightgrey;
+    justify-content: space-evenly;
+    padding: 5px;
+}
+
+.playerViewPlayerSectionRow:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.playerViewPlayerSectionHeader p, .playerViewPlayerSectionRow p { 
+    width: 15%
+}
+
+.playerViewPlayerSectionHeader .icon, .playerViewPlayerSectionRow .icon {
+    width: 10%
+}
+
 .counterShell {
     display: flex;
     justify-content: space-evenly;

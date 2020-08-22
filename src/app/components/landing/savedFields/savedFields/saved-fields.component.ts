@@ -37,7 +37,7 @@ export class SavedFieldsComponent implements OnInit {
   }
 
   addField() {
-    this.fieldService.addField().subscribe(result => {
+    this.fieldService.addField().subscribe((result: any) => {
       if (result.hash) {
         this.router.navigate(['/battle', result.hash])
       }
