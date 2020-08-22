@@ -22,6 +22,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
 
   public canPlayersView = false;
   public tooltips;
+  public isSaving = false;
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -62,6 +63,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
   }
 
   saveField() {
+    this.isSaving = true;
     let { name, count, hash, id, fighters, statuses } = this.counterService
     let field = {
       meta: {
@@ -69,7 +71,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
       },
       fighters, statuses
     }
-    this.fieldService.saveField(field).subscribe(result => console.log(result))
+    this.fieldService.saveField(field).subscribe(result => this.isSaving = false)
   }
 
   changeBattlefieldName(target) {

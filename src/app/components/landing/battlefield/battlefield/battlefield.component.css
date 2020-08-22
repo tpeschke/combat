@@ -127,3 +127,12 @@ i:hover {
     border-radius: 15px;
     border: 1px solid;
 }
+
+.fa-spinner {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
