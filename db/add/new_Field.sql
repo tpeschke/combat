@@ -1,6 +1,3 @@
-    insert into combat (nameCombat, countNum, idUser, urlhash)
+    insert into combat (idUser, urlhash)
 values 
-     ($1,0,$2, $3);
-    
-    select id, nameCombat, urlhash from combat
-where nameCombat = $1 and idUser = $2
+     ($1,$2);

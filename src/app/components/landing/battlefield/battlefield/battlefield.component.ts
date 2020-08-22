@@ -25,7 +25,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      if (data['battle']) {
+      if (data['battle'].meta.name) {
         this.counterService.count = data['battle'].meta.count
         this.counterService.name = data['battle'].meta.name
         this.counterService.hash = data['battle'].meta.hash
@@ -36,10 +36,11 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
       } else {
         this.counterService.name = 'New Battlefield'
         this.counterService.count = 1
-        this.counterService.hash = null
-        this.counterService.id = null
+        this.counterService.hash = data['battle'].meta.hash
+        this.counterService.id = data['battle'].meta.id
         this.counterService.fighters = []
         this.counterService.statuses = []
+        //instantly auto-save
       }
       
       this.fieldService.subscribeToBattleInfo(this.counterService.hash).subscribe(_ => {

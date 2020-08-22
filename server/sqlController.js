@@ -24,7 +24,7 @@ module.exports = {
     getSingleBattle: (req, res) => {
         const db = req.app.get('db')
         let { hash } = req.params
-        var { id : userId } = req.user
+        var { id: userId } = req.user
             , battlefield = {}
 
         db.get.singleField(userId, hash).then(field => {
@@ -97,29 +97,19 @@ module.exports = {
 
     },
     getBeastbyHash: (req, res) => {
-        axios.get(config.beastiaryEndpoint + '/api/combat/' + req.params.hash, { query: { patreon: req.user.patreon}}).then(result => res.send(result.data))
+        axios.get(config.beastiaryEndpoint + '/api/combat/' + req.params.hash, { query: { patreon: req.user.patreon } }).then(result => res.send(result.data))
     },
     newField: (req, res) => {
-        var urlhash = makeid()
-
+        var hash = makeid()
         const db = req.app.get('db')
         var { id, patreon } = req.user
-
         db.get.totalFieldNumber(id).then(totalCount => {
             if (+totalCount[0].count >= 1 && !patreon) {
-                res.status(403).send('You need to link your Patreon to this account to add more fields. You can do so by logging on through the BonfireSRD')
+                res.status(403).send({message: 'You need to link your Patreon to this account to add more fields. You can do so by logging on through the BonfireSRD'})
             } else if (totalCount[0].count === '0' || +totalCount[0].count <= patreon) {
-                db.get.newFieldNumber(id)
-                    .then(num => {
-                        let newName = 'New Battlefield'
-                        if (num[0].count !== '0') {
-                            newName = 'New Battlefield ' + num[0].count
-                        }
-                        db.add.new_Field(newName, id, urlhash)
-                            .then(result => res.status(200).send(result))
-                    })
+                db.add.new_Field(id, hash).then(result => res.send({hash}))
             } else if (totalCount[0].count > patreon) {
-                res.status(403).send('To add more fields, you need to increase your Patreon Tier')
+                res.status(403).send({message: 'To add more fields, you need to increase your Patreon Tier'})
             }
         })
     },
@@ -132,12 +122,8 @@ module.exports = {
     },
 
     saveField: (req, res) => {
-
-        var { combatName, count, combatId, fighterList, statusList } = req.body
-
+        var { name, count, combatId, fighterList, statusList } = req.body
         const db = req.app.get('db')
-        var { combatId } = req.body
-
         var tempArr = []
 
         fighterList.forEach(val => {
@@ -161,37 +147,20 @@ module.exports = {
         })
 
         statusList.forEach(val => {
-            val.timestatus <= 0 ? tempArr.push(db.delete.status(val.id).then()) : null;
+            val.timestatus - count <= 0 ? tempArr.push(db.delete.status(val.id).then()) : null;
             if (!isNaN(val.id)) {
-                tempArr.push(db.update.status(val.namestatus, val.timestatus, val.id).then())
+                tempArr.push(db.update.status(val.namestatus, val.timestatus, val.description, val.colorcode, val.playerdescription, val.id).then())
             } else {
-                tempArr.push(db.add.status(val.namestatus, val.timestatus, combatId).then())
+                tempArr.push(db.add.status(val.namestatus, val.timestatus, val.description, val.colorcode, val.playerdescription, combatId).then())
             }
         })
 
-        tempArr.push(db.update.field(count, combatName, req.body.combatId).then())
+        tempArr.push(db.update.field(count, name, req.body.combatId).then())
 
         // Reload the field with the new IDs
         Promise.all(tempArr).then(_ => {
-            db.get.combatants(combatId).then(result => {
-                result.forEach(v => {
-                    if (isNaN(+v.actioncount)) {
-                        v.actioncount = v.actioncount.split(",")
-                    } else {
-                        v.actioncount = +v.actioncount
-                    }
-                })
-                let loadArr = []
-                result.forEach(val => loadArr.push(db.get.weapon(val.id).then(weapons => {
-                    return { ...val, weapons }
-                })))
-
-                Promise.all(loadArr).then(fighters => {
-                    db.get.all_Statuses(combatId).then(statuses => res.send([fighters, statuses]))
-                })
-            })
+            this.getSingleBattle(req, res)
         })
-
     },
 
     setTooltip: (req, res) => {
@@ -230,9 +199,9 @@ module.exports = {
     updateTooltips: (req, res) => {
         const db = req.app.get('db')
         let { id } = req.user
-        , {type, value} = req.body
+            , { type, value } = req.body
         if (id) {
-            let sqlScript = `update cctooltips set ${type} = ${value} where userid = ${id}` 
+            let sqlScript = `update cctooltips set ${type} = ${value} where userid = ${id}`
             db.query(sqlScript).then(result => res.send(result))
         }
     },

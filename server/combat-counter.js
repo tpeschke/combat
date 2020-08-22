@@ -88,8 +88,8 @@ app.get('/api/player/field/:hash', sqlCtrl.getFieldByHash);
 app.get('/api/player/battle/:hash', sqlCtrl.getBattleByHash);
 app.get('/api/beast/:hash', sqlCtrl.getBeastbyHash);
 app.get('/api/tooltips', sqlCtrl.getTooltips)
+app.get('/api/newfield', sqlCtrl.newField);
 
-app.post('/api/newfield', sqlCtrl.newField);
 app.post('/api/settings', sqlCtrl.setTooltip);
 
 app.delete('/api/battle/:id', sqlCtrl.deleteField);

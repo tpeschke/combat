@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import tooltips from '../../../../utils/tooltips'
 import { FieldService } from 'src/app/utils/field.service';
 import { MatDialog } from '@angular/material';
@@ -15,7 +15,8 @@ export class SavedFieldsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private fieldService: FieldService
+    private fieldService: FieldService,
+    private router: Router
   ) { }
 
   private fields = []
@@ -31,6 +32,14 @@ export class SavedFieldsComponent implements OnInit {
           tooltips[key] = results[key]
           this.tooltips[key] = results[key]
         }
+      }
+    })
+  }
+
+  addField() {
+    this.fieldService.addField().subscribe(result => {
+      if (result.hash) {
+        this.router.navigate(['/battle', result.hash])
       }
     })
   }
