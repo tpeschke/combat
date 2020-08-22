@@ -10,7 +10,7 @@
 .left {
     display: flex;
     flex-direction: column;
-    padding-top: 60px;
+    justify-content: center;
     border-right: 1px solid lightgrey
 }
 
