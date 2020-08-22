@@ -8,11 +8,11 @@
   <div class="nameShell statusName">
     <div [ngStyle]="{background: status.colorcode}" matTooltip="Click to Change Color"
       [cpPresetColors]="['#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']"
-      [(colorPicker)]="status.colorcode" (colorPickerChange)="captureChange($event, 'colorcode')"
+      [(colorPicker)]="status.colorcode" (colorPickerChange)="captureColor($event)"
       class="fighterColor">
     </div>
     <mat-form-field>
-      <input (change)="captureChange($event.target.value, 'namestatus')" matInput placeholder="Status Name*"
+      <input (change)="captureChange($event, 'namestatus')" (keydown)="$event.stopPropagation()" matInput placeholder="Status Name*"
         value="{{status.namestatus}}">
     </mat-form-field>
   </div>
@@ -20,12 +20,12 @@
   <button (click)="makeUniqueColor()" mat-raised-button color="accent">Give It a Random Color, Please</button>
 
   <mat-form-field class="nameShell">
-    <input (change)="captureChange($event.target.value, 'timestatus')" matInput placeholder="Status Duration"
+    <input (change)="captureChange($event, 'timestatus')" (keydown)="$event.stopPropagation()" matInput placeholder="Status Duration"
       value="{{status.timestatus}}">
   </mat-form-field>
 
   <mat-form-field class="nameShell">
-    <input (change)="captureChange($event.target.value, 'description')" matInput placeholder="Status Description"
+    <input (change)="captureChange($event, 'description')" (keydown)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" matInput placeholder="Status Description"
       value="{{status.description}}">
   </mat-form-field>
 

@@ -240,6 +240,11 @@ export class SinglefighterComponent implements OnInit {
   }
 
   captureChange(event, type) {
-    this[type] = event
+    event.stopPropagation()
+    this[type] = event.target.value
+  }
+
+  captureColor(event) {
+    this.colorChange = event;
   }
 }

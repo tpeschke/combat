@@ -16,14 +16,14 @@
   <div class="nameShell">
     <div [ngStyle]="{background: fighter.colorcode}" matTooltip="Click to Change Color"
       [cpPresetColors]="['#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']"
-      [(colorPicker)]="fighter.colorcode" (colorPickerChange)="captureChange($event, 'colorcode')" class="fighterColor">
+      [(colorPicker)]="fighter.colorcode" (colorPickerChange)="captureColor($event, 'colorcode')" class="fighterColor">
     </div>
     <i (click)="captureChange('1', 'hidden')" matTooltip="Visible" *ngIf="fighter.hidden === '0'"
       class="fas fa-eye"></i>
     <i (click)="captureChange('0', 'hidden')" matTooltip="Hidden" *ngIf="fighter.hidden === '1'"
       class="fas fa-eye-slash"></i>
     <mat-form-field>
-      <input (change)="captureChange($event.target.value, 'namefighter')" matInput placeholder="Fighter Name*"
+      <input (change)="captureChange($event, 'namefighter')" (keydown)="$event.stopPropagation()" matInput placeholder="Fighter Name*"
         value="{{fighter.namefighter}}">
     </mat-form-field>
   </div>

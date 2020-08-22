@@ -97,8 +97,13 @@ export class AddFighterComponent implements OnInit {
     }
   }
 
-  captureChange(value, type) {
-    this.fighter[type] = value
+  captureChange(event, type) {
+    event.stopPropagation()
+    this.fighter[type] = event.target.value
+  }
+
+  captureColor(value) {
+    this.fighter.colorcode = value
   }
 
   captureChangeInt(value, type) {

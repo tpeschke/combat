@@ -29,12 +29,17 @@ export class AddStatusComponent implements OnInit {
 
   ngOnInit() {}
 
-  captureChange(value, type) {
+  captureChange(event, type) {
+    event.stopPropagation()
     if (type === 'timestatus') {
-      this.status[type] = +value
+      this.status[type] = +event.target.value
     } else {
-      this.status[type] = value
+      this.status[type] = event.target.value
     }
+  }
+
+  captureColor(value) {
+    this.status.colorcode = value
   }
 
   makeUniqueColor() {
