@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import variables from '../../../../local'
+import { FieldService } from 'src/app/utils/field.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -7,9 +9,19 @@ import variables from '../../../../local'
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private fieldService: FieldService,
+    private router: Router
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fieldService.checkLogin().subscribe(results => {
+      if (results) {
+        this.router.navigate(['/fields'])
+      } else {
+      }
+    })
+  }
 
   public hash = null;
   public loginEndpoint = variables.login
