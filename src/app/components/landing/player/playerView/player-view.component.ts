@@ -22,14 +22,7 @@ export class PlayerViewComponent implements OnInit {
   public name;
   public fighters = [];
   public statuses = []
-  public players = [{
-    id: "testid",
-    name: "test",
-    recovery: 15,
-    action: 3,
-    topcheck: '0',
-    trauma: false
-  }];
+  public players = [];
   public newPlayer = {
     id: null,
     name: null,
