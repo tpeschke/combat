@@ -73,7 +73,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
     selBox.style.left = '0';
     selBox.style.top = '0';
     selBox.style.opacity = '0';
-    selBox.value = variables.url + this.counterService.hash;
+    selBox.value = variables.url + '/' + this.counterService.hash;
     document.body.appendChild(selBox);
     selBox.focus();
     selBox.select();
