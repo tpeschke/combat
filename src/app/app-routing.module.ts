@@ -6,11 +6,12 @@ import { SavedFieldsComponent } from './components/landing/savedFields/savedFiel
 import { FieldResolverService } from './utils/resolvers/field-resolver.service'
 import { BattlefieldComponent } from './components/landing/battlefield/battlefield/battlefield.component';
 import { FighterResolverService } from './utils/resolvers/fighter-resolver.service';
+import { AuthGuardService } from './utils/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, pathMatch: "full" },
-  { path: 'fields', component: SavedFieldsComponent, resolve: { fields: FieldResolverService } },
-  { path: 'battle/:hash', component: BattlefieldComponent, resolve: { battle: FighterResolverService } },
+  { path: 'fields', component: SavedFieldsComponent, resolve: { fields: FieldResolverService }, canActivate: [AuthGuardService] },
+  { path: 'battle/:hash', component: BattlefieldComponent, resolve: { battle: FighterResolverService }, canActivate: [AuthGuardService] },
   { path: ':hash', component: PlayerViewComponent },
   { path: '**', redirectTo: '' },
 ];

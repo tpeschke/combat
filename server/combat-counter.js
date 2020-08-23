@@ -14,7 +14,7 @@ const sqlCtrl = require('./sqlController')
 const app = new express()
 app.use(bodyParser.json())
 app.use(cors())
-app.use(express.static(__dirname + `/../dist/`));
+app.use(express.static(__dirname + `/../dist/combat-counter/`));
 app.use(session({
     secret: config.SESSION_SECRET,
     resave: false,
@@ -89,6 +89,7 @@ app.get('/api/player/battle/:hash', sqlCtrl.getBattleByHash);
 app.get('/api/beast/:hash', sqlCtrl.getBeastbyHash);
 app.get('/api/tooltips', sqlCtrl.getTooltips)
 app.get('/api/newfield', sqlCtrl.newField);
+app.get('/api/checkLogin', (req, res) => {res.send(req.user)})
 
 app.post('/api/settings', sqlCtrl.setTooltip);
 
@@ -104,7 +105,7 @@ app.patch('/api/tooltips', sqlCtrl.updateTooltips)
 const path = require('path')
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build/index.html'))
+    res.sendFile(path.join(__dirname, '../index.html'))
 })
 
 // ==========================================

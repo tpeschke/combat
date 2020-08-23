@@ -22,6 +22,10 @@ export class FieldService {
     return this.socket.fromEvent<any>(`${hash}-fetch`);
   }
 
+  checkLogin() {
+    return this.http.get(local.endpointBase + '/api/checkLogin')
+  }
+
   getFields() {
     return this.http.get(local.endpointBase + '/api/fields')
   }
