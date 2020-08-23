@@ -12,7 +12,7 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header (keydown.Space)="$event.stopImmediatePropagation();" [ngClass]="weapon.selected === '1' ? 'selectedBackground' : ''">
             <mat-panel-title>
-              <input class="weaponName" (change)="changeWeaponProperty(weapon.id, $event, 'weapon')"
+              <input class="weaponName" (click)="$event.stopImmediatePropagation();" (change)="changeWeaponProperty(weapon.id, $event, 'weapon')"
                 value="{{weapon.weapon}}">
             </mat-panel-title>
             <mat-panel-description>

@@ -57,6 +57,7 @@ export class WeaponSelectComponent implements OnInit {
   }
 
   changeWeaponProperty(weaponId, event, property) {
+    event.stopPropagation();
     let { fighters } = this.counterService
     if (this.id) {
       for (let i = 0; i < fighters.length; i++) {
