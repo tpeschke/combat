@@ -8,7 +8,7 @@
 
   <div class="bestiaryHashShell">
     <mat-form-field>
-      <input (change)="changeHash($event.target.value)" matInput placeholder="Import by Bestiary Hash">
+      <input (change)="changeHash($event.target.value)" value="{{hash}}" matInput placeholder="Import by Bestiary Hash">
     </mat-form-field>
     <button (click)="addByHash()" mat-raised-button color="accent">Fill It In!</button>
   </div>
@@ -18,9 +18,9 @@
       [cpPresetColors]="['#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']"
       [(colorPicker)]="fighter.colorcode" (colorPickerChange)="captureColor($event, 'colorcode')" class="fighterColor">
     </div>
-    <i (click)="captureChange('1', 'hidden')" matTooltip="Visible" *ngIf="fighter.hidden === '0'"
+    <i (click)="captureHidden('1', 'hidden')" matTooltip="Visible" *ngIf="fighter.hidden === '0'"
       class="fas fa-eye"></i>
-    <i (click)="captureChange('0', 'hidden')" matTooltip="Hidden" *ngIf="fighter.hidden === '1'"
+    <i (click)="captureHidden('0', 'hidden')" matTooltip="Hidden" *ngIf="fighter.hidden === '1'"
       class="fas fa-eye-slash"></i>
     <mat-form-field>
       <input (change)="captureChange($event, 'namefighter')" (keydown)="$event.stopPropagation()" matInput placeholder="Fighter Name*"

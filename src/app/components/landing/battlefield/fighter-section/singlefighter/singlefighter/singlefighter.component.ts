@@ -169,6 +169,7 @@ export class SinglefighterComponent implements OnInit {
   selectInitDice(dice) {
     let { fighters } = this.counterService
     for (let i = 0; i < fighters.length; i++) {
+      console.log(fighters[i], this.fighter.id)
       if (fighters[i].id === this.fighter.id) {
         fighters[i].actioncount[0] = +dice
         this.counterService.sort()

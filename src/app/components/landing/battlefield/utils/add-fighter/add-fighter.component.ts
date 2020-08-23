@@ -106,6 +106,10 @@ export class AddFighterComponent implements OnInit {
     this.fighter.colorcode = value
   }
 
+  captureHidden(value) {
+    this.fighter.hidden = value
+  }
+
   captureChangeInt(value, type) {
     this.fighter[type] = +value
   }
@@ -147,7 +151,8 @@ export class AddFighterComponent implements OnInit {
         let colors = ['#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']
         let newFighters = []
         for (let i = 0; i < this.multiAdd; i++) {
-          let fighterCopy = { ...this.fighter }
+          let fighterCopy = { ...this.fighter, actioncount: [...this.fighter.actioncount], selected: {...this.fighter.selected} }
+          fighterCopy.weapons = fighterCopy.weapons.map(weapon => {return {...weapon}})
           fighterCopy.id = this.generalService.makeid()
           if (this.numberEach) { fighterCopy.namefighter = fighterCopy.namefighter + ` ${i + 1}` }
           if (this.uniqueColors) { i > 7 ? fighterCopy.colorcode = this.generalService.genHexString() : fighterCopy.colorcode = colors[i] }
@@ -162,6 +167,7 @@ export class AddFighterComponent implements OnInit {
       this.multiAdd = null
       this.uniqueColors = false
       this.numberEach = false
+      this.hash = null
       let newId = this.generalService.makeid()
       this.fighter = {
         id: null,
