@@ -16,23 +16,34 @@
   </div>
 
   <div>
-    <div class="playerViewPlayerSectionHeader">
-      <p>Character/Ally</p>
-      <p class="icon"> </p>
+    <div *ngIf="players.length > 0" class="playerViewPlayerSectionHeader">
+      <p id="playerViewPlayerName">Character/Ally</p>
+      <p></p>
       <p>Recovery</p>
       <p class="icon"> </p>
       <p>Action</p>
       <p class="icon"> </p>
       <p class="icon"> </p>
     </div>
+    <div *ngIf="players.length === 0" class="playerViewPlayerSectionHeader">
+      <p id="playerViewPlayerName">Add Character</p>
+    </div>
+    <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow' : 'playerViewPlayerSectionRow'">
+        <p id="playerViewPlayerName">{{player.name}}</p>
+        <input (change)="alterRecovery(player.id, $event)" id="recovery" placeholder="Edit Recovery">
+        <p (click)="increaseAction(player.id)" class="recoveryButton">{{player.recovery}}</p>
+        <p (click)="jumpToCount(player.id)" class="icon"><i class="fas fa-forward" matTooltip="Jump to Current Second"></i></p>
+        <input (change)="changeAction(player.id, $event)" id="recovery" value="{{player.action}}">
+        <p *ngIf="!player.trauma" (click)="toggleTrauma(player.id)" class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
+        <input *ngIf="player.trauma" autofocus (blur)="addTrauma(player.id, $event)" id="trauma">
+        <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
+    </div>
     <div class="playerViewPlayerSectionRow">
-      <p>Placedholer Name</p>
-      <p class="icon"><i class="fas fa-shield-alt"></i></p>
-      <p>15</p>
-      <p class="icon"><i class="fas fa-forward" matTooltip="Jump to Current Second"></i></p>
-      <p>7</p>
-      <p class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
-      <p class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
+      <input (change)="capturePlayerInfo('name', $event)" placeholder="Name" value="{{newPlayer.name}}">
+      <input (change)="capturePlayerInfo('recovery', $event)" placeholder="Recovery" value="{{newPlayer.recovery}}">
+      <input (change)="capturePlayerInfo('action', $event)" placeholder="Initiative Roll" value="{{newPlayer.action}}">
+      <p (click)="addPlayer()" class="icon"><i matTooltip="Add" class="fas fa-user-plus"></i></p>
+      <p (click)="clearPlayerInfo()" class="icon"><i matTooltip="Clear" class="fas fa-window-close"></i></p>
     </div>
   </div>
 

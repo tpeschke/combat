@@ -11,18 +11,6 @@
     padding: 5px;
 }
 
-.activeThisSecond {
-    background: #4caf506b;
-}
-
-.fighterHidden {
-    background:#959595
-}
-
-.fighterTop {
-    background: #99000080;
-}
-
 .inputShell {
     width: 10%;
     display: flex;
@@ -271,6 +259,20 @@ h2 {
     padding: 5px;
 }
 
+.playerViewPlayerSectionRow input {
+    margin: 0 15px;
+    width: 20%;
+}
+
+.playerViewPlayerSectionRow i {
+    margin: 0 15px;
+}
+
+#recovery {
+    margin: 0;
+    width: 15%
+}
+
 .playerViewPlayerSectionRow:last-child {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -282,7 +284,21 @@ h2 {
 }
 
 .playerViewPlayerSectionHeader .icon, .playerViewPlayerSectionRow .icon {
-    width: 10%
+    width: 5%
+}
+
+#playerViewPlayerName {
+    width: 17%;
+}
+
+#trauma {
+    width: 5%
+}
+
+.recoveryButton:hover {
+    background: #b45f06;
+    border-radius: 5px;
+    color: whitesmoke
 }
 
 .counterShell {
@@ -434,6 +450,19 @@ button:hover {
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
+
+.activeThisSecond {
+    background: #4caf506b;
+}
+
+.fighterHidden {
+    background:#959595
+}
+
+.fighterTop {
+    background: #99000080;
+}
+
 
 @media (max-width: 800px) { 
 .playerViewShell {

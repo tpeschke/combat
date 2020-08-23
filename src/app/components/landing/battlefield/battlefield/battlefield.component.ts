@@ -57,9 +57,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    let {hash, stopAutoSaveTimer, saveField} = this.counterService
-    saveField()
-    stopAutoSaveTimer()
+    let {hash} = this.counterService
     this.canPlayersView = false;
     this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: false})
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FieldService } from 'src/app/utils/field.service';
 import { Router } from '@angular/router';
+import { GeneralService } from 'src/app/utils/general.service';
 
 @Component({
   selector: 'app-player-view',
@@ -11,6 +12,7 @@ export class PlayerViewComponent implements OnInit {
 
   constructor(
     private fieldService: FieldService,
+    private generalService: GeneralService,
     private router: Router
   ) { }
 
@@ -20,6 +22,22 @@ export class PlayerViewComponent implements OnInit {
   public name;
   public fighters = [];
   public statuses = []
+  public players = [{
+    id: "testid",
+    name: "test",
+    recovery: 15,
+    action: 3,
+    topcheck: '0',
+    trauma: false
+  }];
+  public newPlayer = {
+    id: null,
+    name: null,
+    recovery: null,
+    action: null,
+    topcheck: '0',
+    trauma: false
+  }
 
   ngOnInit() {
     this.hash = this.router.url.split('/')[1]
@@ -55,6 +73,12 @@ export class PlayerViewComponent implements OnInit {
           this.statuses = this.statuses.concat(data.value)
         } else {
           this[type] = value
+          if(type === 'count') {
+            this.players = this.players.map(player => {
+              if (player.topcheck === '1' && value === player.action) {player.topcheck = '0'}
+              return player
+            })
+          }
         }
         if (type === 'canPlayersView' && value) { this.fieldService.getBattleInfo({hash: this.hash}) }
       })
@@ -67,6 +91,110 @@ export class PlayerViewComponent implements OnInit {
         this.statuses = data[0]
       })
     }
+  }
+
+  capturePlayerInfo(type, event) {
+    if (type === 'name') {
+      this.newPlayer[type] = event.target.value
+    } else {
+      this.newPlayer[type] = +event.target.value.replace(/\D/g,'')
+    }
+  }
+
+  addPlayer() {
+    let {name, recovery, action} = this.newPlayer
+    if (name !== '' && recovery && action) {
+      this.newPlayer.action = this.newPlayer.action + this.count;
+      this.newPlayer.id = this.generalService.makeid();
+      this.players.push(this.newPlayer)
+      this.newPlayer = {
+        id: null,
+        name: null,
+        recovery: null,
+        action: null,
+        topcheck: '0',
+        trauma: false
+      }
+    }
+  }
+
+  clearPlayerInfo() {
+    this.newPlayer = {
+      id: null,
+      name: null,
+      recovery: null,
+      action: null,
+      topcheck: '0',
+      trauma: false
+    }
+  }
+
+  alterRecovery(id, event) {
+    this.players = this.players.map(player => {
+      if (player.id === id) {
+        player.recovery = +event.target.value.replace(/\D/g,'')
+      }
+      return player
+    })
+  }
+
+  increaseAction(id) {
+    this.players = this.players.map(player => {
+      if (player.id === id) {
+        if (player.action < this.count) {
+          player.action = this.count + player.recovery
+        } else {
+          player.action = player.action + player.recovery
+        }
+      }
+      return player
+    })
+  }
+
+  jumpToCount(id) {
+    this.players = this.players.map(player => {
+      if (player.id === id) {
+        player.action = this.count
+      }
+      return player
+    })
+  }
+
+  changeAction(id, event) {
+    this.players = this.players.map(player => {
+      if (player.id === id) {
+        player.action = +event.target.value.replace(/\D/g,'')
+      }
+      return player
+    })
+  }
+
+  toggleTrauma(id) {
+    this.players = this.players.map(player => {
+      if (player.id === id) {
+        player.trauma = true
+      }
+      return player
+    })
+  }
+
+  addTrauma(id, event) {
+    this.players = this.players.map(player => {
+      if (player.id === id) {
+        player.trauma = false
+        player.topcheck = '1'
+        player.action = this.count + (+event.target.value.replace(/\D/g,'') * 3)
+      }
+      return player
+    })
+  }
+
+  removePlayer(id) {
+    this.players.forEach((player, index) => {
+      if (player.id === id) {
+        this.players.splice(index, 1)
+      }
+    })
   }
 
 }
