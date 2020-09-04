@@ -20,7 +20,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
       this.tooltips = tooltips
     }
 
-  public canPlayersView = true;
+  public canPlayersView = false;
   public tooltips;
 
   ngOnInit() {
