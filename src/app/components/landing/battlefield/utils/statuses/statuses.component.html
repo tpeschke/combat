@@ -7,10 +7,10 @@
   </mat-card>
 </div>
 <div *ngIf="count">
-  <mat-card matTooltip="Click For Description (if it has one)" (click)="toggleDescription()" *ngIf="!status.timestatus || status.timestatus - count >= 0" [ngStyle]="{background: status.colorcode}">
+  <mat-card matTooltip="Click For Description (if it has one)" *ngIf="!status.timestatus || status.timestatus - count >= 0" [ngStyle]="{background: status.colorcode}">
     <h4>{{status.namestatus}}</h4>
     <p *ngIf="status.timestatus">{{status.timestatus - count}} Seconds Left</p>
-    <p *ngIf="descriptionOpen && status.description && status.playerDescription">{{status.description}}</p>
+    <p>{{status.description}}</p>
   </mat-card>
 </div>
 
