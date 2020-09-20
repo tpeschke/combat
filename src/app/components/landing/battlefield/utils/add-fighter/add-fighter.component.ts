@@ -46,6 +46,7 @@ export class AddFighterComponent implements OnInit {
   public uniqueColors = false
   public numberEach = false
   public hash = null
+  public errors = []
 
   ngOnInit() {
     this.fighter.selected = this.fighter.weapons[0]
@@ -59,6 +60,7 @@ export class AddFighterComponent implements OnInit {
     if (this.hash) {
       this.fieldService.getFightersFromBestiary(this.hash).subscribe((beast: any) => {
         let max_health = beast.vitality.toUpperCase() !== "N/A" ? this.generalService.rollDice(beast.vitality) : 10000
+          , stressthreshold = beast.stressthreshold.toUpperCase() !== "N/A" ? beast.stressthreshold : 0
           , weapons = []
           , noBase = true
           , selected = null
@@ -87,7 +89,7 @@ export class AddFighterComponent implements OnInit {
           max_health,
           dead: '0',
           stress: 0,
-          stressthreshold: 0,
+          stressthreshold,
           acting: '0',
           weapons,
           selected,
@@ -111,7 +113,7 @@ export class AddFighterComponent implements OnInit {
   }
 
   captureChangeInt(value, type) {
-    this.fighter[type] = +value
+    this.fighter[type] = this.generalService.stripNonInt(value)
   }
 
   captureMultiAdd(value) {
@@ -151,8 +153,8 @@ export class AddFighterComponent implements OnInit {
         let colors = ['#C91010', '#1076C9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']
         let newFighters = []
         for (let i = 0; i < this.multiAdd; i++) {
-          let fighterCopy = { ...this.fighter, actioncount: [...this.fighter.actioncount], selected: {...this.fighter.selected} }
-          fighterCopy.weapons = fighterCopy.weapons.map(weapon => {return {...weapon}})
+          let fighterCopy = { ...this.fighter, actioncount: [...this.fighter.actioncount], selected: { ...this.fighter.selected } }
+          fighterCopy.weapons = fighterCopy.weapons.map(weapon => { return { ...weapon } })
           fighterCopy.id = this.generalService.makeid()
           if (this.numberEach) { fighterCopy.namefighter = fighterCopy.namefighter + ` ${i + 1}` }
           if (this.uniqueColors) { i > 6 ? fighterCopy.colorcode = this.generalService.genHexString() : fighterCopy.colorcode = colors[i] }
@@ -168,6 +170,7 @@ export class AddFighterComponent implements OnInit {
       this.uniqueColors = false
       this.numberEach = false
       this.hash = null
+      this.errors = []
       let newId = this.generalService.makeid()
       this.fighter = {
         id: null,
@@ -210,6 +213,15 @@ export class AddFighterComponent implements OnInit {
       && !isNaN(+this.fighter.selected.init)
       && this.fighter.selected.encumb >= 0
       && this.fighter.selected.weapon !== ''
+
+    this.errors = []
+    if (this.fighter.namefighter === '') { this.errors.push("Name Required") }
+    if (this.fighter.max_health === 0) { this.errors.push("Max Vitality Required") }
+    if (this.fighter.max_health < this.fighter.health) { this.errors.push("Damage Can't Be Greater Than Max Vitality") }
+    if (this.fighter.selected.speed < 0) { this.errors.push("Weapon Recovery Required") }
+    if (isNaN(+this.fighter.selected.init)) { this.errors.push("Weapon Initiative Required") }
+    if (this.fighter.selected.encumb < 0) { this.errors.push("Encumbrance Required") }
+
     return isValid
   }
 }

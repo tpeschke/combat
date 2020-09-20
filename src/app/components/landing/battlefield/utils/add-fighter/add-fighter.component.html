@@ -104,6 +104,10 @@
     </mat-checkbox>
   </div>
 
+  <div>
+    <p *ngFor="let error of errors" class="error">{{error}}</p>
+  </div>
+
   <div class="addShell">
     <button (click)="addFighter()" mat-raised-button color="warn">Add Fighter</button>
   </div>

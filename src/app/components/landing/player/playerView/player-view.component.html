@@ -17,18 +17,19 @@
 
   <div>
     <div *ngIf="players.length > 0" class="playerViewPlayerSectionHeader">
-      <p id="playerViewPlayerName">Character/Ally</p>
-      <p></p>
-      <p>Recovery</p>
-      <p class="icon"> </p>
-      <p>Action</p>
-      <p class="icon"> </p>
-      <p class="icon"> </p>
+      <p *ngIf="players.length > 1" id="playerViewPlayerName">Characters/Allies</p>
+      <p *ngIf="players.length < 2" id="playerViewPlayerName">Character</p>
+      <p class="nonMobile"></p>
+      <p class="nonMobile">Recovery</p>
+      <p class="icon nonMobile"> </p>
+      <p class="nonMobile">Action</p>
+      <p class="icon nonMobile"> </p>
+      <p class="icon nonMobile"> </p>
     </div>
     <div *ngIf="players.length === 0" class="playerViewPlayerSectionHeader">
       <p id="playerViewPlayerName">Add Character</p>
     </div>
-    <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow' : 'playerViewPlayerSectionRow'">
+    <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow nonMobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow nonMobile' : 'playerViewPlayerSectionRow nonMobile'">
         <p id="playerViewPlayerName">{{player.name}}</p>
         <input (change)="alterRecovery(player.id, $event)" id="recovery" placeholder="Edit Recovery">
         <p (click)="increaseAction(player.id)" class="recoveryButton">{{player.recovery}}</p>
@@ -38,6 +39,23 @@
         <input *ngIf="player.trauma" autofocus (blur)="addTrauma(player.id, $event)" id="trauma">
         <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
     </div>
+    <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow mobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow mobile' : 'playerViewPlayerSectionRow mobile'">
+      <p id="playerViewPlayerName">{{player.name}}</p>
+      <div id="recoveryDiv">
+        <p>Recovery:</p>
+        <p (click)="increaseAction(player.id)" class="recoveryButton">{{player.recovery}}</p>
+        <input (change)="alterRecovery(player.id, $event)" id="recovery" placeholder="Edit Recovery">
+      </div>
+      <div>
+        <p (click)="jumpToCount(player.id)" class="icon"><i class="fas fa-forward" matTooltip="Jump to Current Second"></i></p>
+        <input (change)="changeAction(player.id, $event)" id="recovery" value="{{player.action}}">
+      </div>
+      <div>
+        <p *ngIf="!player.trauma" (click)="toggleTrauma(player.id)" class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
+        <input *ngIf="player.trauma" autofocus (blur)="addTrauma(player.id, $event)" id="trauma">
+        <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
+      </div>
+  </div>
     <div class="playerViewPlayerSectionRow">
       <input (change)="capturePlayerInfo('name', $event)" placeholder="Name" value="{{newPlayer.name}}">
       <input (change)="capturePlayerInfo('recovery', $event)" placeholder="Recovery" value="{{newPlayer.recovery}}">

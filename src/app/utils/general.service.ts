@@ -67,6 +67,7 @@ export class GeneralService {
   }
 
   stripNonInt(value) {
+    console.log(value, +value.replace(/\D/g,''))
     if (typeof value === 'string') {
       return +value.replace(/\D/g,'')
     } else {

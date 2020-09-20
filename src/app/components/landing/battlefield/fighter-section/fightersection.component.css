@@ -464,6 +464,10 @@ button:hover {
     border-bottom-right-radius: 4px;
 }
 
+.mobile {
+    display: none;
+}
+
 
 @media (max-width: 800px) { 
 .playerViewShell {
@@ -478,6 +482,79 @@ button:hover {
     text-align: center;
 }
 }
+
+@media (max-width: 500px) { 
+    .playerViewPlayerSectionRow {
+        flex-wrap: wrap;
+    }
+
+    .playerViewPlayerSectionRow:last-child {
+        border-top: 2px solid grey;
+    }
+
+    .playerViewPlayerSectionRow input {
+        margin: 5px;
+        width: 30%;
+        text-align: left;
+     }
+    .playerViewPlayerSectionRow .icon  {    
+        font-size: 25px;
+        margin: 0 15px;
+        padding: 10px 0 0;
+    }
+
+    .playerViewPlayerSectionRow i  {    
+        margin: 0;
+    }
+
+.nonMobile {
+    display: none
+}
+
+.mobile {
+    display: inherit;
+}
+
+.mobile #playerViewPlayerName {
+    background: white;
+}
+
+#playerViewPlayerName {
+    width: 100%;
+    padding: 5px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.mobile div {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 15%;
+}
+
+#recoveryDiv {
+    padding: 10px 10px 5px;
+}
+
+#recoveryDiv p {
+    width: 25%;
+}
+
+#recovery {
+    width: 35%;
+    text-align: center;
+}
+
+.recoveryButton {
+    background: grey;
+    border-radius: 5px;
+    color: white
+}
+
+#trauma {
+    width: 10%
+}
+ }
 
 @media (max-width: 350px) { 
     .playerView p {
