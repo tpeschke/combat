@@ -45,12 +45,13 @@ export class StatusesComponent implements OnInit {
   }
 
   showTime() {
-    if (this.status.timestatus - this.counterService.count < 0) {
-      this.status.timestatus = this.status.timestatus + this.status.interval
-    } else if (this.status.timestatus - this.counterService.count >= this.status.interval && this.counterService.count > 1) {
-      this.status.timestatus = this.status.timestatus - this.status.interval
+    let {timestatus, interval} = this.status
+      , {count} = this.counterService
+    if (count - timestatus >= 0) {
+      return (interval + ((timestatus - count + 1) % interval)) - 1
+    } else {
+      return (timestatus - count - 1) % interval
     }
-    return this.status.timestatus - this.counterService.count
   }
 
   getContrastYIQ(hexcolor) {

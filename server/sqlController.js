@@ -136,7 +136,7 @@ module.exports = {
             })
         })
         statuses.forEach(val => {
-            if(val.timestatus - meta.count <= 0) {
+            if(val.timestatus - meta.count <= 0 && !val.interval) {
                 tempArray.push(db.delete.status(val.id).then())
             } else {
                 tempArray.push(db.upsert.status(val.namestatus, val.timestatus, val.description, val.colorcode, val.playerdescription, val.playerview, val.interval, val.id, meta.id).then())

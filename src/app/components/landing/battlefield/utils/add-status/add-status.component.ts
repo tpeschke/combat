@@ -60,7 +60,7 @@ export class AddStatusComponent implements OnInit {
         this.status.timestatus = this.counterService.count + this.status.timestatus 
       } else if (this.status.timestatus && this.status.interval) {
         this.status.interval = this.status.timestatus;
-        this.status.timestatus = this.counterService.count + this.status.timestatus;
+        this.status.timestatus = this.counterService.count;
       }
       if (!this.status.playerview) { this.status.playerdescription = false}
       this.counterService.statuses = this.counterService.statuses.concat([this.status])
@@ -83,7 +83,7 @@ export class AddStatusComponent implements OnInit {
     let isValid = false
 
     isValid = this.status.namestatus !== ''
-      && (this.status.interval &&this.status.timestatus > 0)
+      && ((this.status.interval && this.status.timestatus > 0) || !this.status.interval)
 
     this.errors = []
     if (this.status.namestatus === '') { this.errors.push('Name Required') }
