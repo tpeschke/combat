@@ -29,7 +29,8 @@
       value="{{status.description}}">
   </mat-form-field>
 
-  <mat-checkbox color="warn" (change)="toggleShowDescription($event.checked)" [checked]="status.playerDescription">Show Description to Players?</mat-checkbox>
+  <mat-checkbox color="warn" (change)="toggleCheckbox($event.checked, 'playerview')" [checked]="status.playerview">Show Status to Players?</mat-checkbox>
+  <mat-checkbox *ngIf="status.playerview" color="warn" (change)="toggleCheckbox($event.checked, 'playerdescription')" [checked]="status.playerdescription">Show Description to Players?</mat-checkbox>
 
   <div class="addShell">
     <button (click)="addStatus()" mat-raised-button color="warn">Add Status</button>

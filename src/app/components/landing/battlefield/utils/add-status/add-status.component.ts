@@ -24,7 +24,8 @@ export class AddStatusComponent implements OnInit {
     colorcode: '#ccc',
     timestatus: null,
     description: null,
-    playerDescription: false
+    playerdescription: false,
+    playerview: true
   }
 
   ngOnInit() {}
@@ -46,14 +47,15 @@ export class AddStatusComponent implements OnInit {
     this.status.colorcode = this.generalService.genHexString()
   }
 
-  toggleShowDescription(checked) {
-    this.status.playerDescription = checked
+  toggleCheckbox(checked, type) {
+    this.status[type] = checked
   }
 
   addStatus() {
     if (this.validStatus()) {
       this.status.id = this.generalService.makeid()
       if (this.status.timestatus) { this.status.timestatus = this.counterService.count + this.status.timestatus }
+      if (!this.status.playerview) { this.status.playerdescription = false}
       this.counterService.statuses = this.counterService.statuses.concat([this.status])
       this.fieldService.sendBattleData({hash: this.counterService.hash, type: 'addStatus', value: [this.status]})
       this.viewPanels.forEach(p => p.close());
@@ -63,12 +65,14 @@ export class AddStatusComponent implements OnInit {
         colorcode: '#ccc',
         timestatus: null,
         description: null,
-        playerDescription: false
+        playerdescription: false,
+        playerview: true
       }
     } 
   }
 
   validStatus() {
+    // Make sure time is greater than 0
     return this.status.namestatus !== ''
   }
 

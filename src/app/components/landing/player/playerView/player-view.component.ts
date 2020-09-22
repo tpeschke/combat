@@ -77,15 +77,6 @@ export class PlayerViewComponent implements OnInit {
       })
   }
 
-  fetchFighters() {
-    if (this.canPlayersView) {
-      this.fieldService.getFightersForPlayers(this.hash).subscribe(data => {
-        this.fighters = data[0]
-        this.statuses = data[0]
-      })
-    }
-  }
-
   capturePlayerInfo(type, event) {
     if (type === 'name') {
       this.newPlayer[type] = event.target.value

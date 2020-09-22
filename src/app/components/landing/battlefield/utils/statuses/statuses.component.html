@@ -1,16 +1,17 @@
 <div *ngIf="!count">
-  <mat-card matTooltip="Click For Description (if it has one)"  [matTooltipDisabled]="tooltips.status_description" (click)="toggleDescription()" *ngIf="!status.timestatus || status.timestatus - counterService.count >= 0" [ngStyle]="{background: status.colorcode}">
+  <mat-card matTooltip="Click For Description, Delete, & Edit"  [matTooltipDisabled]="tooltips.status_description" (click)="toggleDescription()" *ngIf="!status.timestatus || status.timestatus - counterService.count >= 0" [ngStyle]="{background: status.colorcode}">
     <h4>{{status.namestatus}}</h4>
     <p *ngIf="status.timestatus">{{status.timestatus - counterService.count}} Seconds Left</p>
     <p *ngIf="descriptionOpen && status.description">{{status.description}}</p>
     <button (click)="deleteStatus(status.id)" mat-raised-button color="accent" *ngIf="descriptionOpen">Delete Status</button>
+    <i *ngIf="!descriptionOpen && status.description" class="fas fa-chevron-down"></i>
   </mat-card>
 </div>
 <div *ngIf="count">
-  <mat-card matTooltip="Click For Description (if it has one)" *ngIf="!status.timestatus || status.timestatus - count >= 0" [ngStyle]="{background: status.colorcode}">
+  <mat-card *ngIf="(!status.timestatus || status.timestatus - count >= 0) && status.playerview" [ngStyle]="{background: status.colorcode}">
     <h4>{{status.namestatus}}</h4>
     <p *ngIf="status.timestatus">{{status.timestatus - count}} Seconds Left</p>
-    <p>{{status.description}}</p>
+    <p *ngIf="status.playerdescription">{{status.description}}</p>
   </mat-card>
 </div>
 
