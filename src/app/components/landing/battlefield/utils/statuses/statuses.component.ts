@@ -15,15 +15,14 @@ export class StatusesComponent implements OnInit {
   constructor(
     private counterService: CounterService,
     private fieldService: FieldService
-  ) { 
+  ) {
     this.tooltips = tooltips
   }
 
   private descriptionOpen = false
   public tooltips
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   toggleDescription() {
     this.descriptionOpen = !this.descriptionOpen
@@ -35,7 +34,7 @@ export class StatusesComponent implements OnInit {
 
   deleteStatus(statusId) {
     let { statuses, hash } = this.counterService
-    for(let i = 0; i < statuses.length; i++) {
+    for (let i = 0; i < statuses.length; i++) {
       if (statuses[i].id === statusId) {
         statuses.splice(i, 1)
         this.fieldService.sendBattleData({ hash, type: 'removeStatus', value: statusId })
@@ -43,6 +42,24 @@ export class StatusesComponent implements OnInit {
         i = statuses.length
       }
     }
+  }
+
+  showTime() {
+    if (this.status.timestatus - this.counterService.count < 0) {
+      this.status.timestatus = this.status.timestatus + this.status.interval
+    } else if (this.status.timestatus - this.counterService.count >= this.status.interval && this.counterService.count > 1) {
+      this.status.timestatus = this.status.timestatus - this.status.interval
+    }
+    return this.status.timestatus - this.counterService.count
+  }
+
+  getContrastYIQ(hexcolor) {
+    hexcolor = hexcolor.replace("#", "");
+    var r = parseInt(hexcolor.substr(0, 2), 16);
+    var g = parseInt(hexcolor.substr(2, 2), 16);
+    var b = parseInt(hexcolor.substr(4, 2), 16);
+    var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? 'black' : 'white';
   }
 
 }

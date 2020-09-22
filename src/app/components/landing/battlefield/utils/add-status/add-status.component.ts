@@ -21,12 +21,14 @@ export class AddStatusComponent implements OnInit {
   public status = {
     id: null,
     namestatus: '',
-    colorcode: '#ccc',
+    colorcode: '#a2a2a2',
     timestatus: null,
     description: null,
     playerdescription: false,
-    playerview: true
+    playerview: true,
+    interval: false
   }
+  public errors = []
 
   ngOnInit() {}
 
@@ -54,7 +56,12 @@ export class AddStatusComponent implements OnInit {
   addStatus() {
     if (this.validStatus()) {
       this.status.id = this.generalService.makeid()
-      if (this.status.timestatus) { this.status.timestatus = this.counterService.count + this.status.timestatus }
+      if (this.status.timestatus && !this.status.interval) { 
+        this.status.timestatus = this.counterService.count + this.status.timestatus 
+      } else if (this.status.timestatus && this.status.interval) {
+        this.status.interval = this.status.timestatus;
+        this.status.timestatus = this.counterService.count + this.status.timestatus;
+      }
       if (!this.status.playerview) { this.status.playerdescription = false}
       this.counterService.statuses = this.counterService.statuses.concat([this.status])
       this.fieldService.sendBattleData({hash: this.counterService.hash, type: 'addStatus', value: [this.status]})
@@ -62,18 +69,28 @@ export class AddStatusComponent implements OnInit {
       this.status = {
         id: null,
         namestatus: '',
-        colorcode: '#ccc',
+        colorcode: '#a2a2a2',
         timestatus: null,
         description: null,
         playerdescription: false,
-        playerview: true
+        playerview: true,
+        interval: null
       }
     } 
   }
 
   validStatus() {
-    // Make sure time is greater than 0
-    return this.status.namestatus !== ''
+    let isValid = false
+
+    isValid = this.status.namestatus !== ''
+      && (this.status.interval &&this.status.timestatus > 0)
+
+    this.errors = []
+    if (this.status.namestatus === '') { this.errors.push('Name Required') }
+    if (this.status.interval && !this.status.timestatus) { this.errors.push('Intervals Require an Interval') }
+    if (this.status.interval && this.status.timestatus === 0) { this.errors.push('Intervals Require an Interval') }
+
+    return isValid
   }
 
 }

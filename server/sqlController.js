@@ -139,7 +139,7 @@ module.exports = {
             if(val.timestatus - meta.count <= 0) {
                 tempArray.push(db.delete.status(val.id).then())
             } else {
-                tempArray.push(db.upsert.status(val.namestatus, val.timestatus, val.description, val.colorcode, val.playerdescription, val.playerview, val.id, meta.id).then())
+                tempArray.push(db.upsert.status(val.namestatus, val.timestatus, val.description, val.colorcode, val.playerdescription, val.playerview, val.interval, val.id, meta.id).then())
             }
         })
 

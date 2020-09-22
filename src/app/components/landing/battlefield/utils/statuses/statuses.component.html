@@ -1,7 +1,15 @@
 <div *ngIf="!count">
-  <mat-card matTooltip="Click For Description, Delete, & Edit"  [matTooltipDisabled]="tooltips.status_description" (click)="toggleDescription()" *ngIf="!status.timestatus || status.timestatus - counterService.count >= 0" [ngStyle]="{background: status.colorcode}">
-    <h4>{{status.namestatus}}</h4>
+  <mat-card matTooltip="Click For Description, Delete, & Edit"  [matTooltipDisabled]="tooltips.status_description" (click)="toggleDescription()" *ngIf="(!status.timestatus || status.timestatus - counterService.count >= 0) && !status.interval" [ngStyle]="{background: status.colorcode}">
+    <h4 [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.namestatus}}</h4>
     <p *ngIf="status.timestatus">{{status.timestatus - counterService.count}} Seconds Left</p>
+    <p *ngIf="descriptionOpen && status.description">{{status.description}}</p>
+    <button (click)="deleteStatus(status.id)" mat-raised-button color="accent" *ngIf="descriptionOpen">Delete Status</button>
+    <i *ngIf="!descriptionOpen && status.description" class="fas fa-chevron-down"></i>
+  </mat-card>
+
+  <mat-card matTooltip="Click For Description, Delete, & Edit"  [matTooltipDisabled]="tooltips.status_description" (click)="toggleDescription()" *ngIf="status.interval" [ngStyle]="{background: status.colorcode}">
+    <h4 [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.namestatus}}</h4>
+    <p>{{showTime()}} Seconds Left (i)</p>
     <p *ngIf="descriptionOpen && status.description">{{status.description}}</p>
     <button (click)="deleteStatus(status.id)" mat-raised-button color="accent" *ngIf="descriptionOpen">Delete Status</button>
     <i *ngIf="!descriptionOpen && status.description" class="fas fa-chevron-down"></i>
@@ -9,7 +17,7 @@
 </div>
 <div *ngIf="count">
   <mat-card *ngIf="(!status.timestatus || status.timestatus - count >= 0) && status.playerview" [ngStyle]="{background: status.colorcode}">
-    <h4>{{status.namestatus}}</h4>
+    <h4 [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.namestatus}}</h4>
     <p *ngIf="status.timestatus">{{status.timestatus - count}} Seconds Left</p>
     <p *ngIf="status.playerdescription">{{status.description}}</p>
   </mat-card>
