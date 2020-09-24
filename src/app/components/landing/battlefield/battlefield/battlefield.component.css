@@ -132,6 +132,60 @@ i:hover {
     animation: spin 2s linear infinite;
 }
 
+.topExpansionHeader {
+    margin-top: 15px
+}
+
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
+    background: inherit;
+}
+
+.mat-checkbox, .mat-expansion-panel-header-title {
+    font-family: "ancient";
+    font-size: 20px;
+}
+
+.mat-accordion .mat-expansion-panel:first-of-type {
+    margin-top: 10px;
+}
+
+.mat-expansion-panel-header {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.mat-expansion-panel-header:hover, .mat-expansion-panel-header:focus {
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: right !important;
+    background: rgba(0, 0, 0, 0);
+}
+
+.addFighterHeader {
+    background-image: url(../../../../../assets/newFighter.jpg);
+}
+
+.addFighterHeader:hover, .addFighterHeader:focus {
+    background-image: url(../../../../../assets/newFighter.jpg) !important;
+}
+
+.addStatusHeader {
+    background-image: url(../../../../../assets/newStatus.jpg);
+}
+
+.addStatusHeader:hover,.addStatusHeader:focus {
+    background-image: url(../../../../../assets/newStatus.jpg) !important;
+}
+
+.editStatusShell {
+    width: 350px;
+    margin: 0 auto 15px;
+    padding: 10px;
+    border-radius: 5px;
+    background: lightgrey;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

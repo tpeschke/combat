@@ -1,114 +1,104 @@
-<mat-expansion-panel class="topExpansionHeader">
-  <mat-expansion-panel-header class="addFighterHeader">
-    <mat-panel-title>
-      Add Fighter
-    </mat-panel-title>
-  </mat-expansion-panel-header>
+<div class="bestiaryHashShell">
+  <mat-form-field>
+    <input (change)="changeHash($event.target.value)" value="{{hash}}" matInput placeholder="Import by Bestiary Hash">
+  </mat-form-field>
+  <button (click)="addByHash()" mat-raised-button color="accent">Fill It In!</button>
+</div>
 
-
-  <div class="bestiaryHashShell">
-    <mat-form-field>
-      <input (change)="changeHash($event.target.value)" value="{{hash}}" matInput placeholder="Import by Bestiary Hash">
-    </mat-form-field>
-    <button (click)="addByHash()" mat-raised-button color="accent">Fill It In!</button>
+<div class="nameShell">
+  <div [ngStyle]="{background: fighter.colorcode}" matTooltip="Click to Change Color"
+    [cpPresetColors]="['#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']"
+    [(colorPicker)]="fighter.colorcode" (colorPickerChange)="captureColor($event, 'colorcode')" class="fighterColor">
   </div>
+  <i (click)="captureHidden('1', 'hidden')" matTooltip="Visible" *ngIf="fighter.hidden === '0'" class="fas fa-eye"></i>
+  <i (click)="captureHidden('0', 'hidden')" matTooltip="Hidden" *ngIf="fighter.hidden === '1'"
+    class="fas fa-eye-slash"></i>
+  <mat-form-field>
+    <input (change)="captureChange($event, 'namefighter')" (keydown)="$event.stopPropagation()" matInput
+      placeholder="Fighter Name*" value="{{fighter.namefighter}}">
+  </mat-form-field>
+</div>
 
-  <div class="nameShell">
-    <div [ngStyle]="{background: fighter.colorcode}" matTooltip="Click to Change Color"
-      [cpPresetColors]="['#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']"
-      [(colorPicker)]="fighter.colorcode" (colorPickerChange)="captureColor($event, 'colorcode')" class="fighterColor">
-    </div>
-    <i (click)="captureHidden('1', 'hidden')" matTooltip="Visible" *ngIf="fighter.hidden === '0'"
-      class="fas fa-eye"></i>
-    <i (click)="captureHidden('0', 'hidden')" matTooltip="Hidden" *ngIf="fighter.hidden === '1'"
-      class="fas fa-eye-slash"></i>
-    <mat-form-field>
-      <input (change)="captureChange($event, 'namefighter')" (keydown)="$event.stopPropagation()" matInput placeholder="Fighter Name*"
-        value="{{fighter.namefighter}}">
-    </mat-form-field>
+<div class="damageShell">
+  <mat-form-field>
+    <input (change)="captureChangeInt($event.target.value, 'health')" matInput placeholder="Starting Damage"
+      value="{{fighter.health}}">
+  </mat-form-field>
+  <p>/</p>
+  <mat-form-field>
+    <input (change)="captureChangeInt($event.target.value, 'max_health')" matInput placeholder="Max Vitality*"
+      value="{{fighter.max_health}}">
+  </mat-form-field>
+</div>
+
+<div class="damageShell">
+  <mat-form-field>
+    <input (change)="captureChangeInt($event.target.value, 'stress')" matInput placeholder="Starting Stress"
+      value="{{fighter.stress}}">
+  </mat-form-field>
+  <p>/</p>
+  <mat-form-field>
+    <input (change)="captureChangeInt($event.target.value, 'stressthreshold')" matInput placeholder="Stress Threshold"
+      value="{{fighter.stressthreshold}}">
+  </mat-form-field>
+</div>
+
+<div class="weaponSelecterShell">
+  <button (click)="openWeaponSelect()" mat-raised-button color="accent">Weapon Selector</button>
+</div>
+
+<div *ngIf="fighter.selected" class="buttonShell">
+  <p>Initiative: </p>
+  <div *ngIf="fighter.selected.init > 0" class="initButton">
+    d{{fighter.actioncount[0]}}+{{fighter.selected.init}}</div>
+  <div *ngIf="fighter.selected.init === 0" class="initButton">d{{fighter.actioncount[0]}}
   </div>
-
-  <div class="damageShell">
-    <mat-form-field>
-      <input (change)="captureChangeInt($event.target.value, 'health')" matInput placeholder="Starting Damage"
-        value="{{fighter.health}}">
-    </mat-form-field>
-    <p>/</p>
-    <mat-form-field>
-      <input (change)="captureChangeInt($event.target.value, 'max_health')" matInput placeholder="Max Vitality*"
-        value="{{fighter.max_health}}">
-    </mat-form-field>
-  </div>
-
-  <div class="damageShell">
-    <mat-form-field>
-      <input (change)="captureChangeInt($event.target.value, 'stress')" matInput placeholder="Starting Stress"
-        value="{{fighter.stress}}">
-    </mat-form-field>
-    <p>/</p>
-    <mat-form-field>
-      <input (change)="captureChangeInt($event.target.value, 'stressthreshold')" matInput placeholder="Stress Threshold"
-        value="{{fighter.stressthreshold}}">
-    </mat-form-field>
-  </div>
-
-  <div class="weaponSelecterShell">
-    <button (click)="openWeaponSelect()" mat-raised-button color="accent">Weapon Selector</button>
-  </div>
-
-  <div *ngIf="fighter.selected" class="buttonShell">
-    <p>Initiative: </p>
-    <div *ngIf="fighter.selected.init > 0" class="initButton">
-      d{{fighter.actioncount[0]}}+{{fighter.selected.init}}</div>
-    <div *ngIf="fighter.selected.init === 0" class="initButton">d{{fighter.actioncount[0]}}
-    </div>
-    <div *ngIf="fighter.selected.init < 0" class="initButton">
-      d{{fighter.actioncount[0]}}{{fighter.selected.init}}</div>
-    <div class="diceSelectShell">
-      <i class="fas fa-angle-down"></i>
-      <div class="diceSelect">
-        <p (click)="selectInitDice(20)">d20</p>
-        <p (click)="selectInitDice(12)">d12</p>
-        <p (click)="selectInitDice(10)">d10</p>
-        <p (click)="selectInitDice(8)">d8</p>
-        <p (click)="selectInitDice(6)">d6</p>
-        <p (click)="selectInitDice(4)">d4</p>
-        <p (click)="selectInitDice(1)">d1</p>
-      </div>
+  <div *ngIf="fighter.selected.init < 0" class="initButton">
+    d{{fighter.actioncount[0]}}{{fighter.selected.init}}</div>
+  <div class="diceSelectShell">
+    <i class="fas fa-angle-down"></i>
+    <div class="diceSelect">
+      <p (click)="selectInitDice(20)">d20</p>
+      <p (click)="selectInitDice(12)">d12</p>
+      <p (click)="selectInitDice(10)">d10</p>
+      <p (click)="selectInitDice(8)">d8</p>
+      <p (click)="selectInitDice(6)">d6</p>
+      <p (click)="selectInitDice(4)">d4</p>
+      <p (click)="selectInitDice(1)">d1</p>
     </div>
   </div>
-  <div *ngIf="!fighter.selected" class="buttonShell">
-    <p>Initiative: </p>
-    <div class="initButton">d{{fighter.actioncount[0]}}</div>
-    <div class="diceSelectShell">
-      <i class="fas fa-angle-down"></i>
-      <div class="diceSelect">
-        <p (click)="selectInitDice(1)">d1</p>
-        <p (click)="selectInitDice(4)">d4</p>
-        <p (click)="selectInitDice(6)">d6</p>
-        <p (click)="selectInitDice(8)">d8</p>
-        <p (click)="selectInitDice(10)">d10</p>
-        <p (click)="selectInitDice(12)">d12</p>
-        <p (click)="selectInitDice(20)">d20</p>
-      </div>
+</div>
+<div *ngIf="!fighter.selected" class="buttonShell">
+  <p>Initiative: </p>
+  <div class="initButton">d{{fighter.actioncount[0]}}</div>
+  <div class="diceSelectShell">
+    <i class="fas fa-angle-down"></i>
+    <div class="diceSelect">
+      <p (click)="selectInitDice(1)">d1</p>
+      <p (click)="selectInitDice(4)">d4</p>
+      <p (click)="selectInitDice(6)">d6</p>
+      <p (click)="selectInitDice(8)">d8</p>
+      <p (click)="selectInitDice(10)">d10</p>
+      <p (click)="selectInitDice(12)">d12</p>
+      <p (click)="selectInitDice(20)">d20</p>
     </div>
   </div>
+</div>
 
-  <div class="multiAddShell">
-    <mat-form-field>
-      <input (change)="captureMultiAdd($event.target.value)" matInput placeholder="Number to Add" value="{{multiAdd}}">
-    </mat-form-field>
-    <mat-checkbox *ngIf="multiAdd && multiAdd > 1" color="warn" (change)="toggleUniqueColors($event.checked)">Give Each
-      A Unique Color</mat-checkbox>
-    <mat-checkbox *ngIf="multiAdd && multiAdd > 1" color="warn" (change)="toggleNumbering($event.checked)">Number Each
-    </mat-checkbox>
-  </div>
+<div class="multiAddShell">
+  <mat-form-field>
+    <input (change)="captureMultiAdd($event.target.value)" matInput placeholder="Number to Add" value="{{multiAdd}}">
+  </mat-form-field>
+  <mat-checkbox *ngIf="multiAdd && multiAdd > 1" color="warn" (change)="toggleUniqueColors($event.checked)">Give Each
+    A Unique Color</mat-checkbox>
+  <mat-checkbox *ngIf="multiAdd && multiAdd > 1" color="warn" (change)="toggleNumbering($event.checked)">Number Each
+  </mat-checkbox>
+</div>
 
-  <div>
-    <p *ngFor="let error of errors" class="error">{{error}}</p>
-  </div>
+<div>
+  <p *ngFor="let error of errors" class="error">{{error}}</p>
+</div>
 
-  <div class="addShell">
-    <button (click)="addFighter()" mat-raised-button color="warn">Add Fighter</button>
-  </div>
-</mat-expansion-panel>
+<div class="addShell">
+  <button (click)="addFighter()" mat-raised-button color="warn">Add Fighter</button>
+</div>

@@ -11,6 +11,7 @@ import tooltips from '../../../../../utils/tooltips'
 export class StatusesComponent implements OnInit {
   @Input() status: any;
   @Input() count: number;
+  @Input() setEdit: Function;
 
   constructor(
     private counterService: CounterService,

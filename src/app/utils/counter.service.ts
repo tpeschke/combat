@@ -28,6 +28,8 @@ export class CounterService {
   public isSaving = false;
   public autoSaveTimer = null;
 
+  public saveField = this.saveFieldUnbound.bind(this);
+
   public sort() {
     this.fighters.sort((a, b) => a.actioncount - b.actioncount);
 
@@ -50,9 +52,8 @@ export class CounterService {
     this.fighters = newFighters
   }
 
-  saveField() {
+  saveFieldUnbound() {
     this.isSaving = true;
-    this.startAutoSaveTimer()
     let { name, count, hash, id, fighters, statuses } = this
     let field = {
       meta: {

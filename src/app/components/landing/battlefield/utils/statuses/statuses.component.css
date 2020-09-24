@@ -24,3 +24,14 @@ button {
 .invisible {
     display: none;
 }
+
+.statusOptions {
+    margin: 5px auto;
+    display: flex;
+    justify-content: space-between;
+    width: 140px;
+}
+
+.statusOptions i:hover {
+    color: white
+}

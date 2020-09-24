@@ -22,6 +22,10 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
 
   public canPlayersView = false;
   public tooltips;
+  public editedStatus = null;
+
+  public setStatusEdit = this.setStatusEditUnbound.bind(this)
+  public closeEdit = this.closeEditUnbound.bind(this)
 
   ngOnInit() {
     this.counterService.startAutoSaveTimer()
@@ -112,5 +116,13 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
         i = fighters.length
       }
     }
+  }
+
+  setStatusEditUnbound(status) {
+    this.editedStatus = {...status};
+  }
+
+  closeEditUnbound() {
+    this.editedStatus = null;
   }
 }

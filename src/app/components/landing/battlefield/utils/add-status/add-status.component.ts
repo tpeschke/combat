@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, Input } from '@angular/core';
 import { GeneralService } from 'src/app/utils/general.service';
 import { FieldService } from 'src/app/utils/field.service';
 import { CounterService } from 'src/app/utils/counter.service';
@@ -11,6 +11,8 @@ import { MatExpansionPanel } from '@angular/material';
 })
 export class AddStatusComponent implements OnInit {
   @ViewChildren(MatExpansionPanel) viewPanels: QueryList<MatExpansionPanel>;
+  @Input() editedStatus: any;
+  @Input() closeEdit: Function;
 
   constructor(
     private generalService: GeneralService,
@@ -26,11 +28,18 @@ export class AddStatusComponent implements OnInit {
     description: null,
     playerdescription: false,
     playerview: true,
-    interval: false
+    interval: 0
   }
   public errors = []
+  public editing = false;
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.editedStatus) {
+      this.editedStatus.timestatus = this.editedStatus.timestatus - this.counterService.count
+      this.status = this.editedStatus
+      this.editing = true;
+    }
+  }
 
   captureChange(event, type) {
     event.stopPropagation()
@@ -74,7 +83,7 @@ export class AddStatusComponent implements OnInit {
         description: null,
         playerdescription: false,
         playerview: true,
-        interval: null
+        interval: 0
       }
     } 
   }
@@ -91,6 +100,21 @@ export class AddStatusComponent implements OnInit {
     if (this.status.interval && this.status.timestatus === 0) { this.errors.push('Intervals Require an Interval') }
 
     return isValid
+  }
+
+  cancelEdit() {
+    this.status = {
+      id: null,
+      namestatus: '',
+      colorcode: '#a2a2a2',
+      timestatus: null,
+      description: null,
+      playerdescription: false,
+      playerview: true,
+      interval: 0
+    }
+    this.editing = false
+    this.closeEdit()
   }
 
 }

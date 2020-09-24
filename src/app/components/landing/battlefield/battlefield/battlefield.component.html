@@ -1,21 +1,26 @@
 <div (keydown.d)="counterService.incrementCount()"></div>
 <mat-card>
   <div class="headerShell">
-    <input (change)="changeBattlefieldName($event.target)" (keydown)="$event.stopPropagation()" class="headerInput" value="{{counterService.name}}">
+    <input (change)="changeBattlefieldName($event.target)" (keydown)="$event.stopPropagation()" class="headerInput"
+      value="{{counterService.name}}">
     <div>
-      <button (click)="this.counterService.saveField()" *ngIf="!this.counterService.isSaving" mat-raised-button color="accent" matTooltip="Save" [matTooltipDisabled]="tooltips.save_field"><i class="fas fa-save"></i></button>
-      <button class="disabled" *ngIf="this.counterService.isSaving" matTooltip="Autosaving" mat-raised-button disabled><i
-          class="fas fa-spinner"></i></button>
-      <button class="backButton" mat-raised-button color="warn" [routerLink]="['/fields']" matTooltip="Back to Fields" [matTooltipDisabled]="tooltips.back_to_fields"><i
-          class="fas fa-chevron-right"></i></button>
+      <button (click)="this.counterService.saveField()" *ngIf="!this.counterService.isSaving" mat-raised-button
+        color="accent" matTooltip="Save" [matTooltipDisabled]="tooltips.save_field"><i class="fas fa-save"></i></button>
+      <button class="disabled" *ngIf="this.counterService.isSaving" matTooltip="Autosaving" mat-raised-button
+        disabled><i class="fas fa-spinner"></i></button>
+      <button class="backButton" mat-raised-button color="warn" [routerLink]="['/fields']" matTooltip="Back to Fields"
+        [matTooltipDisabled]="tooltips.back_to_fields"><i class="fas fa-chevron-right"></i></button>
     </div>
   </div>
 
   <app-counter></app-counter>
 
+  <div *ngIf="editedStatus" class="editStatusShell">
+    <app-add-status [editedStatus]='editedStatus' [closeEdit]="closeEdit"></app-add-status>
+  </div>
   <div *ngIf="counterService.statuses.length > 0" class="statusShell">
     <div *ngFor="let status of counterService.statuses">
-      <app-statuses [status]="status" [count]="null"></app-statuses>
+      <app-statuses [status]="status" [count]="null" [setEdit]="setStatusEdit"></app-statuses>
     </div>
   </div>
 
@@ -38,10 +43,10 @@
               <p>{{fighter.namefighter}}</p>
             </div>
             <div class="deadIconShell">
-              <p (click)="resurrectFighter(fighter.id)" class="icon" matTooltip="Resurrect Fighter"  [matTooltipDisabled]="tooltips.resurrect_fighter"><i
-                  class="fas fa-sun"></i></p>
-              <p (click)="removeFighter(fighter.id)" class="icon" matTooltip="Remove Fighter Permanently"  [matTooltipDisabled]="tooltips.remove_fighter"><i
-                  class="fas fa-trash"></i></p>
+              <p (click)="resurrectFighter(fighter.id)" class="icon" matTooltip="Resurrect Fighter"
+                [matTooltipDisabled]="tooltips.resurrect_fighter"><i class="fas fa-sun"></i></p>
+              <p (click)="removeFighter(fighter.id)" class="icon" matTooltip="Remove Fighter Permanently"
+                [matTooltipDisabled]="tooltips.remove_fighter"><i class="fas fa-trash"></i></p>
             </div>
           </div>
         </div>
@@ -55,11 +60,28 @@
           <p>{{counterService.hash}}</p> <button (click)="copyHash()" mat-raised-button color="accent">Copy Complete
             URL</button>
         </div>
-        <mat-checkbox *ngIf="counterService.hash" color="warn" (change)="togglePlayerView($event.checked)">Player View On</mat-checkbox>
+        <mat-checkbox *ngIf="counterService.hash" color="warn" (change)="togglePlayerView($event.checked)">Player View
+          On</mat-checkbox>
         <mat-accordion>
-          <app-add-fighter></app-add-fighter>
+          <mat-expansion-panel class="topExpansionHeader">
+            <mat-expansion-panel-header class="addFighterHeader">
+              <mat-panel-title>
+                Add Fighter
+              </mat-panel-title>
+            </mat-expansion-panel-header>
 
-          <app-add-status></app-add-status>
+            <app-add-fighter></app-add-fighter>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header class="addStatusHeader">
+              <mat-panel-title>
+                Add Status
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <app-add-status></app-add-status>
+          </mat-expansion-panel>
         </mat-accordion>
       </div>
     </div>

@@ -1,25 +1,41 @@
 <div *ngIf="!count">
-  <mat-card matTooltip="Click For Description, Delete, & Edit"  [matTooltipDisabled]="tooltips.status_description" (click)="toggleDescription()" *ngIf="(!status.timestatus || status.timestatus - counterService.count >= 0) && !status.interval" [ngStyle]="{background: status.colorcode}">
+  <mat-card matTooltip="Click For Description, Delete, & Edit" [matTooltipDisabled]="tooltips.status_description"
+    (click)="toggleDescription()"
+    *ngIf="(!status.timestatus || status.timestatus - counterService.count >= 0) && !status.interval"
+    [ngStyle]="{background: status.colorcode}">
     <h4 [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.namestatus}}</h4>
-    <p *ngIf="status.timestatus"  [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.timestatus - counterService.count}} Seconds Left</p>
-    <p *ngIf="descriptionOpen && status.description"  [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.description}}</p>
-    <button (click)="deleteStatus(status.id)" mat-raised-button color="accent" *ngIf="descriptionOpen">Delete Status</button>
-    <i *ngIf="!descriptionOpen && status.description" [ngStyle]="{color: getContrastYIQ(status.colorcode)}" class="fas fa-chevron-down"></i>
+    <p *ngIf="status.timestatus" [ngStyle]="{color: getContrastYIQ(status.colorcode)}">
+      {{status.timestatus - counterService.count}} Seconds Left</p>
+    <p *ngIf="descriptionOpen && status.description" [ngStyle]="{color: getContrastYIQ(status.colorcode)}">
+      {{status.description}}</p>
+    <div class="statusOptions">
+      <i [ngStyle]="{color: getContrastYIQ(status.colorcode)}" (click)="setEdit(status)" *ngIf="descriptionOpen" class="fas fa-edit"></i>
+      <i [ngStyle]="{color: getContrastYIQ(status.colorcode)}" (click)="deleteStatus(status.id)" *ngIf="descriptionOpen" class="fas fa-trash"></i>
+    </div>
+    <i *ngIf="!descriptionOpen && status.description" [ngStyle]="{color: getContrastYIQ(status.colorcode)}"
+      class="fas fa-chevron-down"></i>
   </mat-card>
 
-  <mat-card matTooltip="Click For Description, Delete, & Edit"  [matTooltipDisabled]="tooltips.status_description" (click)="toggleDescription()" *ngIf="status.interval" [ngStyle]="{background: status.colorcode}">
+  <mat-card matTooltip="Click For Description, Delete, & Edit" [matTooltipDisabled]="tooltips.status_description"
+    (click)="toggleDescription()" *ngIf="status.interval" [ngStyle]="{background: status.colorcode}">
     <h4 [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.namestatus}}</h4>
-    <p  [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{showTime()}} Seconds Left (i)</p>
-    <p *ngIf="descriptionOpen && status.description"  [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.description}}</p>
-    <button (click)="deleteStatus(status.id)" mat-raised-button color="accent" *ngIf="descriptionOpen">Delete Status</button>
-    <i *ngIf="!descriptionOpen && status.description" class="fas fa-chevron-down"  [ngStyle]="{color: getContrastYIQ(status.colorcode)}"></i>
+    <p [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{showTime()}} Seconds Left (i)</p>
+    <p *ngIf="descriptionOpen && status.description" [ngStyle]="{color: getContrastYIQ(status.colorcode)}">
+      {{status.description}}</p>
+    <div class="statusOptions">
+      <i [ngStyle]="{color: getContrastYIQ(status.colorcode)}" (click)="setEdit(status)" *ngIf="descriptionOpen" class="fas fa-edit"></i>
+      <i [ngStyle]="{color: getContrastYIQ(status.colorcode)}" (click)="deleteStatus(status.id)" *ngIf="descriptionOpen" class="fas fa-trash"></i>
+    </div>
+    <i *ngIf="!descriptionOpen && status.description" class="fas fa-chevron-down"
+      [ngStyle]="{color: getContrastYIQ(status.colorcode)}"></i>
   </mat-card>
 </div>
 <div *ngIf="count">
-  <mat-card *ngIf="(!status.timestatus || status.timestatus - count >= 0) && status.playerview" [ngStyle]="{background: status.colorcode}">
+  <mat-card *ngIf="(!status.timestatus || status.timestatus - count >= 0) && status.playerview"
+    [ngStyle]="{background: status.colorcode}">
     <h4 [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.namestatus}}</h4>
-    <p *ngIf="status.timestatus" [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.timestatus - count}} Seconds Left</p>
+    <p *ngIf="status.timestatus" [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.timestatus - count}}
+      Seconds Left</p>
     <p *ngIf="status.playerdescription" [ngStyle]="{color: getContrastYIQ(status.colorcode)}">{{status.description}}</p>
   </mat-card>
 </div>
-
