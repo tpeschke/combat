@@ -64,6 +64,14 @@ export class PlayerViewComponent implements OnInit {
           }
         } else if (type === 'addStatus') {
           this.statuses = this.statuses.concat(data.value)
+        } else if (type === 'updateStatus') {
+          this.statuses = this.statuses.map(val => {
+            if (val.id === data.value.id) {
+              return data.value
+            } else {
+              return val
+            }
+          })
         } else {
           this[type] = value
           if(type === 'count') {

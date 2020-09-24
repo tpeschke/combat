@@ -119,6 +119,11 @@ i {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.closeButton {
+    margin-right: 50%;
 }
 
 .error {

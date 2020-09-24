@@ -39,7 +39,7 @@
 </div>
 
 <div class="addShell">
-  <button *ngIf='editing' (click)="cancelEdit()" mat-raised-button color="accent">Close Edit</button>
-  <button *ngIf='editing' (click)="addStatus()" mat-raised-button color="warn">Save Edits</button>
+  <button *ngIf='editing' (click)="cancelEdit()" class="closeButton" mat-raised-button color="accent">Close Edit</button>
+  <button *ngIf='editing' (click)="saveEdit()" mat-raised-button color="warn">Save Edits</button>
   <button *ngIf='!editing' (click)="addStatus()" mat-raised-button color="warn">Add Status</button>
 </div>

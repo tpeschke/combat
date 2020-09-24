@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, Input } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, Input, OnChanges } from '@angular/core';
 import { GeneralService } from 'src/app/utils/general.service';
 import { FieldService } from 'src/app/utils/field.service';
 import { CounterService } from 'src/app/utils/counter.service';
@@ -9,7 +9,7 @@ import { MatExpansionPanel } from '@angular/material';
   templateUrl: './add-status.component.html',
   styleUrls: ['../add-fighter/add-fighter.component.css']
 })
-export class AddStatusComponent implements OnInit {
+export class AddStatusComponent implements OnInit, OnChanges {
   @ViewChildren(MatExpansionPanel) viewPanels: QueryList<MatExpansionPanel>;
   @Input() editedStatus: any;
   @Input() closeEdit: Function;
@@ -33,8 +33,10 @@ export class AddStatusComponent implements OnInit {
   public errors = []
   public editing = false;
 
-  ngOnInit() {
-    if (this.editedStatus) {
+  ngOnInit() {}
+
+  ngOnChanges(changes) {
+    if (changes) {
       this.editedStatus.timestatus = this.editedStatus.timestatus - this.counterService.count
       this.status = this.editedStatus
       this.editing = true;
@@ -100,6 +102,39 @@ export class AddStatusComponent implements OnInit {
     if (this.status.interval && this.status.timestatus === 0) { this.errors.push('Intervals Require an Interval') }
 
     return isValid
+  }
+
+  saveEdit() {
+    if (this.validStatus()) {
+      if (this.status.timestatus && !this.status.interval) { 
+        this.status.timestatus = this.counterService.count + this.status.timestatus 
+      } else if (this.status.timestatus && this.status.interval) {
+        this.status.interval = this.status.timestatus;
+        this.status.timestatus = this.counterService.count;
+      }
+      if (!this.status.playerview) { this.status.playerdescription = false}
+      this.counterService.statuses = this.counterService.statuses.map(val => {
+        if (val.id === this.status.id) {
+          return this.status
+        } else {
+          return val
+        }
+      })
+      this.fieldService.sendBattleData({hash: this.counterService.hash, type: 'updateStatus', value: this.status})
+      this.viewPanels.forEach(p => p.close());
+      this.status = {
+        id: null,
+        namestatus: '',
+        colorcode: '#a2a2a2',
+        timestatus: null,
+        description: null,
+        playerdescription: false,
+        playerview: true,
+        interval: 0
+      }
+      this.editing = false
+      this.closeEdit()
+    } 
   }
 
   cancelEdit() {
