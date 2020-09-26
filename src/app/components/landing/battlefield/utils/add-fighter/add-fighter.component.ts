@@ -60,14 +60,16 @@ export class AddFighterComponent implements OnInit {
     if (this.hash) {
       this.fieldService.getFightersFromBestiary(this.hash).subscribe((beast: any) => {
         let max_health = beast.vitality.toUpperCase() !== "N/A" ? this.generalService.rollDice(beast.vitality) : 10000
-          , stressthreshold = beast.stressthreshold.toUpperCase() !== "N/A" ? beast.stressthreshold : 0
+          , stressthreshold = typeof beast.stressthreshold === "number" ? beast.stressthreshold : 0
           , weapons = []
           , noBase = true
           , selected = null
         beast.combat.forEach(val => {
+          console.log(val)
           if (val.weapon !== 'Base') {
-            weapons.push({ ...val, id: this.generalService.makeid(), weapon: val.weapon, speed: val.spd, selected: '0', encumb: val.encumb })
-            weapons.push({ ...val, id: this.generalService.makeid(), weapon: `${val.weapon} (IG)`, speed: val.spd + Math.ceil(val.measure / 2), selected: '0', encumb: val.encumb })
+            let maxrange = val.ranges ? val.ranges.thirtytwo : null;
+            weapons.push({ ...val, id: this.generalService.makeid(), weapon: val.weapon, speed: val.spd, selected: '0', encumb: val.encumb, maxrange })
+            weapons.push({ ...val, id: this.generalService.makeid(), weapon: `${val.weapon} (IG)`, speed: val.spd + Math.ceil(val.measure / 2), selected: '0', encumb: val.encumb, maxrange })
           } else {
             noBase = false;
             let newId = this.generalService.makeid()
