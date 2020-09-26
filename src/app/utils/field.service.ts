@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import local from '../local';
 import tooltips from './tooltips'
 import { Socket } from 'ngx-socket-io';
+import { tap } from 'rxjs/operators';
+import { GeneralService } from './general.service';
  
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,8 @@ export class FieldService {
 
   constructor(
     private http: HttpClient,
-    private socket: Socket
+    private socket: Socket,
+    private generalService: GeneralService
   ) { }
 
   subscribeToBattle(hash) {
@@ -32,6 +35,9 @@ export class FieldService {
 
   addField() {
     return this.http.get(local.endpointBase + '/api/newfield')
+      .pipe(
+        tap(result => this.generalService.handleMessage(result))
+      )
   }
 
   saveField(field) {

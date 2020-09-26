@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralService {
 
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   public makeid() {
     var text = "";
@@ -71,6 +72,21 @@ export class GeneralService {
       return +value.replace(/\D/g,'')
     } else {
       return value
+    }
+  }
+
+  handleMessage(message) {
+    let {message: info, color } = message;
+    if (info) {
+      if (color === 'green') {
+        this.toastr.success(info)
+      } else if (color === 'blue') {
+        this.toastr.info(info)
+      } else if (color === 'yellow') {
+        this.toastr.warning(info)
+      } else if (color === 'red') {
+        this.toastr.error(info)
+      } 
     }
   }
 }

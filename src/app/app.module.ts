@@ -25,6 +25,7 @@ import { GeneralService } from './utils/general.service';
 import { HttpService } from './utils/http.service';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { ToastrModule } from 'ngx-toastr';
 import variables from './local.js'
 
 const config: SocketIoConfig = { url: variables.endpointBase, options: {} };
@@ -51,7 +52,8 @@ const config: SocketIoConfig = { url: variables.endpointBase, options: {} };
     BrowserAnimationsModule,
     BattlefieldModule,
     SavedFieldsModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    ToastrModule.forRoot()
   ],
   providers: [FieldService, GeneralService, HttpService],
   bootstrap: [AppComponent]

@@ -107,11 +107,11 @@ module.exports = {
         var { id, patreon } = req.user
         db.get.totalFieldNumber(id).then(totalCount => {
             if (+totalCount[0].count >= 1 && !patreon) {
-                res.status(403).send({ message: 'You need to link your Patreon to this account to add more fields. You can do so by logging on through the BonfireSRD' })
+                res.send({ color: "yellow", message: 'You need to link your Patreon to this account to add more fields. You can do so by logging on through the BonfireSRD' })
             } else if (totalCount[0].count === '0' || +totalCount[0].count <= patreon) {
                 db.upsert.field(id, 'New Battlefield', hash, 1).then(result => res.send({ hash }))
             } else if (totalCount[0].count > patreon) {
-                res.status(403).send({ message: 'To add more fields, you need to increase your Patreon Tier' })
+                res.send({ color: "red",  message: 'To add more fields, you need to increase your Patreon Tier' })
             }
         })
     },
