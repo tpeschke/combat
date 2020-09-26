@@ -280,3 +280,9 @@ input:focus{
 .NonRangedShell input {
     width: 100%
 }
+
+.weaponButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

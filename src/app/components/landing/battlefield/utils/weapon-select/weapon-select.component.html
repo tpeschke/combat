@@ -59,32 +59,39 @@
             </div>
             <div class="rangeRow">
               <div>-4</div>
-              <div>{{((weapon.maxrange / 6) * 2) - 1 | number:'1.0-0'}} - {{(weapon.maxrange / 6) *3 | number:'1.0-0'}}</div>
+              <div>{{((weapon.maxrange / 6) * 2) - 1 | number:'1.0-0'}} - {{(weapon.maxrange / 6) *3 | number:'1.0-0'}}
+              </div>
             </div>
             <div class="rangeRow">
               <div>-8</div>
-              <div>{{((weapon.maxrange / 6) * 3) - 1 | number:'1.0-0'}} - {{(weapon.maxrange / 6) *4 | number:'1.0-0'}}</div>
+              <div>{{((weapon.maxrange / 6) * 3) - 1 | number:'1.0-0'}} - {{(weapon.maxrange / 6) *4 | number:'1.0-0'}}
+              </div>
             </div>
             <div class="rangeRow">
               <div>-16</div>
-              <div>{{((weapon.maxrange / 6) * 4) - 1 | number:'1.0-0'}} - {{(weapon.maxrange / 6) *5 | number:'1.0-0'}}</div>
+              <div>{{((weapon.maxrange / 6) * 4) - 1 | number:'1.0-0'}} - {{(weapon.maxrange / 6) *5 | number:'1.0-0'}}
+              </div>
             </div>
             <div class="rangeRow">
               <div>-32</div>
               <div>
-                {{((weapon.maxrange / 6) * 5) - 1 | number:'1.0-0'}} - <input class="maxrange" (change)="changeWeaponPropertyInt(weapon.id, $event, 'maxrange')"
-                value="{{weapon.maxrange}}"></div>
+                {{((weapon.maxrange / 6) * 5) - 1 | number:'1.0-0'}} - <input class="maxrange"
+                  (change)="changeWeaponPropertyInt(weapon.id, $event, 'maxrange')" value="{{weapon.maxrange}}"></div>
             </div>
           </div>
 
           <div *ngIf="!weapon.maxrange" class="NonRangedShell">
             <p>Input a Max Range to Make This Weapon Ranged:</p>
             <input class="maxrange" (change)="changeWeaponPropertyInt(weapon.id, $event, 'maxrange')"
-                value="{{weapon.maxrange}}">
+              value="{{weapon.maxrange}}">
           </div>
 
-          <button *ngIf="weapon.selected === '0'" (click)="deleteWeapon(weapon.id)" mat-raised-button
-            color="warn">Delete Weapon</button>
+          <div class='weaponButtons'>
+            <button (click)="copyWeapon(weapon)" mat-raised-button
+              color="accent">Copy Weapon</button>
+            <button *ngIf="weapon.selected === '0'" (click)="deleteWeapon(weapon.id)" mat-raised-button
+              color="warn">Delete Weapon</button>
+          </div>
 
         </mat-expansion-panel>
 

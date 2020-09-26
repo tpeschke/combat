@@ -139,6 +139,24 @@ export class WeaponSelectComponent implements OnInit {
     }
   }
 
+  copyWeapon(weapon) {
+    let { fighters } = this.counterService
+    , weaponCopy = {...weapon}
+    weaponCopy.id = this.generalService.makeid()
+    weaponCopy.weapon = weaponCopy.weapon + " (Copy)"
+    weaponCopy.selected = "0"
+    if (this.id) {
+      for (let i = 0; i < fighters.length; i++) {
+        if (fighters[i].id === this.id) {
+          fighters[i].weapons.push(weaponCopy)
+          i = fighters.length
+        }
+      }
+    } else {
+      this.weapons.push(weaponCopy)
+    }
+  }
+
   deleteWeapon(weaponId) {
     let { fighters } = this.counterService
     if (this.id) {
