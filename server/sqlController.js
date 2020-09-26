@@ -41,7 +41,9 @@ module.exports = {
 
                 let tempArr = []
                 result.forEach(val => tempArr.push(db.get.weapon(val.id).then(weapons => {
-                    selected = weapons.filter(v => v.selected === '1')
+                    selected = weapons.filter(v => {
+                        return v.selected === '1'
+                    })
                     if (selected.length === 0) {
                         weapons.push({ weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' })
                         val.selected = { weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' }
@@ -132,6 +134,11 @@ module.exports = {
             db.upsert.fighter(val.namefighter, val.colorcode, val.actioncount.length ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.broken, val.stressthreshold, val.id, meta.id).then(result => {
                 val.weapons.forEach(w => {
                     tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.encumb, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id).then())
+                    if (w.maxrange) {
+                        tempArray.push(db.upsert.ranges(w.id, w.maxrange).then())
+                    } else if (w.maxrange === 0) {
+                        tempArray.push(db.delete.range(w.id).then())
+                    }
                 })
             })
         })

@@ -236,3 +236,47 @@ input:focus{
     display: flex;
     justify-content: space-between;
 }
+
+.rangeShell {
+    margin: 15px auto 10px;
+    width: 200px;
+    font-family: 'ancient';
+}
+
+.rangeShell .rangeRow:nth-child(odd) {
+    background: lightgrey;
+}
+
+.rangeShell .rangeRow:first-child {
+    background: #990000;
+    color: white
+}
+
+.rangeRow {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.rangeRow div {
+    text-align: center;
+}
+
+.rangeRow div:first-child {
+    width: 25%;
+}
+
+.rangeRow div:last-child {
+    width: 75%;
+}
+
+.NonRangedShell {
+    margin-top: 15px
+}
+
+.NonRangedShell p {
+    text-align: center;
+}
+
+.NonRangedShell input {
+    width: 100%
+}

@@ -85,7 +85,7 @@ i:hover {
 
 .weaponSquare {
     position: absolute;
-    top: 22px;
+    top: 20px;
     width: 200px;
     height: 191px;
     background: whitesmoke;
@@ -100,13 +100,54 @@ i:hover {
     width: 200px;
     background: black;
     color: whitesmoke;
-    top: -27px;
+    top: -25px;
     position: absolute;
     padding: 5px;
     display: flex;
     justify-content: space-between;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+}
+
+.rangesBox {
+    width: 200px;
+    background: white;
+    left: 200px;
+    position: absolute;
+    font-family: 'ancient';
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.rangesBox .rangeRow:nth-child(odd) {
+    background: lightgrey;
+}
+
+.rangesBox .rangeRow:first-child {
+    background: black;
+    color: white
+}
+
+.rangeRow {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 3px;
+    font-size: 18px;
+}
+
+.rangeRow div {
+    text-align: center;
+}
+
+.rangeRow div:first-child {
+    width: 25%;
+}
+
+.rangeRow div:last-child {
+    width: 75%;
 }
 
 .weaponHeader p {
