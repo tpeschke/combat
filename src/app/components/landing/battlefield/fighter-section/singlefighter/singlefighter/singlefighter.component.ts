@@ -20,7 +20,7 @@ export class SinglefighterComponent implements OnInit {
     private dialog: MatDialog,
     public fieldService: FieldService,
     public generalService: GeneralService
-  ) { 
+  ) {
     this.tooltips = tooltips
   }
 
@@ -127,6 +127,17 @@ export class SinglefighterComponent implements OnInit {
           }
           this.counterService.sort()
         }
+        i = fighters.length
+      }
+    }
+  }
+
+  increaseActionToAboveCount() {
+    let { fighters } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.fighter.id) {
+        fighters[i].actioncount = this.counterService.count + 2
+        this.counterService.sort()
         i = fighters.length
       }
     }

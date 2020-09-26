@@ -3,7 +3,7 @@
 
   <div class="fieldShell">
     <div class="fieldRow">
-      <h2>Combat Name</h2>
+      <h2>Field Name</h2>
       <h2>Count</h2>
       <h2>Fighters</h2>
       <h2>Dead</h2>
@@ -16,6 +16,11 @@
       <p>{{field.fightercount}}</p>
       <p>{{field.deadcount}}</p>
       <p><i (click)="deleteConfirm($event, field.id)" class="fas fa-trash"></i></p>
+    </div>
+
+    <div class='noField' *ngIf="fields.length === 0">
+      <p>You Currently Have No Fields. Let's Add One:</p>
+      <button mat-raised-button color="warn" (click)="addField()">New Field</button>
     </div>
   </div>
 
