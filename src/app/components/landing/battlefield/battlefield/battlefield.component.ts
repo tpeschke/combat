@@ -15,7 +15,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private counterService: CounterService,
-    private fieldService: FieldService,
+    private fieldService: FieldService
     ) {
       this.tooltips = tooltips
     }
@@ -23,6 +23,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
   public canPlayersView = false;
   public tooltips;
   public editedStatus = null;
+  public owner = false;
 
   public setStatusEdit = this.setStatusEditUnbound.bind(this)
   public closeEdit = this.closeEditUnbound.bind(this)
@@ -31,6 +32,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
     this.counterService.startAutoSaveTimer()
     this.route.data.subscribe(data => {
       if (data['battle'].meta.name) {
+        this.owner = data['battle'].owner
         this.counterService.count = data['battle'].meta.count
         this.counterService.name = data['battle'].meta.name
         this.counterService.hash = data['battle'].meta.hash

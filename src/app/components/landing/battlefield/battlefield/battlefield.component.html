@@ -57,8 +57,8 @@
       <div class="innerShell">
         <div *ngIf="counterService.hash" class="battleHashShell">
           <h4>Battle Hash:</h4>
-          <p>{{counterService.hash}}</p> <button (click)="copyHash()" mat-raised-button color="accent">Copy Complete
-            URL</button>
+          <p>{{counterService.hash}}</p> 
+          <button (click)="copyHash()" mat-raised-button color="accent">Copy Complete URL</button>
         </div>
         <mat-checkbox *ngIf="counterService.hash" color="warn" (change)="togglePlayerView($event.checked)">Player View
           On</mat-checkbox>
@@ -83,6 +83,10 @@
             <app-add-status></app-add-status>
           </mat-expansion-panel>
         </mat-accordion>
+
+        <div *ngIf="owner" class="battleHashShell encounterShell">
+          <button (click)="this.counterService.saveField(true)" mat-raised-button color="warn">Save As Encounter</button>
+        </div>
       </div>
     </div>
   </div>

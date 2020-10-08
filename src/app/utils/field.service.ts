@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import local from '../local';
 import tooltips from './tooltips'
 import { Socket } from 'ngx-socket-io';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { GeneralService } from './general.service';
  
 @Injectable({

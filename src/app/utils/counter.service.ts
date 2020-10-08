@@ -52,12 +52,12 @@ export class CounterService {
     this.fighters = newFighters
   }
 
-  saveFieldUnbound() {
+  saveFieldUnbound(encounter) {
     this.isSaving = true;
     let { name, count, hash, id, fighters, statuses } = this
     let field = {
       meta: {
-        name, count, hash, id
+        name, count, hash, id, encounter
       },
       fighters, statuses
     }

@@ -1,8 +1,8 @@
-makeid = () => {
+makeid = (length = 5) => {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < length; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
@@ -60,6 +60,9 @@ module.exports = {
 
                 Promise.all(tempArr).then(final => {
                     battlefield.fighters = final
+                    if (req.user) {
+                        battlefield.owner = (userId === 1 || userId === 21)
+                    }
                     res.send(battlefield)
                 })
             })
@@ -130,6 +133,9 @@ module.exports = {
         var tempArray = []
 
         tempArray.push(db.upsert.field(user.id, meta.name, meta.hash, meta.count).then())
+        if (meta.encounter) {
+            tempArray.push(db.upsert.encounter(meta.hash, makeid(10)).then())
+        }
         fighters.forEach(val => {
             db.upsert.fighter(val.namefighter, val.colorcode, val.actioncount.length ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.stressthreshold, val.id, meta.id).then(result => {
                 val.weapons.forEach(w => {

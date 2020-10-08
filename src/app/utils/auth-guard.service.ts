@@ -4,6 +4,11 @@ import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/ro
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+class User {
+  id: number
+  patreon?: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +25,7 @@ export class AuthGuardService {
   ): Observable<boolean> | Promise<boolean> | boolean {
     return this.fieldService.checkLogin()
       .pipe(
-        map(results => {
+        map((results: User) => {
           if (results) {
             return true
           } else {
