@@ -33,6 +33,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
     this.route.data.subscribe(data => {
       if (data['battle'].meta.name) {
         this.owner = data['battle'].owner
+        this.counterService.encounter = data['battle'].meta.encounter
         this.counterService.count = data['battle'].meta.count
         this.counterService.name = data['battle'].meta.name
         this.counterService.hash = data['battle'].meta.hash

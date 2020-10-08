@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import local from '../local';
 import { FightersectionComponent } from '../components/landing/battlefield/fighter-section/fightersection.component';
+import { GeneralService } from './general.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ import { FightersectionComponent } from '../components/landing/battlefield/fight
 export class CounterService {
   constructor(
     private http: HttpClient,
-    private fieldService: FieldService
+    private fieldService: FieldService,
+    private generalService: GeneralService
   ) { }
 
   public fighters = [];
@@ -22,6 +24,7 @@ export class CounterService {
   public name = null;
   public count = null;
   public hash = null;
+  public encounter = null;
 
   public timeId = null;
 
@@ -57,9 +60,14 @@ export class CounterService {
     let { name, count, hash, id, fighters, statuses } = this
     let field = {
       meta: {
-        name, count, hash, id, encounter
+        name, count, hash, id, encounter: null
       },
       fighters, statuses
+    }
+    if (encounter && this.encounter) {
+      field.meta.encounter = this.encounter
+    } else if (encounter) {
+      field.meta.encounter = this.generalService.makeid();
     }
     this.fieldService.saveField(field).subscribe(result => this.isSaving = false)
   }

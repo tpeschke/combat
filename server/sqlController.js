@@ -134,7 +134,7 @@ module.exports = {
 
         tempArray.push(db.upsert.field(user.id, meta.name, meta.hash, meta.count).then())
         if (meta.encounter) {
-            tempArray.push(db.upsert.encounter(meta.hash, makeid(10)).then())
+            tempArray.push(db.upsert.encounter(meta.hash, meta.encounter).then())
         }
         fighters.forEach(val => {
             db.upsert.fighter(val.namefighter, val.colorcode, val.actioncount.length ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.stressthreshold, val.id, meta.id).then(result => {

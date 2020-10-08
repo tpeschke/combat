@@ -1,4 +1,4 @@
 insert into encounterhash (urlhash, encounterhash)
   values ($1, $2)
-ON CONFLICT (urlhash)
+ON CONFLICT (encounterhash)
 DO NOTHING
