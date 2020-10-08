@@ -544,6 +544,10 @@ button:hover {
     color: #990000
 }
 
+.bleedingOutShell {
+    width: 40%;
+    text-align: center;
+}
 
 @media (max-width: 800px) { 
 .playerViewShell {

@@ -95,7 +95,7 @@
   <p *ngIf="fighter.woundCategory === 50" matTooltip="Blooded" [matTooltipDisabled]="tooltips.wound_category_tier">B</p>
   <p *ngIf="fighter.woundCategory === 75" matTooltip="Wounded" [matTooltipDisabled]="tooltips.wound_category_tier">W</p>
   <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"
-    [matTooltipDisabled]="tooltips.wound_category_tier"><i class="fas fa-tint"></i>
+    [matTooltipDisabled]="tooltips.wound_category_tier" class="bleedingOutShell"><i class="fas fa-tint"></i>
   </div>
 </div>
 <div *ngIf="editOn" class="inputShell">
@@ -120,7 +120,7 @@
     [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
     +{{fighter.selected.encumb * 4}}</p>
   <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"
-    [matTooltipDisabled]="tooltips.stress_from_wounds"><i class="fas fa-tint"></i>
+    [matTooltipDisabled]="tooltips.stress_from_wounds" class="bleedingOutShell"><i class="fas fa-tint"></i>
   </div>
 </div>
 <div *ngIf="editOn" class="inputShell">
