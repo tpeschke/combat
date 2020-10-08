@@ -75,19 +75,28 @@ export class CounterService {
 
   formatFightersForPlayers(fighters) {
     let playerFighters = fighters.map(fighter => {
-      let wound: any = fighter.health * 100 / fighter.max_health;
+      let wound: any = fighter.health * 100 / fighter.max_health
+        , stressFromEncumb = 0
+        , { encumb } = fighter.selected
+        , multiplier = 0;
       if (wound === 0) {
         wound = '00'
+        multiplier = 1
       } else if (wound > 0 && wound < 25) {
         wound = 10
+        multiplier = 2
       } else if (wound >= 25 && wound < 50) {
         wound = 25
+        multiplier = 3
       } else if (wound >= 50 && wound < 75) {
         wound = 50
+        multiplier = 4
       } else if (wound >= 75 && wound < 100) {
         wound = 75
+        multiplier = 5
       } else if (wound >= 100) {
         wound = ''
+        multiplier = 6
       }
       return {
         colorcode: fighter.colorcode,
@@ -98,6 +107,8 @@ export class CounterService {
         stress: fighter.stress * 100 / fighter.stressthreshold,
         topcheck: '0',
         weapon: fighter.selected.weapon,
+        panicked: multiplier >= fighter.panic,
+        broken: fighter.stress + stressFromEncumb >= fighter.stressthreshold && fighter.stressthreshold > 0,
         wound
       }
     })

@@ -41,7 +41,7 @@ input:focus, button:focus {
 }
 
 .header {
-    background: grey;
+    background: #636363;
 }
 
 .header p {
@@ -71,6 +71,10 @@ i:hover {
     text-align: left;
 }
 
+.nameInput {
+    width: 15%;
+}
+
 .fighterColor {
     height: 15px;
     width: 15px;
@@ -81,6 +85,7 @@ i:hover {
 
 .weaponSquareShell {
     position: relative;
+    text-align: center;
 }
 
 .weaponSquare {
@@ -430,6 +435,14 @@ button:hover {
     position: relative;
 }
 
+.panicSelectShell {
+    position: relative;
+    width: 10%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
 .diceSelect {
     position: absolute;
     width: 50px;
@@ -444,6 +457,15 @@ button:hover {
 
 .diceSelectShell:hover .diceSelect {
     display: inherit;
+}
+
+.panicSelectShell:hover .diceSelect {
+    display: flex;
+}
+
+.panicSelectShell .diceSelect {
+    flex-direction: column;
+    width: 100px;
 }
 
 .diceSelect p {
@@ -494,7 +516,7 @@ button:hover {
 }
 
 .activeThisSecond {
-    background: #4caf506b;
+    background: #008b066b;
 }
 
 .fighterHidden {
@@ -512,6 +534,14 @@ button:hover {
 
 .mobile {
     display: none;
+}
+
+.panicked {
+    color: #cfff00
+}
+
+.broken {
+    color: #990000
 }
 
 

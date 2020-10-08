@@ -12,9 +12,22 @@
     [(colorPicker)]="colorChange" (colorPickerChange)="captureColor($event)" class="fighterColor editOn"></div>
 </div>
 
-<p *ngIf="!editOn" class="name">{{fighter.namefighter}}</p>
-<input *ngIf="editOn" (change)="captureChange($event, 'nameChange')" (keydown)="$event.stopPropagation()" class="name"
+<p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'panicked' : panicked}">{{fighter.namefighter}}</p>
+<input *ngIf="editOn" (change)="captureChange($event, 'nameChange')" (keydown)="$event.stopPropagation()" class="name nameInput"
   value="{{nameChange}}">
+<div *ngIf="editOn" class="panicSelectShell">
+  <p>{{fighter.panic | panicThresholds}}</p>
+  <i class="fas fa-angle-down"></i>
+  <div class="diceSelect">
+    <p (click)="selectPanicThreshold(1)">Fresh</p>
+    <p (click)="selectPanicThreshold(2)">Tired</p>
+    <p (click)="selectPanicThreshold(3)">Hurt</p>
+    <p (click)="selectPanicThreshold(4)">Bloodied</p>
+    <p (click)="selectPanicThreshold(5)">Wounded</p>
+    <p (click)="selectPanicThreshold(6)">Bleeding Out</p>
+    <p (click)="selectPanicThreshold(7)">Never</p>
+  </div>
+</div>
 
 <div class="icon weaponSquareShell">
   <i class="fas fa-shield-alt"></i>
@@ -117,8 +130,8 @@
 </div>
 
 <button *ngIf="!fighter.actioncount.length" (click)="increaseAction()">{{fighter.selected.speed}}</button>
-<div *ngIf="fighter.actioncount.length" (click)="increaseActionToAboveCount()" class="increaseActionDiv"><i matTooltip="Increase Action to Count + 2"
-    class="fas fa-exclamation-circle"></i></div>
+<div *ngIf="fighter.actioncount.length" (click)="increaseActionToAboveCount()" class="increaseActionDiv"><i
+    matTooltip="Increase Action to Count + 2" class="fas fa-exclamation-circle"></i></div>
 
 <p class="icon"><i (click)="jumpToCount()" class="fas fa-forward" matTooltip="Jump to Current Second"
     [matTooltipDisabled]="tooltips.jump_to_current_second"></i></p>

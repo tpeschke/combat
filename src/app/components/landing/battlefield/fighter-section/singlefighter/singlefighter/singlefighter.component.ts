@@ -26,6 +26,8 @@ export class SinglefighterComponent implements OnInit {
 
   public trauma = false;
   public editOn = false;
+  public broken = false;
+  public panicked = false;
   public nameChange;
   public colorChange;
   public maxHealthChange;
@@ -44,18 +46,25 @@ export class SinglefighterComponent implements OnInit {
     let wound = this.fighter.health * 100 / this.fighter.max_health;
     if (wound === 0) {
       wound = 0
+      this.calculatePanicked(1)
     } else if (wound > 0 && wound < 25) {
       wound = 1
+      this.calculatePanicked(2)
     } else if (wound >= 25 && wound < 50) {
       wound = 25
+      this.calculatePanicked(3)
     } else if (wound >= 50 && wound < 75) {
       wound = 50
+      this.calculatePanicked(4)
     } else if (wound >= 75 && wound < 100) {
       wound = 75
+      this.calculatePanicked(5)
     } else if (wound >= 100) {
+      this.calculatePanicked(6)
       wound = 100
     }
     this.fighter.woundCategory = wound
+    this.calculateBroken()
   }
 
   openWeaponSelect(id, weapons) {
@@ -110,6 +119,7 @@ export class SinglefighterComponent implements OnInit {
     for (let i = 0; i < fighters.length; i++) {
       if (fighters[i].id === fighterId) {
         fighters[i].stress = stripNonInt(event.target.value)
+        this.calculateBroken()
         i = fighters.length
       }
     }
@@ -186,6 +196,55 @@ export class SinglefighterComponent implements OnInit {
         i = fighters.length
       }
     }
+  }
+
+  selectPanicThreshold(panic) {
+    let { fighters } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.fighter.id) {
+        fighters[i].panic = panic
+        i = fighters.length
+      }
+    }
+  }
+
+  calculateBroken() {
+    let stressFromEncumb = 0
+      , { encumb } = this.fighter.selected
+    switch (this.fighter.woundCategory) {
+      case 1:
+        stressFromEncumb = encumb;
+        break;
+      case 25:
+        stressFromEncumb = encumb * 2;
+        break;
+      case 50:
+        stressFromEncumb = encumb * 3;
+        break;
+      case 75:
+        stressFromEncumb = encumb * 4;
+        break;
+      case 100:
+        stressFromEncumb = encumb * 5;
+        break;
+      default:
+        stressFromEncumb = 0
+    }
+    if (this.fighter.stress + stressFromEncumb >= this.fighter.stressthreshold && this.fighter.stressthreshold > 0) {
+      this.broken = true
+    } else {
+      this.broken = false
+    }
+    this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.broken, id: this.fighter.id, fighterProperty: 'broken' })
+  }
+
+  calculatePanicked(categoryValue) {
+    if (categoryValue >= this.fighter.panic) {
+      this.panicked = true
+    } else {
+      this.panicked = false
+    }
+    this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.panicked, id: this.fighter.id, fighterProperty: 'panicked' })
   }
 
   showTrauma() {

@@ -43,6 +43,23 @@
   </mat-form-field>
 </div>
 
+<div class="buttonShell panicShell">
+  <p>Panic Threshold: </p>
+  <div class="initButton">{{fighter.panic | panicThresholds}}</div>
+  <div class="diceSelectShell">
+    <i class="fas fa-angle-down"></i>
+    <div class="diceSelect panicSelect">
+      <p (click)="selectPanicThreshold(1)">Fresh</p>
+      <p (click)="selectPanicThreshold(2)">Tired</p>
+      <p (click)="selectPanicThreshold(3)">Hurt</p>
+      <p (click)="selectPanicThreshold(4)">Bloodied</p>
+      <p (click)="selectPanicThreshold(5)">Wounded</p>
+      <p (click)="selectPanicThreshold(6)">Bleeding Out</p>
+      <p (click)="selectPanicThreshold(7)">Never</p>
+    </div>
+  </div>
+</div>
+
 <div class="weaponSelecterShell">
   <button (click)="openWeaponSelect()" mat-raised-button color="accent">Weapon Selector</button>
 </div>
@@ -68,6 +85,7 @@
     </div>
   </div>
 </div>
+
 <div *ngIf="!fighter.selected" class="buttonShell">
   <p>Initiative: </p>
   <div class="initButton">d{{fighter.actioncount[0]}}</div>

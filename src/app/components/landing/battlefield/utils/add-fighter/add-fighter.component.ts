@@ -31,6 +31,7 @@ export class AddFighterComponent implements OnInit {
     stress: 0,
     stressthreshold: 0,
     acting: '0',
+    panic: 7,
     weapons: [{
       id: this.generalService.makeid(),
       weapon: 'Unarmed',
@@ -91,6 +92,7 @@ export class AddFighterComponent implements OnInit {
           max_health,
           dead: '0',
           stress: 0,
+          panic: beast.panic,
           stressthreshold,
           acting: '0',
           weapons,
@@ -124,6 +126,10 @@ export class AddFighterComponent implements OnInit {
 
   selectInitDice(dice) {
     this.fighter.actioncount[0] = dice
+  }
+
+  selectPanicThreshold(panic) {
+    this.fighter.panic = panic
   }
 
   openWeaponSelect() {
@@ -185,6 +191,7 @@ export class AddFighterComponent implements OnInit {
         dead: '0',
         acting: '0',
         stressthreshold: 0,
+        panic: 7,
         weapons: [{
           id: newId,
           weapon: 'Unarmed',

@@ -93,6 +93,15 @@ i {
     display: none;
 }
 
+.panicShell {
+    width: 90%;
+    margin-top: 0;
+}
+
+.panicSelect {
+    width: 100px
+}
+
 .diceSelectShell:hover .diceSelect, .initButton:hover .diceSelect {
     display: inherit;
 }
