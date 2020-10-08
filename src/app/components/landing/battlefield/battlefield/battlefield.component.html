@@ -85,6 +85,8 @@
         </mat-accordion>
 
         <div *ngIf="owner" class="battleHashShell encounterShell">
+          <h4 *ngIf="counterService.encounter">Encounter Hash:</h4>
+          <p *ngIf="counterService.encounter">{{counterService.encounter}}</p>
           <button (click)="this.counterService.saveField(true)" mat-raised-button color="warn">Save As Encounter</button>
         </div>
       </div>

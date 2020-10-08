@@ -69,7 +69,10 @@ export class CounterService {
     } else if (encounter) {
       field.meta.encounter = this.generalService.makeid();
     }
-    this.fieldService.saveField(field).subscribe(result => this.isSaving = false)
+    this.fieldService.saveField(field).subscribe(result => {
+      this.encounter = 
+      this.isSaving = false
+    })
   }
 
   startAutoSaveTimer() {
