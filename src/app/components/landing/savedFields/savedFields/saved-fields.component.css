@@ -1,3 +1,11 @@
+mat-form-field {
+    margin-right: 15px;
+}
+
+.disabled {
+    pointer-events: none;
+}
+
 .fieldRow:nth-child(odd) {
     background: lightgray;
 }
@@ -30,7 +38,6 @@
 .fieldRow:first-child {
     background: #990000;
 }
-
 
 .fieldRow p, .fieldRow h2 {
     min-width: 15%;

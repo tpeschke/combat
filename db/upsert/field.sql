@@ -3,3 +3,4 @@ insert into combat (idUser, namecombat, urlhash, countnum)
 ON CONFLICT (urlhash)
 DO Update
   set countNum = $4, namecombat = $2
+returning *

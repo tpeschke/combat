@@ -24,6 +24,14 @@
     </div>
   </div>
 
+  <div>
+    <mat-form-field>
+      <input matInput (change)="changeHash($event)" placeholder="Encounter Hash">
+    </mat-form-field>
+      <button *ngIf="!hash" mat-raised-button color="warn" [disabled]="true" class="disabled" matTooltip="Some of the Adventures in the Adventure Archive will have an Encounter Hash. By entering if here, you can automatically load up a combat.">Import Field</button>
+      <button *ngIf="hash" mat-raised-button color="warn" (click)="addFieldByHash()" matTooltip="Some of the Adventures in the Adventure Archive will have an Encounter Hash. By entering if here, you can automatically load up a combat.">Import Field</button>
+  </div>
+
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>

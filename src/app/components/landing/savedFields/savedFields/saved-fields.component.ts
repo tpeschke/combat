@@ -21,6 +21,7 @@ export class SavedFieldsComponent implements OnInit {
 
   private fields = []
   private tooltips = tooltips
+  private hash = null
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -37,9 +38,22 @@ export class SavedFieldsComponent implements OnInit {
   }
 
   addField() {
-    this.fieldService.addField().subscribe((result: any) => {
+    this.fieldService.addField(false).subscribe((result: any) => {
       if (result.hash) {
         this.router.navigate(['/battle', result.hash])
+      }
+    })
+  }
+
+  changeHash(event) {
+    this.hash = event.target.value
+  }
+
+  addFieldByHash() {
+    this.fieldService.addField(this.hash).subscribe((result: any) => {
+      if (result.hash) {
+        this.router.navigate(['/battle', result.hash])
+        this.hash = null;
       }
     })
   }

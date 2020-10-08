@@ -33,11 +33,18 @@ export class FieldService {
     return this.http.get(local.endpointBase + '/api/fields')
   }
 
-  addField() {
-    return this.http.get(local.endpointBase + '/api/newfield')
+  addField(hash) {
+    if (hash) {
+      return this.http.get(local.endpointBase + '/api/newfield', {params: {hash}})
+        .pipe(
+          tap(result => this.generalService.handleMessage(result))
+        )
+    } else {
+      return this.http.get(local.endpointBase + '/api/newfield')
       .pipe(
         tap(result => this.generalService.handleMessage(result))
       )
+    }
   }
 
   saveField(field) {

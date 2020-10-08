@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SavedFieldsComponent } from './savedFields/saved-fields.component';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { MatExpansionModule, MatCheckboxModule } from '@angular/material';
@@ -20,7 +21,8 @@ import { DeleteComponent } from './delete/delete.component';
     RouterModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatInputModule
   ],
   exports: [
     SavedFieldsComponent
