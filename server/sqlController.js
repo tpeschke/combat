@@ -12,50 +12,54 @@ getEncounter = (db, encounterHash, hash) => {
     return new Promise(resolve => {
         let battlefield = {}
         db.get.singleFieldByEncounter(encounterHash).then(field => {
-            battlefield.meta = field[0]
-            battlefield.meta.hash = hash
-            db.get.combatants(battlefield.meta.id).then(result => {
-                result.forEach(v => {
-                    if (isNaN(+v.actioncount)) {
-                        v.actioncount = v.actioncount.split(",")
-                    } else {
-                        v.actioncount = +v.actioncount
-                    }
+            if (field.length === 0) {
+                resolve({ color: "red", message: `"${encounterHash}" is not a valid hash.` })
+            } else {
+                battlefield.meta = field[0]
+                battlefield.meta.hash = hash
+                db.get.combatants(battlefield.meta.id).then(result => {
+                    result.forEach(v => {
+                        if (isNaN(+v.actioncount)) {
+                            v.actioncount = v.actioncount.split(",")
+                        } else {
+                            v.actioncount = +v.actioncount
+                        }
+                    })
+    
+                    let tempArr = []
+                    result.forEach(val => tempArr.push(db.get.weapon(val.id).then(weapons => {
+                        val.id = makeid();
+                        weapons = weapons.map(weapon => {
+                            weapon.id = makeid()
+                            return weapon
+                        })
+                        selected = weapons.filter(v => {
+                            return v.selected === '1'
+                        })
+                        if (selected.length === 0) {
+                            weapons.push({ id: makeid(), weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' })
+                            val.selected = { id: makeid(), weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' }
+                        } else {
+                            val.selected = selected[0]
+                        }
+                        return { ...val, weapons }
+                    })))
+    
+                    tempArr.push(db.get.allStatuses(battlefield.meta.id).then(statuses => {
+                        statuses = statuses.map(val => {
+                            val.id = makeid()
+                            return val
+                        })
+                        battlefield.statuses = statuses
+                        return true;
+                    }))
+    
+                    Promise.all(tempArr).then(final => {
+                        battlefield.fighters = final.filter(val => val.id)
+                        resolve(battlefield)
+                    })
                 })
-
-                let tempArr = []
-                result.forEach(val => tempArr.push(db.get.weapon(val.id).then(weapons => {
-                    val.id = makeid();
-                    weapons = weapons.map(weapon => {
-                        weapon.id = makeid()
-                        return weapon
-                    })
-                    selected = weapons.filter(v => {
-                        return v.selected === '1'
-                    })
-                    if (selected.length === 0) {
-                        weapons.push({ id: makeid(), weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' })
-                        val.selected = { id: makeid(), weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' }
-                    } else {
-                        val.selected = selected[0]
-                    }
-                    return { ...val, weapons }
-                })))
-
-                tempArr.push(db.get.allStatuses(battlefield.meta.id).then(statuses => {
-                    statuses = statuses.map(val => {
-                        val.id = makeid()
-                        return val
-                    })
-                    battlefield.statuses = statuses
-                    return true;
-                }))
-
-                Promise.all(tempArr).then(final => {
-                    battlefield.fighters = final.filter(val => val.id)
-                    resolve(battlefield)
-                })
-            })
+            }
         })
     })
 }
@@ -69,7 +73,6 @@ saveEncounter = (db, userId, { meta, fighters, statuses }) => {
             fighters.forEach(val => {
                 db.upsert.fighter(val.namefighter, val.colorcode, typeof val.actioncount === 'number' ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.stressthreshold, val.id, meta.id).then(result => {
                     val.weapons.forEach(w => {
-                        // console.log(w)
                         tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.encumb, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id).then().catch(e => console.log(e)))
                         if (w.maxrange) {
                             tempArray.push(db.upsert.ranges(w.id, w.maxrange).then().catch(e => console.log(e)))
@@ -201,10 +204,14 @@ module.exports = {
             } else if (totalCount[0].count === '0' || +totalCount[0].count <= patreon) {
                 if (encounterHash) {
                     getEncounter(db, encounterHash, hash).then(result => {
-                        saveEncounter(db, userId, result).then(result2 => {
-                            res.send({ hash })
-                        })
-                    })
+                        if (result.message) {
+                            res.send(result)
+                        } else {
+                            saveEncounter(db, userId, result).then(result2 => {
+                                res.send({ hash })
+                            })
+                        }
+                    }).catch(e => console.log(e))
                 } else {
                     db.upsert.field(userId, 'New Battlefield', hash, 1).then(result => res.send({ hash }))
                 }
