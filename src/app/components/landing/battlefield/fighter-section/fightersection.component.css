@@ -11,6 +11,11 @@
     padding: 5px;
 }
 
+.fighterShell {
+    display: flex;
+    width: 100%;
+}
+
 .inputShell {
     width: 10%;
     display: flex;
@@ -587,7 +592,7 @@ button:hover {
         margin: 0;
     }
 
-.nonMobile {
+.non-mobile {
     display: none
 }
 
@@ -606,7 +611,7 @@ button:hover {
     text-align: center;
 }
 
-.mobile div {
+.mobile:first div {
     display: flex;
     justify-content: space-between;
     padding: 5px 15%;
@@ -636,9 +641,99 @@ button:hover {
 }
  }
 
-@media (max-width: 350px) { 
+@media (max-width: 500px) { 
+    button {
+        width: 25%;
+        background: lightgrey;
+        border-radius: 4px;
+    }
+    .icon {
+        width: unset
+    }
+
+    .fighterRow {
+        background: lightgrey !important;
+    }
+
+    .header {
+         display: none;
+    }
+
+    .outerShell {
+        border-radius: 0;
+    }
+
     .playerView p {
         text-align: center;
         overflow: hidden;
+    }
+
+    i {
+        font-size: 25px
+    }
+
+    .mat-expansion-panel {
+        width: 100%
+    }
+
+    .mobileColoring { 
+        padding: 0 10px 0 0 !important;
+    }
+
+    .inputShell {
+        width: 50%;
+    }
+
+    .body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .weaponSquare {
+        display: inherit;
+        position: relative;
+        margin: 0 auto 25px;
+        z-index: 0;
+    }
+
+    .iconShell {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        align-items: center;
+    }
+
+    .buttonShell {
+        width: 30%
+    }
+
+    .initButton {    
+        background: lightgrey;
+        border-radius: 4px;
+    }
+
+    .weaponEdit {
+        font-size: 20px;
+    }
+
+    .rangesBox {
+        position: unset;
+        border: none;
+        border-radius: 0;
+        margin: 0 auto 15px;
+    }
+    
+    .actionInput {
+        width: 100%;
+    }
+
+    .nameInput {
+        width: 100%;
+        margin-left: 15px;
+    }
+
+    .diceSelect p {
+        font-size: 20px;
+        padding: 10px;
     }
  }

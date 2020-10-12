@@ -1,179 +1,383 @@
-<p (click)="toggleHidden(fighter.hidden, fighter.id)" class="icon">
-  <i matTooltip="Visible" [matTooltipDisabled]="tooltips.hidden" *ngIf="fighter.hidden === '0'" class="fas fa-eye"></i>
-  <i matTooltip="Hidden" [matTooltipDisabled]="tooltips.hidden" *ngIf="fighter.hidden === '1'"
-    class="fas fa-eye-slash"></i></p>
+<div class="fighterShell non-mobile">
+  <p (click)="toggleHidden(fighter.hidden, fighter.id)" class="icon">
+    <i matTooltip="Visible" [matTooltipDisabled]="tooltips.hidden" *ngIf="fighter.hidden === '0'"
+      class="fas fa-eye"></i>
+    <i matTooltip="Hidden" [matTooltipDisabled]="tooltips.hidden" *ngIf="fighter.hidden === '1'"
+      class="fas fa-eye-slash"></i>
+  </p>
 
-<div *ngIf="!editOn" class="icon">
-  <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
-</div>
-<div *ngIf="editOn" class="icon editOnShell">
-  <div [ngStyle]="{background: colorChange}"
-    [cpPresetColors]="[fighter.colorcode, '#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']"
-    [(colorPicker)]="colorChange" (colorPickerChange)="captureColor($event)" class="fighterColor editOn"></div>
-</div>
-
-<p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'panicked' : panicked}">{{fighter.namefighter}}</p>
-<input *ngIf="editOn" (change)="captureChange($event, 'nameChange')" (keydown)="$event.stopPropagation()" class="name nameInput"
-  value="{{nameChange}}">
-<div *ngIf="editOn" class="panicSelectShell">
-  <p>{{fighter.panic | panicThresholds}}</p>
-  <i class="fas fa-angle-down"></i>
-  <div class="diceSelect">
-    <p (click)="selectPanicThreshold(1)">Fresh</p>
-    <p (click)="selectPanicThreshold(2)">Tired</p>
-    <p (click)="selectPanicThreshold(3)">Hurt</p>
-    <p (click)="selectPanicThreshold(4)">Bloodied</p>
-    <p (click)="selectPanicThreshold(5)">Wounded</p>
-    <p (click)="selectPanicThreshold(6)">Bleeding Out</p>
-    <p (click)="selectPanicThreshold(7)">Never</p>
+  <div *ngIf="!editOn" class="icon">
+    <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
   </div>
-</div>
-
-<div class="icon weaponSquareShell">
-  <i class="fas fa-shield-alt"></i>
-  <div class="weaponSquare" (click)="openWeaponSelect(fighter.id, fighter.weapons)">
-    <div class="weaponHeader">
-      <p>{{fighter.selected.weapon}}</p><i class="fas fa-edit"></i>
-    </div>
-    <div *ngIf="fighter.selected.maxrange" class="rangesBox">
-      <div class="rangeRow">
-        <div>Penalty</div>
-        <div>Range (ft)</div>
-      </div>
-      <div class="rangeRow">
-        <div>0</div>
-        <div>5 - {{fighter.selected.maxrange / 6 | number:'1.0-0'}}</div>
-      </div>
-      <div class="rangeRow">
-        <div>-2</div>
-        <div>{{(fighter.selected.maxrange / 6) - 1 | number:'1.0-0'}} -
-          {{(fighter.selected.maxrange / 6) * 2 | number:'1.0-0'}}</div>
-      </div>
-      <div class="rangeRow">
-        <div>-4</div>
-        <div>{{((fighter.selected.maxrange / 6) * 2) - 1 | number:'1.0-0'}} -
-          {{(fighter.selected.maxrange / 6) *3 | number:'1.0-0'}}</div>
-      </div>
-      <div class="rangeRow">
-        <div>-8</div>
-        <div>{{((fighter.selected.maxrange / 6) * 3) - 1 | number:'1.0-0'}} -
-          {{(fighter.selected.maxrange / 6) *4 | number:'1.0-0'}}</div>
-      </div>
-      <div class="rangeRow">
-        <div>-16</div>
-        <div>{{((fighter.selected.maxrange / 6) * 4) - 1 | number:'1.0-0'}} -
-          {{(fighter.selected.maxrange / 6) *5 | number:'1.0-0'}}</div>
-      </div>
-      <div class="rangeRow">
-        <div>-32</div>
-        <div>
-          {{((fighter.selected.maxrange / 6) * 5) - 1 | number:'1.0-0'}} -
-          {{fighter.selected.maxrange | number:'1.0-0'}}</div>
-      </div>
-    </div>
-    <p class="speed">{{fighter.selected.speed}}</p>
-    <p class="attack">{{fighter.selected.atk}}</p>
-    <p class="init">{{fighter.selected.init}}</p>
-    <p class="defense">{{fighter.selected.def}}</p>
-    <p class="encumbrance">{{fighter.selected.encumb}}</p>
-    <div class="damageReduction">
-      <p class="armor">{{fighter.selected.dr}}</p>
-      <p *ngIf="fighter.selected.shield_dr" class="shield"><i
-          class="fas fa-shield-alt shieldIcon"></i>{{fighter.selected.shield_dr}}</p>
-    </div>
-    <p class="measure">{{fighter.selected.measure}}</p>
-    <p class="damage">{{fighter.selected.damage}}</p>
-    <p class="parry">{{fighter.selected.parry}}</p>
+  <div *ngIf="editOn" class="icon editOnShell">
+    <div [ngStyle]="{background: colorChange}"
+      [cpPresetColors]="[fighter.colorcode, '#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']"
+      [(colorPicker)]="colorChange" (colorPickerChange)="captureColor($event)" class="fighterColor editOn"></div>
   </div>
-</div>
 
-<div *ngIf="!editOn" class="inputShell">
-  <input (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}">
-  <p *ngIf="fighter.woundCategory === 0" matTooltip="Fresh" [matTooltipDisabled]="tooltips.wound_category_tier">F</p>
-  <p *ngIf="fighter.woundCategory === 1" matTooltip="Tired" [matTooltipDisabled]="tooltips.wound_category_tier">T</p>
-  <p *ngIf="fighter.woundCategory === 25" matTooltip="Hurt" [matTooltipDisabled]="tooltips.wound_category_tier">H</p>
-  <p *ngIf="fighter.woundCategory === 50" matTooltip="Blooded" [matTooltipDisabled]="tooltips.wound_category_tier">B</p>
-  <p *ngIf="fighter.woundCategory === 75" matTooltip="Wounded" [matTooltipDisabled]="tooltips.wound_category_tier">W</p>
-  <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"
-    [matTooltipDisabled]="tooltips.wound_category_tier" class="bleedingOutShell"><i class="fas fa-tint"></i>
-  </div>
-</div>
-<div *ngIf="editOn" class="inputShell">
-  <input id="editInput" matTooltip="Max Vitality" (change)="captureChange($event, 'maxHealthChange')"
-    (keydown)="$event.stopPropagation()" value="{{maxHealthChange}}">
-</div>
-
-<div *ngIf="!editOn" class="inputShell">
-  <input (change)="changeStress($event, fighter.id)" class="stressInput" value={{fighter.stress}}>
-  <p *ngIf="fighter.woundCategory === 0" matTooltip="Stress From Wounds"
-    [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">+0</p>
-  <p *ngIf="fighter.woundCategory === 1" matTooltip="Stress From Wounds"
-    [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-    +{{fighter.selected.encumb}}</p>
-  <p *ngIf="fighter.woundCategory === 25" matTooltip="Stress From Wounds"
-    [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-    +{{fighter.selected.encumb * 2}}</p>
-  <p *ngIf="fighter.woundCategory === 50" matTooltip="Stress From Wounds"
-    [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-    +{{fighter.selected.encumb * 3}}</p>
-  <p *ngIf="fighter.woundCategory === 75" matTooltip="Stress From Wounds"
-    [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-    +{{fighter.selected.encumb * 4}}</p>
-  <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"
-    [matTooltipDisabled]="tooltips.stress_from_wounds" class="bleedingOutShell"><i class="fas fa-tint"></i>
-  </div>
-</div>
-<div *ngIf="editOn" class="inputShell">
-  <input id="editInput" matTooltip="Stress Threshold" [matTooltipDisabled]="tooltips.stress_threshold"
-    (change)="captureChange($event, 'stressThresholdChange')" (keydown)="$event.stopPropagation()"
-    value="{{stessThresholdChange}}">
-</div>
-
-<button *ngIf="!fighter.actioncount.length" (click)="increaseAction()">{{fighter.selected.speed}}</button>
-<div *ngIf="fighter.actioncount.length" (click)="increaseActionToAboveCount()" class="increaseActionDiv"><i
-    matTooltip="Increase Action to Count + 2" class="fas fa-exclamation-circle"></i></div>
-
-<p class="icon"><i (click)="jumpToCount()" class="fas fa-forward" matTooltip="Jump to Current Second"
-    [matTooltipDisabled]="tooltips.jump_to_current_second"></i></p>
-
-<div *ngIf="fighter.actioncount.length" class="buttonShell">
-  <button *ngIf="fighter.selected.init > 0" (click)="rollInitiative()"
-    class="initButton">d{{fighter.actioncount[0]}}+{{fighter.selected.init}}</button>
-  <button *ngIf="fighter.selected.init === 0" (click)="rollInitiative()"
-    class="initButton">d{{fighter.actioncount[0]}}</button>
-  <button *ngIf="fighter.selected.init < 0" (click)="rollInitiative()"
-    class="initButton">d{{fighter.actioncount[0]}}{{fighter.selected.init}}</button>
-  <button *ngIf="!fighter.selected.init && fighter.selected.init !== 0" (click)="rollInitiative()"
-    class="initButton">d{{fighter.actioncount[0]}}</button>
-  <div class="diceSelectShell">
+  <p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'panicked' : panicked}">{{fighter.namefighter}}</p>
+  <input *ngIf="editOn" (change)="captureChange($event, 'nameChange')" (keydown)="$event.stopPropagation()"
+    class="name nameInput" value="{{nameChange}}">
+  <div *ngIf="editOn" class="panicSelectShell">
+    <p>{{fighter.panic | panicThresholds}}</p>
     <i class="fas fa-angle-down"></i>
     <div class="diceSelect">
-      <p (click)="selectInitDice(1)">d1</p>
-      <p (click)="selectInitDice(4)">d4</p>
-      <p (click)="selectInitDice(6)">d6</p>
-      <p (click)="selectInitDice(8)">d8</p>
-      <p (click)="selectInitDice(10)">d10</p>
-      <p (click)="selectInitDice(12)">d12</p>
-      <p (click)="selectInitDice(20)">d20</p>
+      <p (click)="selectPanicThreshold(1)">Fresh</p>
+      <p (click)="selectPanicThreshold(2)">Tired</p>
+      <p (click)="selectPanicThreshold(3)">Hurt</p>
+      <p (click)="selectPanicThreshold(4)">Bloodied</p>
+      <p (click)="selectPanicThreshold(5)">Wounded</p>
+      <p (click)="selectPanicThreshold(6)">Bleeding Out</p>
+      <p (click)="selectPanicThreshold(7)">Never</p>
     </div>
   </div>
+
+  <div class="icon weaponSquareShell">
+    <i class="fas fa-shield-alt"></i>
+    <div class="weaponSquare" (click)="openWeaponSelect(fighter.id, fighter.weapons)">
+      <div class="weaponHeader">
+        <p>{{fighter.selected.weapon}}</p><i class="fas fa-edit"></i>
+      </div>
+      <div *ngIf="fighter.selected.maxrange" class="rangesBox">
+        <div class="rangeRow">
+          <div>Penalty</div>
+          <div>Range (ft)</div>
+        </div>
+        <div class="rangeRow">
+          <div>0</div>
+          <div>5 - {{fighter.selected.maxrange / 6 | number:'1.0-0'}}</div>
+        </div>
+        <div class="rangeRow">
+          <div>-2</div>
+          <div>{{(fighter.selected.maxrange / 6) - 1 | number:'1.0-0'}} -
+            {{(fighter.selected.maxrange / 6) * 2 | number:'1.0-0'}}</div>
+        </div>
+        <div class="rangeRow">
+          <div>-4</div>
+          <div>{{((fighter.selected.maxrange / 6) * 2) - 1 | number:'1.0-0'}} -
+            {{(fighter.selected.maxrange / 6) *3 | number:'1.0-0'}}</div>
+        </div>
+        <div class="rangeRow">
+          <div>-8</div>
+          <div>{{((fighter.selected.maxrange / 6) * 3) - 1 | number:'1.0-0'}} -
+            {{(fighter.selected.maxrange / 6) *4 | number:'1.0-0'}}</div>
+        </div>
+        <div class="rangeRow">
+          <div>-16</div>
+          <div>{{((fighter.selected.maxrange / 6) * 4) - 1 | number:'1.0-0'}} -
+            {{(fighter.selected.maxrange / 6) *5 | number:'1.0-0'}}</div>
+        </div>
+        <div class="rangeRow">
+          <div>-32</div>
+          <div>
+            {{((fighter.selected.maxrange / 6) * 5) - 1 | number:'1.0-0'}} -
+            {{fighter.selected.maxrange | number:'1.0-0'}}</div>
+        </div>
+      </div>
+      <p class="speed">{{fighter.selected.speed}}</p>
+      <p class="attack">{{fighter.selected.atk}}</p>
+      <p class="init">{{fighter.selected.init}}</p>
+      <p class="defense">{{fighter.selected.def}}</p>
+      <p class="encumbrance">{{fighter.selected.encumb}}</p>
+      <div class="damageReduction">
+        <p class="armor">{{fighter.selected.dr}}</p>
+        <p *ngIf="fighter.selected.shield_dr" class="shield"><i
+            class="fas fa-shield-alt shieldIcon"></i>{{fighter.selected.shield_dr}}</p>
+      </div>
+      <p class="measure">{{fighter.selected.measure}}</p>
+      <p class="damage">{{fighter.selected.damage}}</p>
+      <p class="parry">{{fighter.selected.parry}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="!editOn" class="inputShell">
+    <input (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}">
+    <p *ngIf="fighter.woundCategory === 0" matTooltip="Fresh" [matTooltipDisabled]="tooltips.wound_category_tier">F</p>
+    <p *ngIf="fighter.woundCategory === 1" matTooltip="Tired" [matTooltipDisabled]="tooltips.wound_category_tier">T</p>
+    <p *ngIf="fighter.woundCategory === 25" matTooltip="Hurt" [matTooltipDisabled]="tooltips.wound_category_tier">H</p>
+    <p *ngIf="fighter.woundCategory === 50" matTooltip="Blooded" [matTooltipDisabled]="tooltips.wound_category_tier">B
+    </p>
+    <p *ngIf="fighter.woundCategory === 75" matTooltip="Wounded" [matTooltipDisabled]="tooltips.wound_category_tier">W
+    </p>
+    <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"
+      [matTooltipDisabled]="tooltips.wound_category_tier" class="bleedingOutShell"><i class="fas fa-tint"></i>
+    </div>
+  </div>
+  <div *ngIf="editOn" class="inputShell">
+    <input id="editInput" matTooltip="Max Vitality" (change)="captureChange($event, 'maxHealthChange')"
+      (keydown)="$event.stopPropagation()" value="{{maxHealthChange}}">
+  </div>
+
+  <div *ngIf="!editOn" class="inputShell">
+    <input (change)="changeStress($event, fighter.id)" class="stressInput" value={{fighter.stress}}>
+    <p *ngIf="fighter.woundCategory === 0" matTooltip="Stress From Wounds"
+      [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">+0</p>
+    <p *ngIf="fighter.woundCategory === 1" matTooltip="Stress From Wounds"
+      [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
+      +{{fighter.selected.encumb}}</p>
+    <p *ngIf="fighter.woundCategory === 25" matTooltip="Stress From Wounds"
+      [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
+      +{{fighter.selected.encumb * 2}}</p>
+    <p *ngIf="fighter.woundCategory === 50" matTooltip="Stress From Wounds"
+      [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
+      +{{fighter.selected.encumb * 3}}</p>
+    <p *ngIf="fighter.woundCategory === 75" matTooltip="Stress From Wounds"
+      [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
+      +{{fighter.selected.encumb * 4}}</p>
+    <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"
+      [matTooltipDisabled]="tooltips.stress_from_wounds" class="bleedingOutShell"><i class="fas fa-tint"></i>
+    </div>
+  </div>
+  <div *ngIf="editOn" class="inputShell">
+    <input id="editInput" matTooltip="Stress Threshold" [matTooltipDisabled]="tooltips.stress_threshold"
+      (change)="captureChange($event, 'stressThresholdChange')" (keydown)="$event.stopPropagation()"
+      value="{{stessThresholdChange}}">
+  </div>
+
+  <button *ngIf="!fighter.actioncount.length" (click)="increaseAction()">{{fighter.selected.speed}}</button>
+  <div *ngIf="fighter.actioncount.length" (click)="increaseActionToAboveCount()" class="increaseActionDiv"><i
+      matTooltip="Increase Action to Count + 2" class="fas fa-exclamation-circle"></i></div>
+
+  <p class="icon"><i (click)="jumpToCount()" class="fas fa-forward" matTooltip="Jump to Current Second"
+      [matTooltipDisabled]="tooltips.jump_to_current_second"></i></p>
+
+  <div *ngIf="fighter.actioncount.length" class="buttonShell">
+    <button *ngIf="fighter.selected.init > 0" (click)="rollInitiative()"
+      class="initButton">d{{fighter.actioncount[0]}}+{{fighter.selected.init}}</button>
+    <button *ngIf="fighter.selected.init === 0" (click)="rollInitiative()"
+      class="initButton">d{{fighter.actioncount[0]}}</button>
+    <button *ngIf="fighter.selected.init < 0" (click)="rollInitiative()"
+      class="initButton">d{{fighter.actioncount[0]}}{{fighter.selected.init}}</button>
+    <button *ngIf="!fighter.selected.init && fighter.selected.init !== 0" (click)="rollInitiative()"
+      class="initButton">d{{fighter.actioncount[0]}}</button>
+    <div class="diceSelectShell">
+      <i class="fas fa-angle-down"></i>
+      <div class="diceSelect">
+        <p (click)="selectInitDice(1)">d1</p>
+        <p (click)="selectInitDice(4)">d4</p>
+        <p (click)="selectInitDice(6)">d6</p>
+        <p (click)="selectInitDice(8)">d8</p>
+        <p (click)="selectInitDice(10)">d10</p>
+        <p (click)="selectInitDice(12)">d12</p>
+        <p (click)="selectInitDice(20)">d20</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!fighter.actioncount.length" class="inputShell">
+    <input (change)="changeInitiative($event)" class="actionInput" [value]="fighter.actioncount">
+  </div>
+
+  <div *ngIf="trauma" class="icon">
+    <input id="focusInput" (change)="enterTrauma($event)" (blur)="showTrauma()"
+      matTooltip="Enter How Much They Failed By" [matTooltipDisabled]="tooltips.trauma_fail" class="actionInput">
+  </div>
+  <p *ngIf="!trauma" (click)="showTrauma()" class="icon"><i matTooltip="Trauma"
+      [matTooltipDisabled]="tooltips.trauma_fighter" class="fas fa-frown"></i></p>
+
+  <p class="icon" (click)="killFighter()"><i matTooltip="Kill" [matTooltipDisabled]="tooltips.kill_fighter"
+      class="fas fa-skull-crossbones"></i></p>
+
+  <p *ngIf="!editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Edit"
+      [matTooltipDisabled]="tooltips.edit_fighter" class="fas fa-edit"></i></p>
+  <p *ngIf="editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Save Changes"
+      [matTooltipDisabled]="tooltips.trauma_fighter" class="fas fa-save"></i></p>
 </div>
+<!-- ---------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------- -->
+<div class="fighterShell mobile">
+  <mat-expansion-panel
+    [ngClass]="fighter.actioncount == counterService.count ? 'activeThisSecond ' : fighter.topcheck === '1' ? 'fighterTop ' : fighter.hidden === '1' ? 'fighterHidden ' : ''">
+    <mat-expansion-panel-header (keydown.Space)="$event.stopImmediatePropagation();">
+      <mat-panel-title>
+        <div *ngIf="!editOn" class="mobileColoring">
+          <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
+        </div>
+        <div *ngIf="editOn" class="icon editOnShell">
+          <div [ngStyle]="{background: colorChange}"
+            [cpPresetColors]="[fighter.colorcode, '#C91010', '#1076C9', '#2889e9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']"
+            [(colorPicker)]="colorChange" (colorPickerChange)="captureColor($event)" class="fighterColor editOn"></div>
+        </div>
 
-<div *ngIf="!fighter.actioncount.length" class="inputShell">
-  <input (change)="changeInitiative($event)" class="actionInput" [value]="fighter.actioncount">
+        <p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'panicked' : panicked}">{{fighter.namefighter}}
+        </p>
+        <input *ngIf="editOn" (change)="captureChange($event, 'nameChange')" (keydown)="$event.stopPropagation()"
+          class="name nameInput" value="{{nameChange}}">
+      </mat-panel-title>
+      <mat-panel-description>
+        <div *ngIf="!editOn" class="inputShell">
+          <input (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}">
+          <p *ngIf="fighter.woundCategory === 0" matTooltip="Fresh" [matTooltipDisabled]="tooltips.wound_category_tier">
+            F</p>
+          <p *ngIf="fighter.woundCategory === 1" matTooltip="Tired" [matTooltipDisabled]="tooltips.wound_category_tier">
+            T</p>
+          <p *ngIf="fighter.woundCategory === 25" matTooltip="Hurt" [matTooltipDisabled]="tooltips.wound_category_tier">
+            H</p>
+          <p *ngIf="fighter.woundCategory === 50" matTooltip="Blooded"
+            [matTooltipDisabled]="tooltips.wound_category_tier">B
+          </p>
+          <p *ngIf="fighter.woundCategory === 75" matTooltip="Wounded"
+            [matTooltipDisabled]="tooltips.wound_category_tier">W
+          </p>
+          <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"
+            [matTooltipDisabled]="tooltips.wound_category_tier" class="bleedingOutShell"><i class="fas fa-tint"></i>
+          </div>
+        </div>
+        <div *ngIf="editOn" class="inputShell">
+          <input id="editInput" matTooltip="Max Vitality" (change)="captureChange($event, 'maxHealthChange')"
+            (keydown)="$event.stopPropagation()" value="{{maxHealthChange}}">
+        </div>
+
+        <div *ngIf="!editOn" class="inputShell">
+          <input (change)="changeStress($event, fighter.id)" class="stressInput" value={{fighter.stress}}>
+          <p *ngIf="fighter.woundCategory === 0" matTooltip="Stress From Wounds"
+            [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">+0</p>
+          <p *ngIf="fighter.woundCategory === 1" matTooltip="Stress From Wounds"
+            [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
+            +{{fighter.selected.encumb}}</p>
+          <p *ngIf="fighter.woundCategory === 25" matTooltip="Stress From Wounds"
+            [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
+            +{{fighter.selected.encumb * 2}}</p>
+          <p *ngIf="fighter.woundCategory === 50" matTooltip="Stress From Wounds"
+            [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
+            +{{fighter.selected.encumb * 3}}</p>
+          <p *ngIf="fighter.woundCategory === 75" matTooltip="Stress From Wounds"
+            [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
+            +{{fighter.selected.encumb * 4}}</p>
+          <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"
+            [matTooltipDisabled]="tooltips.stress_from_wounds" class="bleedingOutShell"><i class="fas fa-tint"></i>
+          </div>
+        </div>
+        <div *ngIf="editOn" class="inputShell">
+          <input id="editInput" matTooltip="Stress Threshold" [matTooltipDisabled]="tooltips.stress_threshold"
+            (change)="captureChange($event, 'stressThresholdChange')" (keydown)="$event.stopPropagation()"
+            value="{{stessThresholdChange}}">
+        </div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="body">
+      <div class="iconShell">
+        <button *ngIf="!fighter.actioncount.length" (click)="increaseAction()">{{fighter.selected.speed}}</button>
+        <div *ngIf="fighter.actioncount.length" (click)="increaseActionToAboveCount()" class="increaseActionDiv"><i
+            matTooltip="Increase Action to Count + 2" class="fas fa-exclamation-circle"></i></div>
+ 
+        <p><i (click)="jumpToCount()" class="fas fa-forward" matTooltip="Jump to Current Second"
+          [matTooltipDisabled]="tooltips.jump_to_current_second"></i></p>
+
+        <div *ngIf="fighter.actioncount.length" class="buttonShell">
+          <button *ngIf="fighter.selected.init > 0" (click)="rollInitiative()"
+            class="initButton">d{{fighter.actioncount[0]}}+{{fighter.selected.init}}</button>
+          <button *ngIf="fighter.selected.init === 0" (click)="rollInitiative()"
+            class="initButton">d{{fighter.actioncount[0]}}</button>
+          <button *ngIf="fighter.selected.init < 0" (click)="rollInitiative()"
+            class="initButton">d{{fighter.actioncount[0]}}{{fighter.selected.init}}</button>
+          <button *ngIf="!fighter.selected.init && fighter.selected.init !== 0" (click)="rollInitiative()"
+            class="initButton">d{{fighter.actioncount[0]}}</button>
+          <div class="diceSelectShell">
+            <i class="fas fa-angle-down"></i>
+            <div class="diceSelect">
+              <p (click)="selectInitDice(1)">d1</p>
+              <p (click)="selectInitDice(4)">d4</p>
+              <p (click)="selectInitDice(6)">d6</p>
+              <p (click)="selectInitDice(8)">d8</p>
+              <p (click)="selectInitDice(10)">d10</p>
+              <p (click)="selectInitDice(12)">d12</p>
+              <p (click)="selectInitDice(20)">d20</p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!fighter.actioncount.length" class="inputShell">
+          <input (change)="changeInitiative($event)" class="actionInput" [value]="fighter.actioncount">
+        </div>
+      </div>
+
+      <div class="iconShell">
+        <p (click)="toggleHidden(fighter.hidden, fighter.id)">
+          <i matTooltip="Visible" [matTooltipDisabled]="tooltips.hidden" *ngIf="fighter.hidden === '0'"
+            class="fas fa-eye"></i>
+          <i matTooltip="Hidden" [matTooltipDisabled]="tooltips.hidden" *ngIf="fighter.hidden === '1'"
+            class="fas fa-eye-slash"></i>
+        </p>
+
+        <div *ngIf="trauma" class="icon">
+          <input id="focusInput" (change)="enterTrauma($event)" (blur)="showTrauma()"
+            matTooltip="Enter How Much They Failed By" [matTooltipDisabled]="tooltips.trauma_fail" class="actionInput">
+        </div>
+        <p *ngIf="!trauma" (click)="showTrauma()" class="icon"><i matTooltip="Trauma"
+            [matTooltipDisabled]="tooltips.trauma_fighter" class="fas fa-frown"></i></p>
+
+        <p class="icon" (click)="killFighter()"><i matTooltip="Kill" [matTooltipDisabled]="tooltips.kill_fighter"
+            class="fas fa-skull-crossbones"></i></p>
+      </div>
+
+      <div class="iconShell">
+        <p>{{fighter.selected.weapon}}</p>
+        <i class="fas fa-edit weaponEdit" (click)="openWeaponSelect(fighter.id, fighter.weapons)"></i>
+      </div>
+      <div class="weaponSquare" (click)="openWeaponSelect(fighter.id, fighter.weapons)">
+        <p class="speed">{{fighter.selected.speed}}</p>
+        <p class="attack">{{fighter.selected.atk}}</p>
+        <p class="init">{{fighter.selected.init}}</p>
+        <p class="defense">{{fighter.selected.def}}</p>
+        <p class="encumbrance">{{fighter.selected.encumb}}</p>
+        <div class="damageReduction">
+          <p class="armor">{{fighter.selected.dr}}</p>
+          <p *ngIf="fighter.selected.shield_dr" class="shield"><i
+              class="fas fa-shield-alt shieldIcon"></i>{{fighter.selected.shield_dr}}</p>
+        </div>
+        <p class="measure">{{fighter.selected.measure}}</p>
+        <p class="damage">{{fighter.selected.damage}}</p>
+        <p class="parry">{{fighter.selected.parry}}</p>
+      </div>
+
+      <div *ngIf="fighter.selected.maxrange" class="rangesBox">
+        <div class="rangeRow">
+          <div>Penalty</div>
+          <div>Range (ft)</div>
+        </div>
+        <div class="rangeRow">
+          <div>0</div>
+          <div>5 - {{fighter.selected.maxrange / 6 | number:'1.0-0'}}</div>
+        </div>
+        <div class="rangeRow">
+          <div>-2</div>
+          <div>{{(fighter.selected.maxrange / 6) - 1 | number:'1.0-0'}} -
+            {{(fighter.selected.maxrange / 6) * 2 | number:'1.0-0'}}</div>
+        </div>
+        <div class="rangeRow">
+          <div>-4</div>
+          <div>{{((fighter.selected.maxrange / 6) * 2) - 1 | number:'1.0-0'}} -
+            {{(fighter.selected.maxrange / 6) *3 | number:'1.0-0'}}</div>
+        </div>
+        <div class="rangeRow">
+          <div>-8</div>
+          <div>{{((fighter.selected.maxrange / 6) * 3) - 1 | number:'1.0-0'}} -
+            {{(fighter.selected.maxrange / 6) *4 | number:'1.0-0'}}</div>
+        </div>
+        <div class="rangeRow">
+          <div>-16</div>
+          <div>{{((fighter.selected.maxrange / 6) * 4) - 1 | number:'1.0-0'}} -
+            {{(fighter.selected.maxrange / 6) *5 | number:'1.0-0'}}</div>
+        </div>
+        <div class="rangeRow">
+          <div>-32</div>
+          <div>
+            {{((fighter.selected.maxrange / 6) * 5) - 1 | number:'1.0-0'}} -
+            {{fighter.selected.maxrange | number:'1.0-0'}}</div>
+        </div>
+      </div>
+
+
+      <p *ngIf="!editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Edit"
+          [matTooltipDisabled]="tooltips.edit_fighter" class="fas fa-edit"></i></p>
+      <p *ngIf="editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Save Changes"
+          [matTooltipDisabled]="tooltips.trauma_fighter" class="fas fa-save"></i></p>
+    </div>
+  </mat-expansion-panel>
+
 </div>
-
-<div *ngIf="trauma" class="icon">
-  <input id="focusInput" (change)="enterTrauma($event)" (blur)="showTrauma()" matTooltip="Enter How Much They Failed By"
-    [matTooltipDisabled]="tooltips.trauma_fail" class="actionInput">
-</div>
-<p *ngIf="!trauma" (click)="showTrauma()" class="icon"><i matTooltip="Trauma"
-    [matTooltipDisabled]="tooltips.trauma_fighter" class="fas fa-frown"></i></p>
-
-<p class="icon" (click)="killFighter()"><i matTooltip="Kill" [matTooltipDisabled]="tooltips.kill_fighter"
-    class="fas fa-skull-crossbones"></i></p>
-
-<p *ngIf="!editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Edit" [matTooltipDisabled]="tooltips.edit_fighter"
-    class="fas fa-edit"></i></p>
-<p *ngIf="editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Save Changes"
-    [matTooltipDisabled]="tooltips.trauma_fighter" class="fas fa-save"></i></p>

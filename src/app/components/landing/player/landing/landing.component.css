@@ -24,6 +24,10 @@
 }
 
 @media (max-width: 500px) {
+    mat-card {
+        border-radius: 0;
+    }
+    
     .landingShell {
         flex-direction: column;
     }

@@ -111,6 +111,12 @@ h5 {
 	width: 400px
 }
 
+@media (max-width: 500px) { 
+	.cdk-overlay-pane {
+		max-width: 100% !important;
+	}
+}
+
 /* width */
 ::-webkit-scrollbar {
 	width: 7px;

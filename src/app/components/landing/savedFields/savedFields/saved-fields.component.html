@@ -4,18 +4,28 @@
   <div class="fieldShell">
     <div class="fieldRow">
       <h2>Field Name</h2>
-      <h2>Count</h2>
-      <h2>Fighters</h2>
-      <h2>Dead</h2>
-      <h2> </h2>
+      <h2 class="non-mobile">Count</h2>
+      <h2 class="non-mobile">Fighters</h2>
+      <h2 class="non-mobile">Dead</h2>
+      <h2 class="non-mobile"> </h2>
     </div>
 
-    <div class="fieldRow" *ngFor="let field of fields" [routerLink]="['/battle', field.hash]">
+    <div class="fieldRow non-mobile" *ngFor="let field of fields" [routerLink]="['/battle', field.hash]">
       <p>{{field.name}}</p>
       <p>{{field.count}}</p>
       <p>{{field.fightercount}}</p>
       <p>{{field.deadcount}}</p>
       <p><i (click)="deleteConfirm($event, field.id)" class="fas fa-trash"></i></p>
+    </div>
+
+    <div class="fieldRow mobile" *ngFor="let field of fields" [routerLink]="['/battle', field.hash]">
+      <p class="field-name">{{field.name}}</p>
+      <div>
+        <p>Count: {{field.count}}</p>
+        <p>Fighter: {{field.fightercount}}</p>
+        <p>Field: {{field.deadcount}}</p>
+        <p><i (click)="deleteConfirm($event, field.id)" class="fas fa-trash"></i></p>
+      </div>
     </div>
 
     <div class='noField' *ngIf="fields.length === 0">
@@ -24,7 +34,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="encounterHashShell">
     <mat-form-field>
       <input matInput (change)="changeHash($event)" placeholder="Encounter Hash">
     </mat-form-field>

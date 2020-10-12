@@ -19,17 +19,17 @@
     <div *ngIf="players.length > 0" class="playerViewPlayerSectionHeader">
       <p *ngIf="players.length > 1" id="playerViewPlayerName">Characters/Allies</p>
       <p *ngIf="players.length < 2" id="playerViewPlayerName">Character</p>
-      <p class="nonMobile"></p>
-      <p class="nonMobile">Recovery</p>
-      <p class="icon nonMobile"> </p>
-      <p class="nonMobile">Action</p>
-      <p class="icon nonMobile"> </p>
-      <p class="icon nonMobile"> </p>
+      <p class="non-mobile"></p>
+      <p class="non-mobile">Recovery</p>
+      <p class="icon non-mobile"> </p>
+      <p class="non-mobile">Action</p>
+      <p class="icon non-mobile"> </p>
+      <p class="icon non-mobile"> </p>
     </div>
     <div *ngIf="players.length === 0" class="playerViewPlayerSectionHeader">
       <p id="playerViewPlayerName">Add Character</p>
     </div>
-    <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow nonMobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow nonMobile' : 'playerViewPlayerSectionRow nonMobile'">
+    <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow non-mobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow non-mobile' : 'playerViewPlayerSectionRow non-mobile'">
         <p id="playerViewPlayerName">{{player.name}}</p>
         <input (change)="alterRecovery(player.id, $event)" id="recovery" placeholder="Edit Recovery">
         <p (click)="increaseAction(player.id)" class="recoveryButton">{{player.recovery}}</p>

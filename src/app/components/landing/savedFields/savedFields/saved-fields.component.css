@@ -2,6 +2,10 @@ mat-form-field {
     margin-right: 15px;
 }
 
+.mat-checkbox {
+    margin-right: 10px;
+}
+
 .disabled {
     pointer-events: none;
 }
@@ -88,4 +92,63 @@ h4 {
     flex-direction: column;
     height: 150px;
     overflow: auto;
+}
+
+.non-mobile {
+    display: flex;
+    justify-content: space-around;
+}
+
+.mobile {
+    display: none;
+}
+
+@media (max-width: 500px) { 
+    mat-card {
+        border-radius: 0;
+        padding: 10px 0;
+    }
+
+    button {
+        margin-left: 5px;
+    }
+
+    .tooltipShell {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .non-mobile {
+        display: none;
+    }
+
+    .mobile {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .field-name {
+        font-weight: bold;
+        font-size: 20px !important;
+        margin-bottom: 10px;
+    }
+
+    .mobile div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .fieldRow:first-child {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    
+    .fieldRow:last-child {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .encounterHashShell {
+        padding-left: 15px
+    }
 }

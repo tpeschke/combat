@@ -38,3 +38,33 @@ h3 {
     border: 1px solid black;
     background: black;
 }
+
+.mobile {
+    display: none;
+}
+
+.non-mobile {
+    display: flex;
+}
+
+@media (max-width: 500px) {
+    .counterShell {
+        border-radius: 0;
+    }
+
+    .mobile {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    .iconShell {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .non-mobile {
+        display: none;
+    }
+}
