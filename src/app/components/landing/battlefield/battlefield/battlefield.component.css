@@ -231,4 +231,13 @@ i:hover {
         margin-bottom: 10px;
         text-align: center;
     }
+
+    .battleHashShell p {
+        display: none
+    }
+
+    .workspaceShell .left .innerShell, .workspaceShell .right .innerShell {
+        padding: 5px;
+        border-radius: 0;
+    }
 }
