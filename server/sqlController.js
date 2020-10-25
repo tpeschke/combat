@@ -307,7 +307,7 @@ module.exports = {
     deleteFighter: (req, res) => {
         const db = req.app.get('db')
         var { id } = req.params
-        db.delete.fighter(id).then()
+        db.delete.fighter(id).then(res.send({message: 'done'}))
     },
 
     deleteStatus: (req, res) => {
