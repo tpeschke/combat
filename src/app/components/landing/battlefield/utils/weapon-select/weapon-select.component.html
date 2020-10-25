@@ -38,7 +38,7 @@
             </div>
             <input class="measure" (change)="changeWeaponPropertyInt(weapon.id, $event, 'measure')"
               value="{{weapon.measure}}">
-            <input class="damage" (change)="changeWeaponPropertyInt(weapon.id, $event, 'damage')"
+            <input class="damage" (change)="changeWeaponProperty(weapon.id, $event, 'damage')"
               value="{{weapon.damage}}">
             <input class="parry" (change)="changeWeaponPropertyInt(weapon.id, $event, 'parry')"
               value="{{weapon.parry}}">
