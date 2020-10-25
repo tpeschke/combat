@@ -66,7 +66,6 @@ export class AddFighterComponent implements OnInit {
           , noBase = true
           , selected = null
         beast.combat.forEach(val => {
-          console.log(val)
           if (val.weapon !== 'Base') {
             let maxrange = val.ranges ? val.ranges.thirtytwo : null;
             weapons.push({ ...val, id: this.generalService.makeid(), weapon: val.weapon, speed: val.spd, selected: '0', encumb: val.encumb, maxrange })
@@ -161,9 +160,8 @@ export class AddFighterComponent implements OnInit {
         let colors = ['#C91010', '#1076C9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']
         let newFighters = []
         for (let i = 0; i < this.multiAdd; i++) {
-          let fighterCopy = { ...this.fighter, actioncount: [...this.fighter.actioncount], selected: { ...this.fighter.selected } }
-          fighterCopy.weapons = fighterCopy.weapons.map(weapon => { return { ...weapon } })
-          fighterCopy.id = this.generalService.makeid()
+          let fighterCopy = { ...this.fighter, id: this.generalService.makeid(), actioncount: [...this.fighter.actioncount], selected: { ...this.fighter.selected } }
+          fighterCopy.weapons = fighterCopy.weapons.map(weapon => { return { ...weapon, id: this.generalService.makeid() } })
           if (this.numberEach) { fighterCopy.namefighter = fighterCopy.namefighter + ` ${i + 1}` }
           if (this.uniqueColors) { i > 6 ? fighterCopy.colorcode = this.generalService.genHexString() : fighterCopy.colorcode = colors[i] }
           newFighters.push({ ...fighterCopy })
