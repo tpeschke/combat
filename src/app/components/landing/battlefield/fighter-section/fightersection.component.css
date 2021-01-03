@@ -23,7 +23,7 @@
 
 .inputShell p {
     width: 20%;
-    border-bottom: 1px solid grey;
+    padding-top: 4px;
 }
 
 input {
@@ -552,6 +552,10 @@ button:hover {
 .bleedingOutShell {
     width: 40%;
     text-align: center;
+}
+
+.inputWithoutCategory {
+    width: 90%
 }
 
 @media (max-width: 800px) { 

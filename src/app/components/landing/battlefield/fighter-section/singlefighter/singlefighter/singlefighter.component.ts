@@ -47,20 +47,25 @@ export class SinglefighterComponent implements OnInit {
     if (wound === 0) {
       wound = 0
       this.calculatePanicked(1)
-    } else if (wound > 0 && wound < 25) {
+    } if (wound > 0 && wound < 25) {
+      //harmed but not in a wound category
       wound = 1
-      this.calculatePanicked(2)
+      this.calculatePanicked(1)
     } else if (wound >= 25 && wound < 50) {
+      //hurt
       wound = 25
-      this.calculatePanicked(3)
+      this.calculatePanicked(2)
     } else if (wound >= 50 && wound < 75) {
+      //bloodied
       wound = 50
-      this.calculatePanicked(4)
+      this.calculatePanicked(3)
     } else if (wound >= 75 && wound < 100) {
+      //wounded
       wound = 75
-      this.calculatePanicked(5)
+      this.calculatePanicked(4)
     } else if (wound >= 100) {
-      this.calculatePanicked(6)
+      //bleeding out
+      this.calculatePanicked(5)
       wound = 100
     }
     this.fighter.woundCategory = wound

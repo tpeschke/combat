@@ -22,12 +22,11 @@
     <p>{{fighter.panic | panicThresholds}}</p>
     <i class="fas fa-angle-down"></i>
     <div class="diceSelect">
-      <p (click)="selectPanicThreshold(1)">Fresh</p>
-      <p (click)="selectPanicThreshold(2)">Tired</p>
-      <p (click)="selectPanicThreshold(3)">Hurt</p>
-      <p (click)="selectPanicThreshold(4)">Bloodied</p>
-      <p (click)="selectPanicThreshold(5)">Wounded</p>
-      <p (click)="selectPanicThreshold(6)">Bleeding Out</p>
+      <p (click)="selectPanicThreshold(1)">Always</p>
+      <p (click)="selectPanicThreshold(2)">Hurt</p>
+      <p (click)="selectPanicThreshold(3)">Bloodied</p>
+      <p (click)="selectPanicThreshold(4)">Wounded</p>
+      <p (click)="selectPanicThreshold(5)">Bleeding Out</p>
       <p (click)="selectPanicThreshold(7)">Never</p>
     </div>
   </div>
@@ -91,16 +90,12 @@
   </div>
 
   <div *ngIf="!editOn" class="inputShell">
-    <input (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}">
-    <p *ngIf="fighter.woundCategory === 0" matTooltip="Fresh" [matTooltipDisabled]="tooltips.wound_category_tier">F</p>
-    <p *ngIf="fighter.woundCategory === 1" matTooltip="Tired" [matTooltipDisabled]="tooltips.wound_category_tier">T</p>
+    <input *ngIf="fighter.woundCategory >= 25" (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}">
+    <input *ngIf="fighter.woundCategory < 25" (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}" class="inputWithoutCategory">
     <p *ngIf="fighter.woundCategory === 25" matTooltip="Hurt" [matTooltipDisabled]="tooltips.wound_category_tier">H</p>
-    <p *ngIf="fighter.woundCategory === 50" matTooltip="Blooded" [matTooltipDisabled]="tooltips.wound_category_tier">B
-    </p>
-    <p *ngIf="fighter.woundCategory === 75" matTooltip="Wounded" [matTooltipDisabled]="tooltips.wound_category_tier">W
-    </p>
-    <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"
-      [matTooltipDisabled]="tooltips.wound_category_tier" class="bleedingOutShell"><i class="fas fa-tint"></i>
+    <p *ngIf="fighter.woundCategory === 50" matTooltip="Bloodied" [matTooltipDisabled]="tooltips.wound_category_tier">B</p>
+    <p *ngIf="fighter.woundCategory === 75" matTooltip="Wounded" [matTooltipDisabled]="tooltips.wound_category_tier">W</p>
+    <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out" [matTooltipDisabled]="tooltips.wound_category_tier" class="bleedingOutShell"><i class="fas fa-tint"></i>
     </div>
   </div>
   <div *ngIf="editOn" class="inputShell">
