@@ -104,7 +104,13 @@ export class SinglefighterComponent implements OnInit {
     let { stripNonInt } = this.generalService
     for (let i = 0; i < fighters.length; i++) {
       if (fighters[i].id === fighterId) {
-        fighters[i].health = stripNonInt(event.target.value)
+        let newDamage = stripNonInt(event.target.value)
+          , traumaThreshold = fighters[i].max_health / 4
+          , damageDifference = newDamage - fighters[i].health
+        if (damageDifference > traumaThreshold) {
+          this.flagTrauma(Math.floor(damageDifference - traumaThreshold))
+        }
+        fighters[i].health = newDamage
         this.calculateWoundCategory()
         let wound = this.fighter.woundCategory === 0 ? '00' : this.fighter.woundCategory;
         if (wound === 1) {
@@ -116,6 +122,11 @@ export class SinglefighterComponent implements OnInit {
         i = fighters.length
       }
     }
+  }
+
+  flagTrauma(traumaMod) {
+    this.generalService.handleMessage({color: 'yellow', 
+                                      message: `That hit triggered a Trauma Check for ${this.fighter.namefighter} ${traumaMod > 0 ? `with a -${traumaMod}`: ''}`})
   }
 
   changeStress(event, fighterId) {
