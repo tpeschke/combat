@@ -81,7 +81,7 @@ export class PlayerViewComponent implements OnInit {
             })
           }
         }
-        if (type === 'canPlayersView' && value) { this.fieldService.getBattleInfo({hash: this.hash}) }
+        if (type === 'canPlayersView' && value && !this.canPlayersView) { this.fieldService.getBattleInfo({hash: this.hash}) }
       })
   }
 

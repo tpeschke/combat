@@ -246,21 +246,27 @@ export class SinglefighterComponent implements OnInit {
       default:
         stressFromEncumb = 0
     }
-    if (this.fighter.stress + stressFromEncumb >= this.fighter.stressthreshold && this.fighter.stressthreshold > 0) {
+    let broken = this.fighter.stress + stressFromEncumb >= this.fighter.stressthreshold && this.fighter.stressthreshold > 0;
+    if (this.fighter.broken != broken) {
+      this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: broken, id: this.fighter.id, fighterProperty: 'broken' })
+    }
+    if (broken) {
       this.broken = true
     } else {
       this.broken = false
     }
-    this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.broken, id: this.fighter.id, fighterProperty: 'broken' })
   }
 
   calculatePanicked(categoryValue) {
-    if (categoryValue >= this.fighter.panic) {
+    let panicked = categoryValue >= this.fighter.panic
+    if (this.fighter.panicked != panicked) {
+      this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: panicked, id: this.fighter.id, fighterProperty: 'panicked' })
+    }
+    if (panicked) {
       this.panicked = true
     } else {
       this.panicked = false
     }
-    this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.panicked, id: this.fighter.id, fighterProperty: 'panicked' })
   }
 
   showTrauma() {

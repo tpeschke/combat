@@ -60,7 +60,7 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
           this.fieldService.sendBattleData({hash, type: 'statuses', value: statuses})
         }
       })
-    }).unsubscribe();
+    })
   }
 
   ngOnDestroy() {
@@ -89,11 +89,13 @@ export class BattlefieldComponent implements OnInit, OnDestroy {
   }
 
   togglePlayerView(checked) {
-    let {hash} = this.counterService
+    let {hash, count, formatFightersForPlayers, fighters, statuses} = this.counterService
     this.canPlayersView = checked
     this.fieldService.sendBattleData({hash, type: 'canPlayersView', value: checked})
-    if(this.canPlayersView) {
-      this.fieldService.sendBattleData({hash, type: 'fighters', value: this.counterService.formatFightersForPlayers(this.counterService.fighters)})
+    if (this.canPlayersView) {
+      this.fieldService.sendBattleData({hash, type: 'count', value: count})
+      this.fieldService.sendBattleData({hash, type: 'fighters', value: formatFightersForPlayers(fighters)})
+      this.fieldService.sendBattleData({hash, type: 'statuses', value: statuses})
     }
   }
 
