@@ -112,7 +112,7 @@ app.get('/*', (req, res) => {
 
 const port = config.SERVER_PORT
 
-massive(config.CONNECTION_STRING).then(dbInstance => {
+massive(config.databaseCredentials).then(dbInstance => {
     app.set('db', dbInstance);
     console.log(`Database is now hooked up`);
 });

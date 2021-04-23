@@ -29,7 +29,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "massive": "^6.6.0",
+    "massive": "^6.7.1",
     "ngx-color": "^6.0.1",
     "ngx-color-picker": "^10.0.1",
     "ngx-socket-io": "^3.2.0",
