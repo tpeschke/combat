@@ -10,7 +10,8 @@
     <mat-accordion>
       <div class="weaponShell" *ngFor="let weapon of weapons">
         <mat-expansion-panel>
-          <mat-expansion-panel-header (keydown.Space)="$event.stopImmediatePropagation();"
+          <mat-expansion-panel-header 
+            (keydown.space)="$event.stopImmediatePropagation();" (keydown.w)="$event.stopImmediatePropagation();" (keydown.e)="$event.stopImmediatePropagation();" (keydown.x)="$event.stopImmediatePropagation();" (keydown.s)="$event.stopImmediatePropagation();" (keydown.a)="$event.stopImmediatePropagation();"
             [ngClass]="weapon.selected === '1' ? 'selectedBackground' : ''">
             <mat-panel-title>
               <input class="weaponName" (click)="$event.stopImmediatePropagation();"

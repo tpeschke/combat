@@ -1,3 +1,3 @@
 select * from combatants
-where idcombat = 960
+where idcombat = $1
 order by namefighter

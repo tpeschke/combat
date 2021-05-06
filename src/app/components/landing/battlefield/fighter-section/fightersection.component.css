@@ -96,6 +96,7 @@ i:hover {
 .weaponSquare {
     position: absolute;
     top: 20px;
+    left: 15px;
     width: 200px;
     height: 191px;
     background: whitesmoke;

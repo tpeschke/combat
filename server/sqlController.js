@@ -96,7 +96,6 @@ saveEncounter = (db, userId, { meta, fighters, statuses }) => {
 }
 
 const axios = require('axios');
-const { ConsoleReporter } = require('jasmine');
 const config = require('./config.js')
 
 module.exports = {
@@ -117,9 +116,8 @@ module.exports = {
 
         db.get.singleField(userId, hash).then(field => {
             battlefield.meta = field[0]
-
-            db.get.combatants(battlefield.meta.id).then(result => {
-                result.forEach(v => {
+            db.get.combatants(battlefield.meta.id).then(fighters => {
+                fighters.forEach(v => {
                     if (isNaN(+v.actioncount)) {
                         v.actioncount = v.actioncount.split(",")
                     } else {
@@ -128,8 +126,11 @@ module.exports = {
                 })
 
                 let tempArr = []
-                result.forEach(val => tempArr.push(db.get.weapon(val.id).then(weapons => {
+                fighters.forEach(val => tempArr.push(db.get.weapon(val.id).then(weapons => {
                     selected = weapons.filter(v => {
+                        if (v.measure) {
+                            v.measure = v.measure.replace(/\.?0+$/, '')
+                        }
                         return v.selected === '1'
                     })
                     if (selected.length === 0) {
