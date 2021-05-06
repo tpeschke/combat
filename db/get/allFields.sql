@@ -2,3 +2,4 @@ select namecombat as name, max(countnum) as count, count(namefighter) as fighter
 full join combatants on combatants.idcombat = combat.id
 where iduser = $1
 group by namecombat, urlhash
+order by namecombat
