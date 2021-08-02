@@ -11,6 +11,7 @@ mat-card {
 
 .headerInput {
     font-size: 30px;
+    width: 75%;
     color: #990000;
     font-family: 'vinque';
     border: 0;

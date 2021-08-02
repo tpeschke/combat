@@ -10,8 +10,10 @@
     <mat-accordion>
       <div class="weaponShell" *ngFor="let weapon of weapons">
         <mat-expansion-panel>
-          <mat-expansion-panel-header 
-            (keydown.space)="$event.stopImmediatePropagation();" (keydown.w)="$event.stopImmediatePropagation();" (keydown.e)="$event.stopImmediatePropagation();" (keydown.x)="$event.stopImmediatePropagation();" (keydown.s)="$event.stopImmediatePropagation();" (keydown.a)="$event.stopImmediatePropagation();"
+          <mat-expansion-panel-header (keydown.space)="$event.stopImmediatePropagation();"
+            (keydown.w)="$event.stopImmediatePropagation();" (keydown.e)="$event.stopImmediatePropagation();"
+            (keydown.x)="$event.stopImmediatePropagation();" (keydown.s)="$event.stopImmediatePropagation();"
+            (keydown.a)="$event.stopImmediatePropagation();"
             [ngClass]="weapon.selected === '1' ? 'selectedBackground' : ''">
             <mat-panel-title>
               <input class="weaponName" (click)="$event.stopImmediatePropagation();"
@@ -27,8 +29,8 @@
             <input class="attack" (change)="changeWeaponPropertyInt(weapon.id, $event, 'atk')" value="{{weapon.atk}}">
             <input class="init" (change)="changeWeaponPropertyInt(weapon.id, $event, 'init')" value="{{weapon.init}}">
             <input class="defense" (change)="changeWeaponPropertyInt(weapon.id, $event, 'def')" value="{{weapon.def}}">
-            <input class="encumbrance" (change)="changeWeaponPropertyInt(weapon.id, $event, 'encumb')"
-              value="{{weapon.encumb}}">
+            <input class="encumbrance" (change)="changeWeaponProperty(weapon.id, $event, 'fatigue')"
+              value="{{convertFatigue(weapon.encumb, weapon.fatigue)}}">
             <div class="damageReduction">
               <input class="armor" (change)="changeWeaponProperty(weapon.id, $event, 'dr')" value="{{weapon.dr}}">
               <div class="armorShell">
@@ -88,8 +90,7 @@
           </div>
 
           <div class='weaponButtons'>
-            <button (click)="copyWeapon(weapon)" mat-raised-button
-              color="accent">Copy Weapon</button>
+            <button (click)="copyWeapon(weapon)" mat-raised-button color="accent">Copy Weapon</button>
             <button *ngIf="weapon.selected === '0'" (click)="deleteWeapon(weapon.id)" mat-raised-button
               color="warn">Delete Weapon</button>
           </div>

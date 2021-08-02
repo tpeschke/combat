@@ -37,8 +37,8 @@ getEncounter = (db, encounterHash, hash) => {
                             return v.selected === '1'
                         })
                         if (selected.length === 0) {
-                            weapons.push({ id: makeid(), weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' })
-                            val.selected = { id: makeid(), weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' }
+                            weapons.push({ id: makeid(), weapon: 'Unarmed', speed: 10, fatigue: 'C', selected: '1' })
+                            val.selected = { id: makeid(), weapon: 'Unarmed', speed: 10, fatigue: 'C', selected: '1' }
                         } else {
                             val.selected = selected[0]
                         }
@@ -73,7 +73,7 @@ saveEncounter = (db, userId, { meta, fighters, statuses }) => {
             fighters.forEach(val => {
                 db.upsert.fighter(val.namefighter, val.colorcode, typeof val.actioncount === 'number' ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.stressthreshold, val.id, meta.id).then(result => {
                     val.weapons.forEach(w => {
-                        tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.encumb, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id).then().catch(e => console.log(e)))
+                        tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.fatigue, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id).then().catch(e => console.log(e)))
                         if (w.maxrange) {
                             tempArray.push(db.upsert.ranges(w.id, w.maxrange).then().catch(e => console.log(e)))
                         } else if (w.maxrange === 0) {
@@ -134,8 +134,8 @@ module.exports = {
                         return v.selected === '1'
                     })
                     if (selected.length === 0) {
-                        weapons.push({ weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' })
-                        val.selected = { weapon: 'Unarmed', speed: 10, encumb: 10, selected: '1' }
+                        weapons.push({ weapon: 'Unarmed', speed: 10, fatigue: 'C', selected: '1' })
+                        val.selected = { weapon: 'Unarmed', speed: 10, fatigue: 'C', selected: '1' }
                     } else {
                         val.selected = selected[0]
                     }
@@ -242,7 +242,7 @@ module.exports = {
         fighters.forEach(val => {
             db.upsert.fighter(val.namefighter, val.colorcode, typeof val.actioncount === 'number' ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.stressthreshold, val.id, meta.id).then(result => {
                 val.weapons.forEach(w => {
-                    tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.encumb, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id).then())
+                    tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.fatigue, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id).then())
                     if (w.maxrange) {
                         tempArray.push(db.upsert.ranges(w.id, w.maxrange).then())
                     } else if (w.maxrange === 0) {

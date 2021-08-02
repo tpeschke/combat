@@ -16,7 +16,7 @@ export class PanicThresholdsPipe implements PipeTransform {
       case 4:
         return "Wounded";
       case 5:
-        return "Bleeding Out";
+        return "Critical";
       default:
         return "Never"
     }

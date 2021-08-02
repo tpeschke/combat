@@ -15,7 +15,7 @@
       [(colorPicker)]="colorChange" (colorPickerChange)="captureColor($event)" class="fighterColor editOn"></div>
   </div>
 
-  <p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'panicked' : panicked}">{{fighter.namefighter}}</p>
+  <p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'panicked' : panicked}">{{fighter.namefighter}} <i *ngIf="fatigued" matTooltip="Fatigued" class="fas fa-heart-broken"></i></p>
   <input *ngIf="editOn" (change)="captureChange($event, 'nameChange')" (keydown)="$event.stopPropagation()"
     class="name nameInput" value="{{nameChange}}">
   <div *ngIf="editOn" class="panicSelectShell">
@@ -26,7 +26,7 @@
       <p (click)="selectPanicThreshold(2)">Hurt</p>
       <p (click)="selectPanicThreshold(3)">Bloodied</p>
       <p (click)="selectPanicThreshold(4)">Wounded</p>
-      <p (click)="selectPanicThreshold(5)">Bleeding Out</p>
+      <p (click)="selectPanicThreshold(5)">Critical</p>
       <p (click)="selectPanicThreshold(7)">Never</p>
     </div>
   </div>
@@ -77,7 +77,7 @@
       <p class="attack">{{fighter.selected.atk}}</p>
       <p class="init">{{fighter.selected.init}}</p>
       <p class="defense">{{fighter.selected.def}}</p>
-      <p class="encumbrance">{{fighter.selected.encumb}}</p>
+      <p class="encumbrance">{{convertFatigue(fighter.selected.fatigue)}}</p>
       <div class="damageReduction">
         <p class="armor">{{fighter.selected.dr}}</p>
         <p *ngIf="fighter.selected.shield_dr" class="shield"><i
@@ -90,12 +90,13 @@
   </div>
 
   <div *ngIf="!editOn" class="inputShell">
-    <input *ngIf="fighter.woundCategory >= 25" (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}">
-    <input *ngIf="fighter.woundCategory < 25" (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}" class="inputWithoutCategory">
-    <p *ngIf="fighter.woundCategory === 25" matTooltip="Hurt" [matTooltipDisabled]="tooltips.wound_category_tier">H</p>
-    <p *ngIf="fighter.woundCategory === 50" matTooltip="Bloodied" [matTooltipDisabled]="tooltips.wound_category_tier">B</p>
-    <p *ngIf="fighter.woundCategory === 75" matTooltip="Wounded" [matTooltipDisabled]="tooltips.wound_category_tier">W</p>
-    <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out" [matTooltipDisabled]="tooltips.wound_category_tier" class="bleedingOutShell"><i class="fas fa-tint"></i>
+    <input *ngIf="fighter.woundCategory > 0" (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}">
+    <input *ngIf="fighter.woundCategory <= 0" (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}" class="inputWithoutCategory">
+    <p *ngIf="fighter.woundCategory === 1" matTooltip="Hurt" [matTooltipDisabled]="tooltips.wound_category_tier">H</p>
+    <p *ngIf="fighter.woundCategory === 25" matTooltip="Bloodied" [matTooltipDisabled]="tooltips.wound_category_tier">B</p>
+    <p *ngIf="fighter.woundCategory === 50" matTooltip="Wounded" [matTooltipDisabled]="tooltips.wound_category_tier">W</p>
+    <p *ngIf="fighter.woundCategory === 75" matTooltip="Critical" [matTooltipDisabled]="tooltips.wound_category_tier">C</p>
+    <div *ngIf="fighter.woundCategory === 100" matTooltip="Dead" [matTooltipDisabled]="tooltips.wound_category_tier" class="bleedingOutShell"><i class="fas fa-tint"></i>
     </div>
   </div>
   <div *ngIf="editOn" class="inputShell">
@@ -105,23 +106,6 @@
 
   <div *ngIf="!editOn" class="inputShell">
     <input (change)="changeStress($event, fighter.id)" class="stressInput" value={{fighter.stress}}>
-    <p *ngIf="fighter.woundCategory === 0" matTooltip="Stress From Wounds"
-      [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">+0</p>
-    <p *ngIf="fighter.woundCategory === 1" matTooltip="Stress From Wounds"
-      [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-      +{{fighter.selected.encumb}}</p>
-    <p *ngIf="fighter.woundCategory === 25" matTooltip="Stress From Wounds"
-      [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-      +{{fighter.selected.encumb * 2}}</p>
-    <p *ngIf="fighter.woundCategory === 50" matTooltip="Stress From Wounds"
-      [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-      +{{fighter.selected.encumb * 3}}</p>
-    <p *ngIf="fighter.woundCategory === 75" matTooltip="Stress From Wounds"
-      [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-      +{{fighter.selected.encumb * 4}}</p>
-    <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"
-      [matTooltipDisabled]="tooltips.stress_from_wounds" class="bleedingOutShell"><i class="fas fa-tint"></i>
-    </div>
   </div>
   <div *ngIf="editOn" class="inputShell">
     <input id="editInput" matTooltip="Stress Threshold" [matTooltipDisabled]="tooltips.stress_threshold"
@@ -319,7 +303,7 @@
         <p class="attack">{{fighter.selected.atk}}</p>
         <p class="init">{{fighter.selected.init}}</p>
         <p class="defense">{{fighter.selected.def}}</p>
-        <p class="encumbrance">{{fighter.selected.encumb}}</p>
+        <p class="encumbrance">{{convertFatigue(fighter.selected.fatigue)}}</p>
         <div class="damageReduction">
           <p class="armor">{{fighter.selected.dr}}</p>
           <p *ngIf="fighter.selected.shield_dr" class="shield"><i

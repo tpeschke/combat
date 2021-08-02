@@ -28,6 +28,7 @@ export class SinglefighterComponent implements OnInit {
   public editOn = false;
   public broken = false;
   public panicked = false;
+  public fatigued = false;
   public nameChange;
   public colorChange;
   public maxHealthChange;
@@ -46,26 +47,32 @@ export class SinglefighterComponent implements OnInit {
     let wound = this.fighter.health * 100 / this.fighter.max_health;
     if (wound === 0) {
       wound = 0
+      this.calculateFatigue('A')
       this.calculatePanicked(1)
     } if (wound > 0 && wound < 25) {
-      //harmed but not in a wound category
+      //Hurt
       wound = 1
-      this.calculatePanicked(1)
-    } else if (wound >= 25 && wound < 50) {
-      //hurt
-      wound = 25
+      this.calculateFatigue('H')
       this.calculatePanicked(2)
-    } else if (wound >= 50 && wound < 75) {
-      //bloodied
-      wound = 50
+    } else if (wound >= 25 && wound < 50) {
+      //Bloodied
+      wound = 25
+      this.calculateFatigue('B')
       this.calculatePanicked(3)
-    } else if (wound >= 75 && wound < 100) {
-      //wounded
-      wound = 75
+    } else if (wound >= 50 && wound < 75) {
+      //Wounded
+      wound = 50
+      this.calculateFatigue('W')
       this.calculatePanicked(4)
-    } else if (wound >= 100) {
-      //bleeding out
+    } else if (wound >= 75 && wound < 100) {
+      //Critical
+      wound = 75
+      this.calculateFatigue('C')
       this.calculatePanicked(5)
+    } else if (wound >= 100) {
+      //Dead
+      this.calculateFatigue('N')
+      this.calculatePanicked(6)
       wound = 100
     }
     this.fighter.woundCategory = wound
@@ -225,28 +232,7 @@ export class SinglefighterComponent implements OnInit {
   }
 
   calculateBroken() {
-    let stressFromEncumb = 0
-      , { encumb } = this.fighter.selected
-    switch (this.fighter.woundCategory) {
-      case 1:
-        stressFromEncumb = encumb;
-        break;
-      case 25:
-        stressFromEncumb = encumb * 2;
-        break;
-      case 50:
-        stressFromEncumb = encumb * 3;
-        break;
-      case 75:
-        stressFromEncumb = encumb * 4;
-        break;
-      case 100:
-        stressFromEncumb = encumb * 5;
-        break;
-      default:
-        stressFromEncumb = 0
-    }
-    let broken = this.fighter.stress + stressFromEncumb >= this.fighter.stressthreshold && this.fighter.stressthreshold > 0;
+    let broken = this.fighter.stress >= this.fighter.stressthreshold && this.fighter.stressthreshold > 0;
     if (this.fighter.broken != broken) {
       this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: broken, id: this.fighter.id, fighterProperty: 'broken' })
     }
@@ -338,5 +324,50 @@ export class SinglefighterComponent implements OnInit {
 
   captureColor(event) {
     this.colorChange = event;
+  }
+
+  calculateFatigue(woundCode) {
+    let fatigue = this.convertFatigue(this.fighter.selected.fatigue)
+      , oldFatigue = this.fatigued
+
+    if (woundCode === 'A') {
+      this.fatigued = fatigue === 'A'
+    } else if (woundCode === 'H') {
+      this.fatigued = fatigue === 'H' || fatigue === 'A'
+    } else if (woundCode === 'B') {
+      this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B'
+    } else if (woundCode === 'W') {
+      this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B' || fatigue === 'W'
+    } else if (woundCode === 'C') {
+      this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B' || fatigue === 'W' || fatigue === 'C'
+    } else {
+      this.fatigued = false
+    }
+
+    if (this.fatigued != oldFatigue) {
+      this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.fatigued, id: this.fighter.id, fighterProperty: 'fatigued' })
+    }
+  }
+
+  convertFatigue(fatigue) {
+    if (!fatigue) {
+      let encumb = this.fighter.selected.encumb;
+
+      if (encumb > 25) {
+        return "A"
+      } else if (encumb > 20) {
+        return "H"
+      } else if (encumb > 15) {
+        return "B"
+      } else if (encumb > 10) {
+        return "W"
+      } else if (encumb > 0) {
+        return "C"
+      } else {
+        return "N"
+      }
+    } else {
+      return fatigue
+    }
   }
 }

@@ -19,6 +19,7 @@
 .inputShell {
     width: 10%;
     display: flex;
+    justify-content: space-evenly;
 }
 
 .inputShell p {
@@ -67,6 +68,10 @@ i:hover {
     color: #b45f06; 
 }
 
+.fa-heart-broken:hover {
+    color: unset
+}
+
 .fa-tint:hover {
     color: inherit
 }
@@ -105,6 +110,7 @@ i:hover {
     background-repeat: no-repeat;
     background-size: 200px;
     display: none;
+    transition: 0s display;
 }
 
 .weaponHeader {
@@ -196,8 +202,8 @@ i:hover {
 .encumbrance {
     position: absolute;
     font-size: 30px;
-    top: 78px;
-    left: 90px;
+    top: 85px;
+    left: 87px;
 }
 
 .damageReduction {
@@ -259,6 +265,7 @@ i:hover {
 
 .weaponSquareShell:hover .weaponSquare {
     display: inherit;
+    transition-delay: 6s;
 }
 
 /* PLAYER STYLINGS */
@@ -381,7 +388,7 @@ h3 {
 }
 
 .stressInput {
-    width: 60%;
+    width: 90%;
 }
 
 .actionInput {

@@ -36,7 +36,7 @@ export class AddFighterComponent implements OnInit {
       id: this.generalService.makeid(),
       weapon: 'Unarmed',
       speed: 10,
-      encumb: 10,
+      fatigue: 'C',
       selected: '1',
       init: 0
     }],
@@ -68,14 +68,14 @@ export class AddFighterComponent implements OnInit {
         beast.combat.forEach(val => {
           if (val.weapon !== 'Base') {
             let maxrange = val.ranges ? val.ranges.thirtytwo : null;
-            weapons.push({ ...val, id: this.generalService.makeid(), weapon: val.weapon, speed: val.spd, selected: '0', encumb: val.encumb, maxrange })
-            weapons.push({ ...val, id: this.generalService.makeid(), weapon: `${val.weapon} (IG)`, speed: val.spd + Math.ceil(val.measure / 2), selected: '0', encumb: val.encumb, maxrange })
+            weapons.push({ ...val, id: this.generalService.makeid(), weapon: val.weapon, speed: val.spd, selected: '0', fatigue: val.fatigue, maxrange })
+            weapons.push({ ...val, id: this.generalService.makeid(), weapon: `${val.weapon} (IG)`, speed: val.spd + Math.ceil(val.measure / 2), selected: '0', fatigue: val.fatigue, maxrange })
           } else {
             noBase = false;
             let newId = this.generalService.makeid()
-            weapons.push({ ...val, id: newId, weapon: "Unarmed", speed: 9 + +val.spd, selected: '1', encumb: +val.encumb, damage: `d6+${+val.damage + 1}` })
-            selected = { ...val, id: newId, weapon: "Unarmed", speed: 9 + +val.spd, selected: '1', encumb: +val.encumb, damage: `d6+${+val.damage + 1}` }
-            weapons.push({ ...val, id: this.generalService.makeid(), weapon: val.weapon, speed: val.spd, selected: '0', encumb: +val.encumb })
+            weapons.push({ ...val, id: newId, weapon: "Unarmed", speed: 9 + +val.spd, selected: '1', fatigue: val.fatigue, damage: `d6+${+val.damage + 1}` })
+            selected = { ...val, id: newId, weapon: "Unarmed", speed: 9 + +val.spd, selected: '1', fatigue: val.fatigue, damage: `d6+${+val.damage + 1}` }
+            weapons.push({ ...val, id: this.generalService.makeid(), weapon: val.weapon, speed: val.spd, selected: '0', fatigue: val.fatigue })
           }
         })
         if (weapons.length === 1 || noBase) {
@@ -194,7 +194,7 @@ export class AddFighterComponent implements OnInit {
           id: newId,
           weapon: 'Unarmed',
           speed: 10,
-          encumb: 10,
+          fatigue: 'C',
           selected: '1',
           init: 0
         }],
@@ -202,7 +202,7 @@ export class AddFighterComponent implements OnInit {
           id: newId,
           weapon: 'Unarmed',
           speed: 10,
-          encumb: 10,
+          fatigue: 'C',
           selected: '1',
           init: 0
         },
@@ -218,7 +218,7 @@ export class AddFighterComponent implements OnInit {
       && this.fighter.max_health >= this.fighter.health
       && this.fighter.selected.speed > 0
       && !isNaN(+this.fighter.selected.init)
-      && this.fighter.selected.encumb >= 0
+      && (this.fighter.selected.fatigue === 'A' || this.fighter.selected.fatigue === 'H' || this.fighter.selected.fatigue === 'B' || this.fighter.selected.fatigue === 'W' || this.fighter.selected.fatigue === 'C' || this.fighter.selected.fatigue === 'N')
       && this.fighter.selected.weapon !== ''
 
     this.errors = []
@@ -227,7 +227,7 @@ export class AddFighterComponent implements OnInit {
     if (this.fighter.max_health < this.fighter.health) { this.errors.push("Damage Can't Be Greater Than Max Vitality") }
     if (this.fighter.selected.speed < 0) { this.errors.push("Weapon Recovery Required") }
     if (isNaN(+this.fighter.selected.init)) { this.errors.push("Weapon Initiative Required") }
-    if (this.fighter.selected.encumb < 0) { this.errors.push("Encumbrance Required") }
+    if (this.fighter.selected.fatigue !== 'A' && this.fighter.selected.fatigue !== 'H' && this.fighter.selected.fatigue !== 'B' && this.fighter.selected.fatigue !== 'W' && this.fighter.selected.fatigue !== 'C' && this.fighter.selected.fatigue !== 'N') { this.errors.push("Fatigue needs to be an A, H, B, W, C, or N") }
 
     return isValid
   }

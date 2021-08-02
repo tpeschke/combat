@@ -182,4 +182,23 @@ export class WeaponSelectComponent implements OnInit {
     }
   }
 
+  convertFatigue(encumb, fatigue) {
+    if (!fatigue) {
+      if (encumb > 25) {
+        return "A"
+      } else if (encumb > 20) {
+        return "H"
+      } else if (encumb > 15) {
+        return "B"
+      } else if (encumb > 10) {
+        return "W"
+      } else if (encumb > 0) {
+        return "C"
+      } else {
+        return "N"
+      }
+    } else {
+      return fatigue
+    }
+  }
 }
