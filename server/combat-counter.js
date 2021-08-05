@@ -86,6 +86,8 @@ app.get('/api/fields', sqlCtrl.getAllFields);
 app.get('/api/battle/:hash', sqlCtrl.getSingleBattle);
 app.get('/api/player/field/:hash', sqlCtrl.getFieldByHash);
 app.get('/api/player/battle/:hash', sqlCtrl.getBattleByHash);
+app.get('/api/player/character/:id', sqlCtrl.getCharacterFromVault);
+app.get('/api/player/beast/:hash', sqlCtrl.getBeastForPlayer);
 app.get('/api/beast/:hash', sqlCtrl.getBeastbyHash);
 app.get('/api/tooltips', sqlCtrl.getTooltips)
 app.get('/api/newfield', sqlCtrl.newField);

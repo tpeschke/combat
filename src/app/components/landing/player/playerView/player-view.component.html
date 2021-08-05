@@ -56,12 +56,23 @@
         <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
       </div>
   </div>
-    <div class="playerViewPlayerSectionRow">
+    <div *ngIf="!addFromOtherSite" class="playerViewPlayerSectionRow">
       <input (change)="capturePlayerInfo('name', $event)" placeholder="Name" value="{{newPlayer.name}}">
       <input (change)="capturePlayerInfo('recovery', $event)" placeholder="Recovery" value="{{newPlayer.recovery}}">
       <input (change)="capturePlayerInfo('action', $event)" placeholder="Initiative Roll" value="{{newPlayer.action}}">
       <p (click)="addPlayer()" class="icon"><i matTooltip="Add" class="fas fa-user-plus"></i></p>
+      <p (click)="toggleAddFromOtherSite()"><i matTooltip="Add From Vault or Bestiary" class="fas fa-cloud-download-alt"></i></p>
       <p (click)="clearPlayerInfo()" class="icon"><i matTooltip="Clear" class="fas fa-window-close"></i></p>
+    </div>
+    
+    <div *ngIf="addFromOtherSite" class="playerViewPlayerSectionRow">
+      <input (change)="captureId('characterId', $event)" placeholder="Vault Character Id">
+      <input (change)="captureId('bestiaryHash', $event)" placeholder="Bestiary Combat Hash">
+      <p>(Only add 1)</p>
+      <input (change)="capturePlayerInfo('action', $event)" placeholder="Initiative Roll" value="{{newPlayer.action}}">
+      <p *ngIf="!((!bestiaryHash && !characterId) || (bestiaryHash && characterId)) && newPlayer.action" (click)="addPlayerOrBeast()" class="icon"><i matTooltip="Add" class="fas fa-user-plus"></i></p>
+      <p *ngIf="(!bestiaryHash && !characterId) || (bestiaryHash && characterId) || !newPlayer.action" class="icon"></p>
+      <p (click)="toggleAddFromOtherSite()" class="icon"><i matTooltip="Go Back" class="fas fa-window-close"></i></p>
     </div>
   </div>
 

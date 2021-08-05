@@ -16,29 +16,33 @@ export class PlayerViewComponent implements OnInit {
     private router: Router
   ) { }
 
-  public canPlayersView = false
+  public canPlayersView = true
+  public addFromOtherSite = true
   public hash;
   public count;
   public name;
   public fighters = [];
   public statuses = []
   public players = [];
+  public characterId = null;
+  public bestiaryHash = null;
   public newPlayer = {
     id: null,
     name: null,
     recovery: null,
     action: null,
     topcheck: '0',
-    trauma: false
+    trauma: false,
+    weapons: []
   }
 
   ngOnInit() {
     this.hash = this.router.url.split('/')[1]
     this.fieldService.getBattleName(this.hash).subscribe(name => this.name = name[0].namecombat)
-    this.fieldService.getBattleInfo({hash: this.hash})
+    this.fieldService.getBattleInfo({ hash: this.hash })
     this.fieldService.subscribeToBattle(this.hash)
       .subscribe(data => {
-        let {type, value, id, fighterProperty} = data;
+        let { type, value, id, fighterProperty } = data;
         if (type === 'fighterChange') {
           for (let i = 0; i < this.fighters.length; i++) {
             if (this.fighters[i].id === id) {
@@ -74,14 +78,14 @@ export class PlayerViewComponent implements OnInit {
           })
         } else {
           this[type] = value
-          if(type === 'count') {
+          if (type === 'count') {
             this.players = this.players.map(player => {
-              if (player.topcheck === '1' && value === player.action) {player.topcheck = '0'}
+              if (player.topcheck === '1' && value === player.action) { player.topcheck = '0' }
               return player
             })
           }
         }
-        if (type === 'canPlayersView' && value && !this.canPlayersView) { this.fieldService.getBattleInfo({hash: this.hash}) }
+        if (type === 'canPlayersView' && value && !this.canPlayersView) { this.fieldService.getBattleInfo({ hash: this.hash }) }
       })
   }
 
@@ -89,12 +93,12 @@ export class PlayerViewComponent implements OnInit {
     if (type === 'name') {
       this.newPlayer[type] = event.target.value
     } else {
-      this.newPlayer[type] = +event.target.value.replace(/\D/g,'')
+      this.newPlayer[type] = +event.target.value.replace(/\D/g, '')
     }
   }
 
   addPlayer() {
-    let {name, recovery, action} = this.newPlayer
+    let { name, recovery, action } = this.newPlayer
     if (name !== '' && recovery && action) {
       this.newPlayer.action = this.newPlayer.action + this.count;
       this.newPlayer.id = this.generalService.makeid();
@@ -105,7 +109,8 @@ export class PlayerViewComponent implements OnInit {
         recovery: null,
         action: null,
         topcheck: '0',
-        trauma: false
+        trauma: false,
+        weapons: []
       }
     }
   }
@@ -117,14 +122,15 @@ export class PlayerViewComponent implements OnInit {
       recovery: null,
       action: null,
       topcheck: '0',
-      trauma: false
+      trauma: false,
+      weapons: []
     }
   }
 
   alterRecovery(id, event) {
     this.players = this.players.map(player => {
       if (player.id === id) {
-        player.recovery = +event.target.value.replace(/\D/g,'')
+        player.recovery = +event.target.value.replace(/\D/g, '')
       }
       return player
     })
@@ -155,7 +161,7 @@ export class PlayerViewComponent implements OnInit {
   changeAction(id, event) {
     this.players = this.players.map(player => {
       if (player.id === id) {
-        player.action = +event.target.value.replace(/\D/g,'')
+        player.action = +event.target.value.replace(/\D/g, '')
       }
       return player
     })
@@ -175,7 +181,7 @@ export class PlayerViewComponent implements OnInit {
       if (player.id === id) {
         player.trauma = false
         player.topcheck = '1'
-        player.action = this.count + (+event.target.value.replace(/\D/g,'') * 3)
+        player.action = this.count + (+event.target.value.replace(/\D/g, '') * 3)
       }
       return player
     })
@@ -189,4 +195,42 @@ export class PlayerViewComponent implements OnInit {
     })
   }
 
+  toggleAddFromOtherSite() {
+    this.addFromOtherSite = !this.addFromOtherSite
+    if (this.addFromOtherSite) {
+      this.bestiaryHash = null;
+      this.characterId = null;
+    }
+  }
+
+  captureId(type, event) {
+    this[type] = event.target.value
+  }
+
+  addPlayerOrBeast() {
+    if (this.bestiaryHash) {
+      
+    } else if (this.characterId) {
+      this.fieldService.getCharacterFromVault(this.characterId).subscribe((character: any) => {
+        if (character.name !== '' && character.recovery && this.newPlayer.action) {
+          this.newPlayer = {...this.newPlayer, ...character};
+          this.newPlayer.action = this.newPlayer.action + this.count;
+          this.newPlayer.id = this.generalService.makeid();
+          this.players.push(this.newPlayer)
+          this.newPlayer = {
+            id: null,
+            name: null,
+            recovery: null,
+            action: null,
+            topcheck: '0',
+            trauma: false,
+            weapons: []
+          }
+          this.addFromOtherSite = false;
+          this.bestiaryHash = null;
+          this.characterId = null;
+        }
+      })
+    }
+  }
 }

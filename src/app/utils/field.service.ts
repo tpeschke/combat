@@ -63,6 +63,20 @@ export class FieldService {
     return this.http.get(local.endpointBase + '/api/player/battle/' + hash)
   }
 
+  getCharacterFromVault(id) {
+    return this.http.get(local.endpointBase + '/api/player/character/' + id)
+    .pipe(
+      tap(result => this.generalService.handleMessage(result))
+    )
+  }
+
+  getBeastForPlayer(hash) {
+    return this.http.get(local.endpointBase + '/api/player/beast/' + hash)
+    .pipe(
+      tap(result => this.generalService.handleMessage(result))
+    )
+  }
+
   getBattleName(hash) {
     return this.http.get(local.endpointBase + '/api/player/field/' + hash)
   }
