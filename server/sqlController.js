@@ -194,10 +194,10 @@ module.exports = {
         axios.get(config.beastiaryEndpoint + '/api/combat/' + req.params.hash, { query: { patreon: req.user.patreon } }).then(result => res.send(result.data))
     },
     getCharacterFromVault: (req, res) => {
-        axios.get(config.vaultEndpoint + '/api/character/' + req.params.id, { query: { patreon: req.user.patreon } }).then(result => res.send(result.data))
+        axios.get(config.vaultEndpoint + '/api/character/' + req.params.id).then(result => res.send(result.data))
     },
     getBeastForPlayer: (req, res) => {
-        axios.get(config.beastiaryEndpoint + '/api/player/beast/' + req.params.hash, { query: { patreon: req.user.patreon } }).then(result => res.send(result.data))
+        axios.get(config.beastiaryEndpoint + '/api/combat/' + req.params.hash).then(result => res.send(result.data))
     },
     newField: (req, res) => {
         const db = req.app.get('db')

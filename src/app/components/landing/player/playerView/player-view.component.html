@@ -31,15 +31,29 @@
     </div>
     <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow non-mobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow non-mobile' : 'playerViewPlayerSectionRow non-mobile'">
         <p id="playerViewPlayerName">{{player.name}}</p>
-        <input (change)="alterRecovery(player.id, $event)" id="recovery" placeholder="Edit Recovery">
+
+        <input *ngIf="player.weapons.length === 0" (change)="alterRecovery(player.id, $event)" id="recovery" placeholder="Edit Recovery">
+        <div *ngIf="player.weapons.length > 0" class="weaponSelectShell non-mobile">
+          <p class="weaponDropDownButton">{{player.selectedName}} <i class="fas fa-angle-down"></i></p>
+          <div class="weaponSelect">
+            <div *ngFor="let weapon of player.weapons" >
+              <p *ngIf="player.selectedId != weapon.weaponid" (click)="selectWeapon(player.id, weapon.weaponid)">{{weapon.name}}</p>
+            </div>
+          </div>
+        </div>
+
         <p (click)="increaseAction(player.id)" class="recoveryButton">{{player.recovery}}</p>
+
         <p (click)="jumpToCount(player.id)" class="icon"><i class="fas fa-forward" matTooltip="Jump to Current Second"></i></p>
+
         <input (change)="changeAction(player.id, $event)" id="recovery" value="{{player.action}}">
+
         <p *ngIf="!player.trauma" (click)="toggleTrauma(player.id)" class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
         <input *ngIf="player.trauma" autofocus (blur)="addTrauma(player.id, $event)" id="trauma">
+
         <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
     </div>
-    <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow mobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow mobile' : 'playerViewPlayerSectionRow mobile'">
+    <!-- <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow mobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow mobile' : 'playerViewPlayerSectionRow mobile'">
       <p id="playerViewPlayerName">{{player.name}}</p>
       <div id="recoveryDiv">
         <p>Recovery:</p>
@@ -55,7 +69,7 @@
         <input *ngIf="player.trauma" autofocus (blur)="addTrauma(player.id, $event)" id="trauma">
         <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
       </div>
-  </div>
+  </div> -->
     <div *ngIf="!addFromOtherSite" class="playerViewPlayerSectionRow">
       <input (change)="capturePlayerInfo('name', $event)" placeholder="Name" value="{{newPlayer.name}}">
       <input (change)="capturePlayerInfo('recovery', $event)" placeholder="Recovery" value="{{newPlayer.recovery}}">

@@ -23,7 +23,7 @@ export class PlayerViewComponent implements OnInit {
   public name;
   public fighters = [];
   public statuses = []
-  public players = [];
+  public players: any = [];
   public characterId = null;
   public bestiaryHash = null;
   public newPlayer = {
@@ -31,6 +31,7 @@ export class PlayerViewComponent implements OnInit {
     name: null,
     recovery: null,
     action: null,
+    selectedId: null,
     topcheck: '0',
     trauma: false,
     weapons: []
@@ -108,6 +109,7 @@ export class PlayerViewComponent implements OnInit {
         name: null,
         recovery: null,
         action: null,
+        selectedId: null,
         topcheck: '0',
         trauma: false,
         weapons: []
@@ -121,6 +123,7 @@ export class PlayerViewComponent implements OnInit {
       name: null,
       recovery: null,
       action: null,
+      selectedId: null,
       topcheck: '0',
       trauma: false,
       weapons: []
@@ -177,11 +180,14 @@ export class PlayerViewComponent implements OnInit {
   }
 
   addTrauma(id, event) {
+    let traumaValue = +event.target.value.replace(/\D/g, '')
     this.players = this.players.map(player => {
       if (player.id === id) {
         player.trauma = false
-        player.topcheck = '1'
-        player.action = this.count + (+event.target.value.replace(/\D/g, '') * 3)
+        if (traumaValue > 0) {
+          player.topcheck = '1'
+          player.action = this.count + (traumaValue * 3)
+        }
       }
       return player
     })
@@ -207,13 +213,25 @@ export class PlayerViewComponent implements OnInit {
     this[type] = event.target.value
   }
 
+  selectWeapon(playerid, weaponid) {
+    this.players.forEach(player => {
+      if (player.id === playerid) {
+        player.weapons.forEach(weapon => {
+          if (weapon.weaponid === weaponid) {
+            player.selectedId = weapon.weaponid
+            player.selectedName = weapon.name
+            player.recovery = weapon.recovery
+          }
+        })
+      }
+    })
+  }
+
   addPlayerOrBeast() {
     if (this.bestiaryHash) {
-      
-    } else if (this.characterId) {
-      this.fieldService.getCharacterFromVault(this.characterId).subscribe((character: any) => {
-        if (character.name !== '' && character.recovery && this.newPlayer.action) {
-          this.newPlayer = {...this.newPlayer, ...character};
+      this.fieldService.getBeastForPlayer(this.bestiaryHash).subscribe((beast: any) => {
+        if (beast.name !== '' && beast.recovery && this.newPlayer.action) {
+          this.newPlayer = { ...this.newPlayer, ...beast };
           this.newPlayer.action = this.newPlayer.action + this.count;
           this.newPlayer.id = this.generalService.makeid();
           this.players.push(this.newPlayer)
@@ -221,6 +239,7 @@ export class PlayerViewComponent implements OnInit {
             id: null,
             name: null,
             recovery: null,
+            selectedId: null,
             action: null,
             topcheck: '0',
             trauma: false,
@@ -228,6 +247,26 @@ export class PlayerViewComponent implements OnInit {
           }
           this.addFromOtherSite = false;
           this.bestiaryHash = null;
+        }
+      })
+    } else if (this.characterId) {
+      this.fieldService.getCharacterFromVault(this.characterId).subscribe((character: any) => {
+        if (character.name !== '' && character.recovery && this.newPlayer.action) {
+          this.newPlayer = { ...this.newPlayer, ...character };
+          this.newPlayer.action = this.newPlayer.action + this.count;
+          this.newPlayer.id = this.generalService.makeid();
+          this.players.push(this.newPlayer)
+          this.newPlayer = {
+            id: null,
+            name: null,
+            recovery: null,
+            selectedId: null,
+            action: null,
+            topcheck: '0',
+            trauma: false,
+            weapons: []
+          }
+          this.addFromOtherSite = false;
           this.characterId = null;
         }
       })
