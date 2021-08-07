@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FieldService } from 'src/app/utils/field.service';
 import { Router } from '@angular/router';
 import { GeneralService } from 'src/app/utils/general.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-player-view',
@@ -34,7 +35,8 @@ export class PlayerViewComponent implements OnInit {
     selectedId: null,
     topcheck: '0',
     trauma: false,
-    weapons: []
+    weapons: [],
+    newWeapon: {name: null, recovery: null}
   }
 
   ngOnInit() {
@@ -112,7 +114,8 @@ export class PlayerViewComponent implements OnInit {
         selectedId: null,
         topcheck: '0',
         trauma: false,
-        weapons: []
+        weapons: [],
+        newWeapon: {name: null, recovery: null}
       }
     }
   }
@@ -126,7 +129,8 @@ export class PlayerViewComponent implements OnInit {
       selectedId: null,
       topcheck: '0',
       trauma: false,
-      weapons: []
+      weapons: [],
+      newWeapon: {name: null, recovery: null}
     }
   }
 
@@ -227,6 +231,28 @@ export class PlayerViewComponent implements OnInit {
     })
   }
 
+  saveNewWeapon(playerid, type, event) {
+    this.players.forEach(player => {
+      if (player.id === playerid) {
+        if (type === 'recovery') {
+          player.newWeapon[type] = +event.target.value
+        } else {
+          player.newWeapon[type] = event.target.value
+        }
+      }
+    })
+  }
+
+  addNewWeapon(playerid) {
+    this.players.forEach(player => {
+      if (player.id === playerid) {
+        player.weapons.push({...player.newWeapon, id: this.generalService.makeid()})
+        player.newWeapon = {name: null, recovery: null}
+      }
+    })
+    console.log(this.players)
+  }
+
   addPlayerOrBeast() {
     if (this.bestiaryHash) {
       this.fieldService.getBeastForPlayer(this.bestiaryHash).subscribe((beast: any) => {
@@ -243,7 +269,8 @@ export class PlayerViewComponent implements OnInit {
             action: null,
             topcheck: '0',
             trauma: false,
-            weapons: []
+            weapons: [],
+            newWeapon: {name: null, recovery: null}
           }
           this.addFromOtherSite = false;
           this.bestiaryHash = null;
@@ -264,7 +291,8 @@ export class PlayerViewComponent implements OnInit {
             action: null,
             topcheck: '0',
             trauma: false,
-            weapons: []
+            weapons: [],
+            newWeapon: {name: null, recovery: null}
           }
           this.addFromOtherSite = false;
           this.characterId = null;

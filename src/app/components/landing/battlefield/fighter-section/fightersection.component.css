@@ -348,6 +348,7 @@ h2 {
 
 #playerViewPlayerName {
     width: 17%;
+    text-align: left;
 }
 
 #trauma {
@@ -448,6 +449,10 @@ button:hover {
     position: relative;
 }
 
+.weaponSelectShell {
+    width: 15% !important;
+    left: 0;
+}
 .panicSelectShell, .weaponSelectShell {
     position: relative;
     width: 10%;
@@ -456,9 +461,11 @@ button:hover {
     padding: 0 5px;
 }
 
+
 .weaponDropDownButton {
     width: 100%;
     display: flex;
+    justify-content: space-between;
 }
 
 .diceSelect, .weaponSelect {
@@ -495,6 +502,24 @@ button:hover {
 .diceSelect p:hover, .weaponSelect p:hover {
     background: #b45f06;
     color: whitesmoke
+}
+
+.weaponDivider {
+    border-top: 3px solid black;
+}
+
+#addWeaponInputs {
+    width: 100%;
+    padding: 5px;
+    margin: 0;
+}
+
+.addWeapon {
+    padding: 5px
+}
+
+.weaponNameHeading {
+    width: 100% !important;
 }
 
 .editOn {

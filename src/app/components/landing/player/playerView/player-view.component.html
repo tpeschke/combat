@@ -1,7 +1,7 @@
 <mat-card *ngIf="!canPlayersView">
   <h3 class="clockTitle">{{name}}</h3>
   <div class="counterShell">
-      <p class="closedWarning">This combat is currently locked by your GM.</p>
+    <p class="closedWarning">This combat is currently locked by your GM.</p>
   </div>
 </mat-card>
 
@@ -29,29 +29,43 @@
     <div *ngIf="players.length === 0" class="playerViewPlayerSectionHeader">
       <p id="playerViewPlayerName">Add Character</p>
     </div>
-    <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow non-mobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow non-mobile' : 'playerViewPlayerSectionRow non-mobile'">
-        <p id="playerViewPlayerName">{{player.name}}</p>
+    <div *ngFor="let player of players"
+      [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow non-mobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow non-mobile' : 'playerViewPlayerSectionRow non-mobile'">
+      <p id="playerViewPlayerName">{{player.name}}</p>
 
-        <input *ngIf="player.weapons.length === 0" (change)="alterRecovery(player.id, $event)" id="recovery" placeholder="Edit Recovery">
-        <div *ngIf="player.weapons.length > 0" class="weaponSelectShell non-mobile">
-          <p class="weaponDropDownButton">{{player.selectedName}} <i class="fas fa-angle-down"></i></p>
-          <div class="weaponSelect">
-            <div *ngFor="let weapon of player.weapons" >
-              <p *ngIf="player.selectedId != weapon.weaponid" (click)="selectWeapon(player.id, weapon.weaponid)">{{weapon.name}}</p>
-            </div>
+      <input *ngIf="player.weapons.length === 0" (change)="alterRecovery(player.id, $event)" id="recovery"
+        placeholder="Edit Recovery">
+      <div *ngIf="player.weapons.length > 0" class="weaponSelectShell non-mobile">
+        <div class="weaponDropDownButton">
+          <p class="weaponNameHeading">{{player.selectedName}}</p>
+          <i class="fas fa-angle-down"></i>
+        </div>
+        <div class="weaponSelect">
+          <div *ngFor="let weapon of player.weapons">
+            <p *ngIf="player.selectedId != weapon.weaponid" (click)="selectWeapon(player.id, weapon.weaponid)">
+              {{weapon.name}}</p>
+          </div>
+          <div class="weaponDivider"></div>
+          <input id="addWeaponInputs" #weaponName placeholder="Weapon Name" (change)="saveNewWeapon(player.id, 'name', $event)">
+          <input id="addWeaponInputs" #weaponRecovery placeholder="Weapon Recovery" (change)="saveNewWeapon(player.id, 'recovery', $event)">
+          <div>
+            <i class="fas fa-plus-square addWeapon" (click)="addNewWeapon(player.id); weaponName.value = ''; weaponRecovery.value = ''"></i>
           </div>
         </div>
+      </div>
 
-        <p (click)="increaseAction(player.id)" class="recoveryButton">{{player.recovery}}</p>
+      <p (click)="increaseAction(player.id)" class="recoveryButton">{{player.recovery}}</p>
 
-        <p (click)="jumpToCount(player.id)" class="icon"><i class="fas fa-forward" matTooltip="Jump to Current Second"></i></p>
+      <p (click)="jumpToCount(player.id)" class="icon"><i class="fas fa-forward"
+          matTooltip="Jump to Current Second"></i></p>
 
-        <input (change)="changeAction(player.id, $event)" id="recovery" value="{{player.action}}">
+      <input (change)="changeAction(player.id, $event)" id="recovery" value="{{player.action}}">
 
-        <p *ngIf="!player.trauma" (click)="toggleTrauma(player.id)" class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
-        <input *ngIf="player.trauma" autofocus (blur)="addTrauma(player.id, $event)" id="trauma">
+      <p *ngIf="!player.trauma" (click)="toggleTrauma(player.id)" class="icon"><i matTooltip="Trauma"
+          class="fas fa-frown"></i></p>
+      <input *ngIf="player.trauma" autofocus (blur)="addTrauma(player.id, $event)" id="trauma">
 
-        <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
+      <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
     </div>
     <!-- <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow mobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow mobile' : 'playerViewPlayerSectionRow mobile'">
       <p id="playerViewPlayerName">{{player.name}}</p>
@@ -75,16 +89,18 @@
       <input (change)="capturePlayerInfo('recovery', $event)" placeholder="Recovery" value="{{newPlayer.recovery}}">
       <input (change)="capturePlayerInfo('action', $event)" placeholder="Initiative Roll" value="{{newPlayer.action}}">
       <p (click)="addPlayer()" class="icon"><i matTooltip="Add" class="fas fa-user-plus"></i></p>
-      <p (click)="toggleAddFromOtherSite()"><i matTooltip="Add From Vault or Bestiary" class="fas fa-cloud-download-alt"></i></p>
+      <p (click)="toggleAddFromOtherSite()"><i matTooltip="Add From Vault or Bestiary"
+          class="fas fa-cloud-download-alt"></i></p>
       <p (click)="clearPlayerInfo()" class="icon"><i matTooltip="Clear" class="fas fa-window-close"></i></p>
     </div>
-    
+
     <div *ngIf="addFromOtherSite" class="playerViewPlayerSectionRow">
       <input (change)="captureId('characterId', $event)" placeholder="Vault Character Id">
       <input (change)="captureId('bestiaryHash', $event)" placeholder="Bestiary Combat Hash">
       <p>(Only add 1)</p>
       <input (change)="capturePlayerInfo('action', $event)" placeholder="Initiative Roll" value="{{newPlayer.action}}">
-      <p *ngIf="!((!bestiaryHash && !characterId) || (bestiaryHash && characterId)) && newPlayer.action" (click)="addPlayerOrBeast()" class="icon"><i matTooltip="Add" class="fas fa-user-plus"></i></p>
+      <p *ngIf="!((!bestiaryHash && !characterId) || (bestiaryHash && characterId)) && newPlayer.action"
+        (click)="addPlayerOrBeast()" class="icon"><i matTooltip="Add" class="fas fa-user-plus"></i></p>
       <p *ngIf="(!bestiaryHash && !characterId) || (bestiaryHash && characterId) || !newPlayer.action" class="icon"></p>
       <p (click)="toggleAddFromOtherSite()" class="icon"><i matTooltip="Go Back" class="fas fa-window-close"></i></p>
     </div>
@@ -101,12 +117,15 @@
           <p>weapon</p>
         </div>
         <div *ngFor="let fighter of fighters">
-          <div *ngIf="fighter.dead === '0' && fighter.hidden === '0'" [ngClass]="fighter.topcheck === '1' ? 'fighterTop fighterRow playerView' : 'fighterRow playerView'">
+          <div *ngIf="fighter.dead === '0' && fighter.hidden === '0'"
+            [ngClass]="fighter.topcheck === '1' ? 'fighterTop fighterRow playerView' : 'fighterRow playerView'">
             <div class="icon">
               <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
             </div>
             <div class="icon"><i class="fas fa-tint" [ngStyle]="{color: '#990000' + fighter.wound}"></i></div>
-            <p class="name" [ngClass]="{'broken' : fighter.broken, 'panicked' : fighter.panicked}">{{fighter.namefighter}} <i *ngIf="fighter.fatigued" matTooltip="Fatigued" class="fas fa-heart-broken"></i></p>
+            <p class="name" [ngClass]="{'broken' : fighter.broken, 'panicked' : fighter.panicked}">
+              {{fighter.namefighter}} <i *ngIf="fighter.fatigued" matTooltip="Fatigued" class="fas fa-heart-broken"></i>
+            </p>
             <p>{{fighter.weapon}}</p>
           </div>
         </div>
