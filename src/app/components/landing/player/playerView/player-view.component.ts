@@ -25,8 +25,7 @@ export class PlayerViewComponent implements OnInit {
   public fighters = [];
   public statuses = []
   public players: any = [];
-  public characterId = null;
-  public bestiaryHash = null;
+  public id = null;
   public newPlayer = {
     id: null,
     name: null,
@@ -208,13 +207,12 @@ export class PlayerViewComponent implements OnInit {
   toggleAddFromOtherSite() {
     this.addFromOtherSite = !this.addFromOtherSite
     if (this.addFromOtherSite) {
-      this.bestiaryHash = null;
-      this.characterId = null;
+      this.id = null;
     }
   }
 
-  captureId(type, event) {
-    this[type] = event.target.value
+  captureId(event) {
+    this.id = event.target.value
   }
 
   selectWeapon(playerid, weaponid) {
@@ -254,11 +252,15 @@ export class PlayerViewComponent implements OnInit {
   }
 
   addPlayerOrBeast() {
-    if (this.bestiaryHash) {
-      this.fieldService.getBeastForPlayer(this.bestiaryHash).subscribe((beast: any) => {
+    if (isNaN(this.id)) {
+      this.fieldService.getBeastForPlayer(this.id).subscribe((beast: any) => {
         if (beast.name !== '' && beast.recovery && this.newPlayer.action) {
           this.newPlayer = { ...this.newPlayer, ...beast };
-          this.newPlayer.action = this.newPlayer.action + this.count;
+          let count = 0
+          if (this.count) {
+            count = this.count
+          }
+          this.newPlayer.action = this.newPlayer.action + count;
           this.newPlayer.id = this.generalService.makeid();
           this.players.push(this.newPlayer)
           this.newPlayer = {
@@ -273,14 +275,18 @@ export class PlayerViewComponent implements OnInit {
             newWeapon: {name: null, recovery: null}
           }
           this.addFromOtherSite = false;
-          this.bestiaryHash = null;
+          this.id = null;
         }
       })
-    } else if (this.characterId) {
-      this.fieldService.getCharacterFromVault(this.characterId).subscribe((character: any) => {
+    } else if (!isNaN(this.id)) {
+      this.fieldService.getCharacterFromVault(this.id).subscribe((character: any) => {
         if (character.name !== '' && character.recovery && this.newPlayer.action) {
           this.newPlayer = { ...this.newPlayer, ...character };
-          this.newPlayer.action = this.newPlayer.action + this.count;
+          let count = 0
+          if (this.count) {
+            count = this.count
+          }
+          this.newPlayer.action = this.newPlayer.action + count;
           this.newPlayer.id = this.generalService.makeid();
           this.players.push(this.newPlayer)
           this.newPlayer = {
@@ -295,7 +301,7 @@ export class PlayerViewComponent implements OnInit {
             newWeapon: {name: null, recovery: null}
           }
           this.addFromOtherSite = false;
-          this.characterId = null;
+          this.id = null;
         }
       })
     }
