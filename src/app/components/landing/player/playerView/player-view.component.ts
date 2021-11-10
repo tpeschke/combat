@@ -18,7 +18,7 @@ export class PlayerViewComponent implements OnInit {
   ) { }
 
   public canPlayersView = true
-  public addFromOtherSite = true
+  public addFromOtherSite = false
   public hash;
   public count;
   public name;
