@@ -10,8 +10,8 @@
 	src: url('./assets/jancient.ttf') format("truetype");
   }
   @font-face {
-	font-family: 'vinque';
-	src: url('./assets/vinque.ttf') format("truetype");
+	font-family: 'Baldur';
+	src: url('./assets/Baldur.ttf') format("truetype");
   }
 
 html, body, div, span, applet, object, iframe,
@@ -88,18 +88,18 @@ p {
 
 h1 {
 	color: #990000;
-	font-family: 'vinque';
+	font-family: 'Baldur';
 	font-size: 20px;
 }
 
 h2 {
 	color: white;
 	font-size: 17px;
-	font-family: 'vinque';
+	font-family: 'Baldur';
 }
 
 h5 {
-	font-family: 'vinque';
+	font-family: 'Baldur';
 	font-size: 20px;
 	margin: 10px 0;
     border-bottom: 2px solid;

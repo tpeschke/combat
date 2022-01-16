@@ -32,7 +32,9 @@
   </div>
 
   <div class="icon weaponSquareShell">
-    <i class="fas fa-shield-alt"></i>
+    <div class="sword-icon-shell">
+      <img class="sword-icon" src="../../../../../../../assets/stiletto.svg">
+    </div>
     <div class="weaponSquare" (click)="openWeaponSelect(fighter.id, fighter.weapons)">
       <div class="weaponHeader">
         <p>{{fighter.selected.weapon}}</p><i class="fas fa-edit"></i>
@@ -80,7 +82,7 @@
       <p class="encumbrance">{{convertFatigue(fighter.selected.fatigue)}}</p>
       <div class="damageReduction">
         <p class="armor">{{fighter.selected.dr}}</p>
-        <p *ngIf="fighter.selected.shield_dr" class="shield"><i
+        <p *ngIf="fighter.selected.shield_dr && fighter.selected.shield_dr !== ' '" class="shield"><i
             class="fas fa-shield-alt shieldIcon"></i>{{fighter.selected.shield_dr}}</p>
       </div>
       <p class="measure">{{fighter.selected.measure}}</p>

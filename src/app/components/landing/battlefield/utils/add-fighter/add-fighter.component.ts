@@ -60,7 +60,7 @@ export class AddFighterComponent implements OnInit {
   addByHash() {
     if (this.hash) {
       this.fieldService.getFightersFromBestiary(this.hash).subscribe((beast: any) => {
-        let max_health = beast.vitality.toUpperCase() !== "N/A" ? this.generalService.rollDice(beast.vitality) : 10000
+        let max_health = beast.vitality.toUpperCase() !== "N/A" ? beast.vitality : 10000
           , stressthreshold = typeof beast.stressthreshold === "number" ? beast.stressthreshold : 0
           , weapons = []
           , noBase = true
@@ -161,6 +161,9 @@ export class AddFighterComponent implements OnInit {
         let newFighters = []
         for (let i = 0; i < this.multiAdd; i++) {
           let fighterCopy = { ...this.fighter, id: this.generalService.makeid(), actioncount: [...this.fighter.actioncount], selected: { ...this.fighter.selected } }
+          if (isNaN(+fighterCopy.max_health)) {
+            fighterCopy.max_health = this.generalService.rollDice(fighterCopy.max_health);
+          }
           fighterCopy.weapons = fighterCopy.weapons.map(weapon => { return { ...weapon, id: this.generalService.makeid() } })
           if (this.numberEach) { fighterCopy.namefighter = fighterCopy.namefighter + ` ${i + 1}` }
           if (this.uniqueColors) { i > 6 ? fighterCopy.colorcode = this.generalService.genHexString() : fighterCopy.colorcode = colors[i] }
@@ -214,8 +217,7 @@ export class AddFighterComponent implements OnInit {
   checkIfFighterIsValid() {
     let isValid = false
     isValid = this.fighter.namefighter !== ''
-      && this.fighter.max_health > 0
-      && this.fighter.max_health >= this.fighter.health
+      && this.fighter.max_health
       && this.fighter.selected.speed > 0
       && !isNaN(+this.fighter.selected.init)
       && (this.fighter.selected.fatigue === 'A' || this.fighter.selected.fatigue === 'H' || this.fighter.selected.fatigue === 'B' || this.fighter.selected.fatigue === 'W' || this.fighter.selected.fatigue === 'C' || this.fighter.selected.fatigue === 'N')

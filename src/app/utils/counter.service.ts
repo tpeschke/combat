@@ -70,8 +70,8 @@ export class CounterService {
       field.meta.encounter = this.generalService.makeid();
     }
     this.fieldService.saveField(field).subscribe(result => {
-      this.encounter = 
-      this.isSaving = false
+      this.encounter =
+        this.isSaving = false
     })
   }
 
@@ -132,24 +132,33 @@ export class CounterService {
     this.sort()
   }
 
+  removeFighter(fighters, i, id ) {
+    this.fieldService.sendBattleData({ hash: this.hash, type: 'removeFighter', value: id })
+    this.fieldService.deleteFighter(id).subscribe(result => {
+      fighters.splice(i, 1)
+      this.fighters = fighters
+      this.sort()
+    })
+  }
+
   public incrementCount() {
     this.count = ++this.count
-    if (this.count % 5 === 0) {this.saveField()}
-    this.fieldService.sendBattleData({hash: this.hash, type: 'count', value: this.count})
+    if (this.count % 5 === 0) { this.saveField() }
+    this.fieldService.sendBattleData({ hash: this.hash, type: 'count', value: this.count })
     this.sort()
   }
 
   public decrementCount() {
     if (this.count > 1) {
       this.count = --this.count
-      this.fieldService.sendBattleData({hash: this.hash, type: 'count', value: this.count})
+      this.fieldService.sendBattleData({ hash: this.hash, type: 'count', value: this.count })
       this.sort()
     }
   }
 
   public resetCount() {
     this.count = 1
-    this.fieldService.sendBattleData({hash: this.hash, type: 'count', value: this.count})
+    this.fieldService.sendBattleData({ hash: this.hash, type: 'count', value: this.count })
     this.sort()
   }
 }

@@ -65,7 +65,7 @@ p {
 }
 
 i:hover {
-    color: #b45f06; 
+    color: #b45f06;
 }
 
 .fa-heart-broken:hover {
@@ -101,7 +101,7 @@ i:hover {
 .weaponSquare {
     position: absolute;
     top: 20px;
-    left: 15px;
+    left: -1px;
     width: 200px;
     height: 191px;
     background: whitesmoke;
@@ -338,7 +338,7 @@ h2 {
     margin-bottom: 15px;
 }
 
-.playerViewPlayerSectionHeader p, .playerViewPlayerSectionRow p { 
+.playerViewPlayerSectionHeader p, .playerViewPlayerSectionRow p {
     width: 15%
 }
 
@@ -378,7 +378,7 @@ h2 {
 h3 {
     color: #990000;
     font-size: 40px;
-    font-family: 'vinque'
+    font-family: 'Baldur'
 }
 
 .clockTitle {
@@ -454,6 +454,7 @@ button:hover {
     width: 15% !important;
     left: 0;
 }
+
 .panicSelectShell, .weaponSelectShell {
     position: relative;
     width: 10%;
@@ -567,7 +568,7 @@ button:hover {
 }
 
 .fighterHidden {
-    background:#959595
+    background: #959595
 }
 
 .fighterTop {
@@ -600,21 +601,32 @@ button:hover {
     width: 90%
 }
 
-@media (max-width: 800px) { 
-.playerViewShell {
-    flex-direction: column;
+.sword-icon-shell {
+    height: 15px;
+    overflow: hidden;
 }
 
-.playerViewShell .left, .playerViewShell .right {
-    width: 100%
+.sword-icon {
+    margin-top: -10px;
 }
 
-.clockTitle {
-    text-align: center;
-}
+
+
+@media (max-width: 800px) {
+    .playerViewShell {
+        flex-direction: column;
+    }
+
+    .playerViewShell .left, .playerViewShell .right {
+        width: 100%
+    }
+
+    .clockTitle {
+        text-align: center;
+    }
 }
 
-@media (max-width: 500px) { 
+@media (max-width: 500px) {
     .playerViewPlayerSectionRow {
         flex-wrap: wrap;
     }
@@ -627,72 +639,74 @@ button:hover {
         margin: 5px;
         width: 30%;
         text-align: left;
-     }
-    .playerViewPlayerSectionRow .icon  {    
+    }
+
+    .playerViewPlayerSectionRow .icon {
         font-size: 25px;
         margin: 0 15px;
         padding: 10px 0 0;
     }
 
-    .playerViewPlayerSectionRow i  {    
+    .playerViewPlayerSectionRow i {
         margin: 0;
     }
 
-.non-mobile {
-    display: none
+    .non-mobile {
+        display: none
+    }
+
+    .mobile {
+        display: inherit;
+    }
+
+    .mobile #playerViewPlayerName {
+        background: white;
+    }
+
+    #playerViewPlayerName {
+        width: 100%;
+        padding: 5px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .mobile:first div {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 15%;
+    }
+
+    #recoveryDiv {
+        padding: 10px 10px 5px;
+    }
+
+    #recoveryDiv p {
+        width: 25%;
+    }
+
+    #recovery {
+        width: 35%;
+        text-align: center;
+    }
+
+    .recoveryButton {
+        background: grey;
+        border-radius: 5px;
+        color: white
+    }
+
+    #trauma {
+        width: 10%
+    }
 }
 
-.mobile {
-    display: inherit;
-}
-
-.mobile #playerViewPlayerName {
-    background: white;
-}
-
-#playerViewPlayerName {
-    width: 100%;
-    padding: 5px;
-    font-size: 20px;
-    text-align: center;
-}
-
-.mobile:first div {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 15%;
-}
-
-#recoveryDiv {
-    padding: 10px 10px 5px;
-}
-
-#recoveryDiv p {
-    width: 25%;
-}
-
-#recovery {
-    width: 35%;
-    text-align: center;
-}
-
-.recoveryButton {
-    background: grey;
-    border-radius: 5px;
-    color: white
-}
-
-#trauma {
-    width: 10%
-}
- }
-
-@media (max-width: 500px) { 
+@media (max-width: 500px) {
     button {
         width: 25%;
         background: lightgrey;
         border-radius: 4px;
     }
+
     .icon {
         width: unset
     }
@@ -702,7 +716,7 @@ button:hover {
     }
 
     .header {
-         display: none;
+        display: none;
     }
 
     .outerShell {
@@ -722,7 +736,7 @@ button:hover {
         width: 100%
     }
 
-    .mobileColoring { 
+    .mobileColoring {
         padding: 0 10px 0 0 !important;
     }
 
@@ -753,7 +767,7 @@ button:hover {
         width: 30%
     }
 
-    .initButton {    
+    .initButton {
         background: lightgrey;
         border-radius: 4px;
     }
@@ -768,7 +782,7 @@ button:hover {
         border-radius: 0;
         margin: 0 auto 15px;
     }
-    
+
     .actionInput {
         width: 100%;
     }
@@ -782,4 +796,4 @@ button:hover {
         font-size: 20px;
         padding: 10px;
     }
- }
+}
