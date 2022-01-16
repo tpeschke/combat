@@ -604,10 +604,12 @@ button:hover {
 .sword-icon-shell {
     height: 15px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 
 .sword-icon {
-    margin-top: -10px;
+    width: 100%;
 }
 
 
