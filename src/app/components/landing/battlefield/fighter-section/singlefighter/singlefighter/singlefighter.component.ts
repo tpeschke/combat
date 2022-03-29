@@ -191,7 +191,7 @@ export class SinglefighterComponent implements OnInit {
     let { fighters } = this.counterService
     for (let i = 0; i < fighters.length; i++) {
       if (fighters[i].id === this.fighter.id) {
-        fighters[i].actioncount = this.generalService.rollDice(`1d${this.fighter.actioncount[0]}+${this.fighter.selected.init}`)
+        fighters[i].actioncount = this.generalService.rollDice(`1d${this.fighter.actioncount[0]}+${this.fighter.selected.init}`) + this.counterService.count
         this.counterService.sort()
         i = fighters.length
       }

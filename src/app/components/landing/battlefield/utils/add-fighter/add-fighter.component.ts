@@ -167,10 +167,15 @@ export class AddFighterComponent implements OnInit {
           fighterCopy.weapons = fighterCopy.weapons.map(weapon => { return { ...weapon, id: this.generalService.makeid() } })
           if (this.numberEach) { fighterCopy.namefighter = fighterCopy.namefighter + ` ${i + 1}` }
           if (this.uniqueColors) { i > 6 ? fighterCopy.colorcode = this.generalService.genHexString() : fighterCopy.colorcode = colors[i] }
-          newFighters.push({ ...fighterCopy })
+          newFighters.push(fighterCopy)
         }
+        console.log(newFighters)
         this.counterService.addFighter(newFighters);
       } else {
+        if (isNaN(+this.fighter.max_health)) {
+          this.fighter.max_health = this.generalService.rollDice(this.fighter.max_health);
+        }
+        console.log(this.fighter)
         this.fighter.id = this.generalService.makeid()
         this.counterService.addFighter([this.fighter]);
       }
