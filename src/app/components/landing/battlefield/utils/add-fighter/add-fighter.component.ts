@@ -32,6 +32,7 @@ export class AddFighterComponent implements OnInit {
     stressthreshold: 0,
     acting: '0',
     panic: 7,
+    caution: 0,
     weapons: [{
       id: this.generalService.makeid(),
       weapon: 'Unarmed',
@@ -91,6 +92,7 @@ export class AddFighterComponent implements OnInit {
           max_health,
           dead: '0',
           stress: 0,
+          caution: beast.caution,
           panic: beast.panic,
           stressthreshold,
           acting: '0',
@@ -169,13 +171,11 @@ export class AddFighterComponent implements OnInit {
           if (this.uniqueColors) { i > 6 ? fighterCopy.colorcode = this.generalService.genHexString() : fighterCopy.colorcode = colors[i] }
           newFighters.push(fighterCopy)
         }
-        console.log(newFighters)
         this.counterService.addFighter(newFighters);
       } else {
         if (isNaN(+this.fighter.max_health)) {
           this.fighter.max_health = this.generalService.rollDice(this.fighter.max_health);
         }
-        console.log(this.fighter)
         this.fighter.id = this.generalService.makeid()
         this.counterService.addFighter([this.fighter]);
       }
@@ -198,6 +198,7 @@ export class AddFighterComponent implements OnInit {
         acting: '0',
         stressthreshold: 0,
         panic: 7,
+        caution: 0,
         weapons: [{
           id: newId,
           weapon: 'Unarmed',

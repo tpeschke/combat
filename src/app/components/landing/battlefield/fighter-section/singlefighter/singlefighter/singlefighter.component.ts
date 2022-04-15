@@ -27,8 +27,9 @@ export class SinglefighterComponent implements OnInit {
   public trauma = false;
   public editOn = false;
   public broken = false;
-  public panicked = false;
   public fatigued = false;
+  public panicked = false;
+  public cautious = false;
   public nameChange;
   public colorChange;
   public maxHealthChange;
@@ -41,6 +42,7 @@ export class SinglefighterComponent implements OnInit {
     this.maxHealthChange = this.fighter.max_health
     this.stessThresholdChange = this.fighter.stressthreshold
     this.calculateWoundCategory();
+    this.calculateStressCategory();
   }
 
   calculateWoundCategory() {
@@ -48,35 +50,60 @@ export class SinglefighterComponent implements OnInit {
     if (wound === 0) {
       wound = 0
       this.calculateFatigue('A')
-      this.calculatePanicked(1)
     } if (wound > 0 && wound < 25) {
       //Hurt
       wound = 1
       this.calculateFatigue('H')
-      this.calculatePanicked(2)
     } else if (wound >= 25 && wound < 50) {
       //Bloodied
       wound = 25
       this.calculateFatigue('B')
-      this.calculatePanicked(3)
     } else if (wound >= 50 && wound < 75) {
       //Wounded
       wound = 50
       this.calculateFatigue('W')
-      this.calculatePanicked(4)
     } else if (wound >= 75 && wound < 100) {
       //Critical
       wound = 75
       this.calculateFatigue('C')
-      this.calculatePanicked(5)
     } else if (wound >= 100) {
       //Dead
       this.calculateFatigue('N')
-      this.calculatePanicked(6)
       wound = 100
     }
     this.fighter.woundCategory = wound
+    this.calculateCaution()
+  }
+
+  calculateStressCategory() {
+    let stress = this.fighter.stress * 100 / this.fighter.stressthreshold;
+    if (stress === 0) {
+      stress = 0
+      this.calculatePanic(1)
+    } if (stress > 0 && stress < 25) {
+      //Unsure
+      stress = 1
+      this.calculatePanic(2)
+    } else if (stress >= 25 && stress < 50) {
+      //Nervous
+      stress = 25
+      this.calculatePanic(3)
+    } else if (stress >= 50 && stress < 75) {
+      //Shaken
+      stress = 50
+      this.calculatePanic(4)
+    } else if (stress >= 75 && stress < 100) {
+      //Breaking
+      stress = 75
+      this.calculatePanic(5)
+    } else if (stress >= 100) {
+      //Broken
+      this.calculatePanic(7)
+      stress = 100
+    }
+    this.fighter.stressCategory = stress
     this.calculateBroken()
+    this.calculateCaution()
   }
 
   openWeaponSelect(id, weapons) {
@@ -112,7 +139,7 @@ export class SinglefighterComponent implements OnInit {
     for (let i = 0; i < fighters.length; i++) {
       if (fighters[i].id === fighterId) {
         let newDamage = stripNonInt(event.target.value)
-          , traumaThreshold = fighters[i].max_health / 4
+          , traumaThreshold = fighters[i].max_health / 2
           , damageDifference = newDamage - fighters[i].health
         if (damageDifference > traumaThreshold) {
           this.flagTrauma(Math.floor(damageDifference - traumaThreshold))
@@ -143,6 +170,14 @@ export class SinglefighterComponent implements OnInit {
       if (fighters[i].id === fighterId) {
         fighters[i].stress = stripNonInt(event.target.value)
         this.calculateBroken()
+        this.calculateStressCategory()
+        let stress = this.fighter.stressCategory === 0 ? '00' : this.fighter.stressCategory;
+        if (stress === 1) {
+          stress = 10
+        } else if (stress === 100) {
+          stress = ''
+        }
+        this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: stress, id: fighterId, fighterProperty: 'stress' })
         i = fighters.length
       }
     }
@@ -221,16 +256,6 @@ export class SinglefighterComponent implements OnInit {
     }
   }
 
-  selectPanicThreshold(panic) {
-    let { fighters } = this.counterService
-    for (let i = 0; i < fighters.length; i++) {
-      if (fighters[i].id === this.fighter.id) {
-        fighters[i].panic = panic
-        i = fighters.length
-      }
-    }
-  }
-
   calculateBroken() {
     let broken = this.fighter.stress >= this.fighter.stressthreshold && this.fighter.stressthreshold > 0;
     if (this.fighter.broken != broken) {
@@ -243,15 +268,15 @@ export class SinglefighterComponent implements OnInit {
     }
   }
 
-  calculatePanicked(categoryValue) {
-    let panicked = categoryValue >= this.fighter.panic
-    if (this.fighter.panicked != panicked) {
-      this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: panicked, id: this.fighter.id, fighterProperty: 'panicked' })
+  calculateCaution() {
+    let cautious = this.fighter.stress + this.fighter.health > this.fighter.caution && this.fighter.caution !== 0;
+    if (this.fighter.cautious != cautious) {
+      this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: cautious, id: this.fighter.id, fighterProperty: 'cautious' })
     }
-    if (panicked) {
-      this.panicked = true
+    if (cautious) {
+      this.cautious = true
     } else {
-      this.panicked = false
+      this.cautious = false
     }
   }
 
@@ -301,6 +326,7 @@ export class SinglefighterComponent implements OnInit {
           this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.colorChange, id: this.fighter.id, fighterProperty: 'colorcode' })
           fighters[i].max_health = this.maxHealthChange
           this.calculateWoundCategory()
+          this.calculateStressCategory()
           let wound = this.fighter.woundCategory === 0 ? '00' : this.fighter.woundCategory;
           if (wound === 1) {
             wound = 10
@@ -326,6 +352,16 @@ export class SinglefighterComponent implements OnInit {
     this.colorChange = event;
   }
 
+  selectPanicThreshold(event){
+    let { fighters } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.fighter.id) {
+        fighters[i].panic = +event
+        i = fighters.length
+      }
+    }
+  }
+
   calculateFatigue(woundCode) {
     let fatigue = this.convertFatigue(this.fighter.selected.fatigue)
       , oldFatigue = this.fatigued
@@ -346,6 +382,16 @@ export class SinglefighterComponent implements OnInit {
 
     if (this.fatigued != oldFatigue) {
       this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.fatigued, id: this.fighter.id, fighterProperty: 'fatigued' })
+    }
+  }
+
+  calculatePanic(stressCode) {
+    let oldPanic = this.panicked
+    
+    this.panicked = stressCode >= this.fighter.panic
+
+    if (this.panicked != oldPanic) {
+      this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.panicked, id: this.fighter.id, fighterProperty: 'panicked' })
     }
   }
 

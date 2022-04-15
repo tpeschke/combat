@@ -246,7 +246,7 @@ module.exports = {
             tempArray.push(db.upsert.encounter(meta.hash, meta.encounter).then())
         }
         fighters.forEach(val => {
-            db.upsert.fighter(val.namefighter, val.colorcode, typeof val.actioncount === 'number' ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.stressthreshold, val.id, meta.id).then(result => {
+            db.upsert.fighter(val.namefighter, val.colorcode, typeof val.actioncount === 'number' ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.stressthreshold, val.caution, val.id, meta.id).then(result => {
                 val.weapons.forEach(w => {
                     tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.fatigue, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id).then())
                     if (w.maxrange) {

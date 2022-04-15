@@ -38,6 +38,7 @@ create table combatants (
     dead bit,
     init VARCHAR(10),
     hidden bit,
+    caution int default 0,
     idCombat Int,
         FOREIGN Key (idCombat) REFERENCES combat(id)
     )

@@ -15,18 +15,21 @@
       [(colorPicker)]="colorChange" (colorPickerChange)="captureColor($event)" class="fighterColor editOn"></div>
   </div>
 
-  <p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'panicked' : panicked}">{{fighter.namefighter}} <i *ngIf="fatigued" matTooltip="Fatigued" class="fas fa-heart-broken"></i></p>
+  <p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'cautious' : cautious}">{{fighter.namefighter}} 
+    <i *ngIf="fatigued" matTooltip="Fatigued" class="fas fa-heart-broken"></i>
+    <i *ngIf="panicked" matTooltip="Panicked" class="fas fa-heart-broken"></i>
+  </p>
   <input *ngIf="editOn" (change)="captureChange($event, 'nameChange')" (keydown)="$event.stopPropagation()"
-    class="name nameInput" value="{{nameChange}}">
+    class="name nameInput" value="{{nameChange}}" matTooltip="Panic Threshold">
   <div *ngIf="editOn" class="panicSelectShell">
     <p>{{fighter.panic | panicThresholds}}</p>
     <i class="fas fa-angle-down"></i>
     <div class="diceSelect">
       <p (click)="selectPanicThreshold(1)">Always</p>
-      <p (click)="selectPanicThreshold(2)">Hurt</p>
-      <p (click)="selectPanicThreshold(3)">Bloodied</p>
-      <p (click)="selectPanicThreshold(4)">Wounded</p>
-      <p (click)="selectPanicThreshold(5)">Critical</p>
+      <p (click)="selectPanicThreshold(2)">Unsure</p>
+      <p (click)="selectPanicThreshold(3)">Nervous</p>
+      <p (click)="selectPanicThreshold(4)">Shaken</p>
+      <p (click)="selectPanicThreshold(5)">Breaking</p>
       <p (click)="selectPanicThreshold(7)">Never</p>
     </div>
   </div>
@@ -107,8 +110,16 @@
   </div>
 
   <div *ngIf="!editOn" class="inputShell">
-    <input (change)="changeStress($event, fighter.id)" class="stressInput" value={{fighter.stress}}>
+    <input *ngIf="fighter.stressCategory > 0" (change)="changeStress($event, fighter.id)" class="stressInput" value={{fighter.stress}}>
+    <input *ngIf="fighter.stressCategory <= 0" (change)="changeStress($event, fighter.id)" value="{{fighter.stress}}" class="inputWithoutCategory">
+    <p *ngIf="fighter.stressCategory === 1" matTooltip="Unsure" [matTooltipDisabled]="tooltips.wound_category_tier">U</p>
+    <p *ngIf="fighter.stressCategory === 25" matTooltip="Nervous" [matTooltipDisabled]="tooltips.wound_category_tier">N</p>
+    <p *ngIf="fighter.stressCategory === 50" matTooltip="Shaken" [matTooltipDisabled]="tooltips.wound_category_tier">S</p>
+    <p *ngIf="fighter.stressCategory === 75" matTooltip="Breaking" [matTooltipDisabled]="tooltips.wound_category_tier">B</p>
+    <div *ngIf="fighter.stressCategory === 100" matTooltip="Broken" [matTooltipDisabled]="tooltips.wound_category_tier" class="bleedingOutShell"><i class="fas fa-tint"></i>
+    </div>
   </div>
+  
   <div *ngIf="editOn" class="inputShell">
     <input id="editInput" matTooltip="Stress Threshold" [matTooltipDisabled]="tooltips.stress_threshold"
       (change)="captureChange($event, 'stressThresholdChange')" (keydown)="$event.stopPropagation()"
@@ -183,7 +194,7 @@
             [(colorPicker)]="colorChange" (colorPickerChange)="captureColor($event)" class="fighterColor editOn"></div>
         </div>
 
-        <p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'panicked' : panicked}">{{fighter.namefighter}}
+        <p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'cautious' : cautious}">{{fighter.namefighter}}
         </p>
         <input *ngIf="editOn" (change)="captureChange($event, 'nameChange')" (keydown)="$event.stopPropagation()"
           class="name nameInput" value="{{nameChange}}">
@@ -214,23 +225,6 @@
 
         <div *ngIf="!editOn" class="inputShell">
           <input (change)="changeStress($event, fighter.id)" class="stressInput" value={{fighter.stress}}>
-          <p *ngIf="fighter.woundCategory === 0" matTooltip="Stress From Wounds"
-            [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">+0</p>
-          <p *ngIf="fighter.woundCategory === 1" matTooltip="Stress From Wounds"
-            [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-            +{{fighter.selected.encumb}}</p>
-          <p *ngIf="fighter.woundCategory === 25" matTooltip="Stress From Wounds"
-            [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-            +{{fighter.selected.encumb * 2}}</p>
-          <p *ngIf="fighter.woundCategory === 50" matTooltip="Stress From Wounds"
-            [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-            +{{fighter.selected.encumb * 3}}</p>
-          <p *ngIf="fighter.woundCategory === 75" matTooltip="Stress From Wounds"
-            [matTooltipDisabled]="tooltips.stress_from_wounds" class="stressEncumbrancePenalty">
-            +{{fighter.selected.encumb * 4}}</p>
-          <div *ngIf="fighter.woundCategory === 100" matTooltip="Bleeding Out"
-            [matTooltipDisabled]="tooltips.stress_from_wounds" class="bleedingOutShell"><i class="fas fa-tint"></i>
-          </div>
         </div>
         <div *ngIf="editOn" class="inputShell">
           <input id="editInput" matTooltip="Stress Threshold" [matTooltipDisabled]="tooltips.stress_threshold"
