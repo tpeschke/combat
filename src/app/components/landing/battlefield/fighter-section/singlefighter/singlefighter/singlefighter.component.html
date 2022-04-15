@@ -82,7 +82,7 @@
       <p class="attack">{{fighter.selected.atk}}</p>
       <p class="init">{{fighter.selected.init}}</p>
       <p class="defense">{{fighter.selected.def}}</p>
-      <p class="encumbrance">{{convertFatigue(fighter.selected.fatigue)}}</p>
+      <p class="encumbrance">{{calculateFatigueThreshold(fighter.selected.fatigue)}}</p>
       <div class="damageReduction">
         <p class="armor">{{fighter.selected.dr}}</p>
         <p *ngIf="fighter.selected.shield_dr && fighter.selected.shield_dr !== ' '" class="shield"><i

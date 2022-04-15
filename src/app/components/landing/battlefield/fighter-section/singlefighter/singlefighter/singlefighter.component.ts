@@ -159,8 +159,10 @@ export class SinglefighterComponent implements OnInit {
   }
 
   flagTrauma(traumaMod) {
-    this.generalService.handleMessage({color: 'yellow', 
-                                      message: `That hit triggered a Trauma Check for ${this.fighter.namefighter} ${traumaMod > 0 ? `with a -${traumaMod}`: ''}`})
+    this.generalService.handleMessage({
+      color: 'yellow',
+      message: `That hit triggered a Trauma Check for ${this.fighter.namefighter} ${traumaMod > 0 ? `with a -${traumaMod}` : ''}`
+    })
   }
 
   changeStress(event, fighterId) {
@@ -352,7 +354,7 @@ export class SinglefighterComponent implements OnInit {
     this.colorChange = event;
   }
 
-  selectPanicThreshold(event){
+  selectPanicThreshold(event) {
     let { fighters } = this.counterService
     for (let i = 0; i < fighters.length; i++) {
       if (fighters[i].id === this.fighter.id) {
@@ -387,7 +389,7 @@ export class SinglefighterComponent implements OnInit {
 
   calculatePanic(stressCode) {
     let oldPanic = this.panicked
-    
+
     this.panicked = stressCode >= this.fighter.panic
 
     if (this.panicked != oldPanic) {
@@ -414,6 +416,23 @@ export class SinglefighterComponent implements OnInit {
       }
     } else {
       return fatigue
+    }
+  }
+
+  calculateFatigueThreshold(fatigue) {
+    fatigue = this.convertFatigue(fatigue);
+
+    switch (fatigue) {
+      case 'H':
+        return 1
+      case 'B':
+        return (this.fighter.max_health * .25).toFixed(0)
+      case 'W':
+        return (this.fighter.max_health * .5).toFixed(0)
+      case 'C':
+        return (this.fighter.max_health * .75).toFixed(0)
+      default:
+        return fatigue
     }
   }
 }

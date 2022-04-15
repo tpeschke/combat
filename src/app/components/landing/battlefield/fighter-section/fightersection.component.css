@@ -202,8 +202,8 @@ i:hover {
 .encumbrance {
     position: absolute;
     font-size: 30px;
-    top: 85px;
-    left: 87px;
+    top: 79px;
+    left: 93px;
 }
 
 .damageReduction {
@@ -297,10 +297,6 @@ h2 {
     text-align: left;
 }
 
-.playerView .icon {
-    width: 10%
-}
-
 .playerViewPlayerSectionHeader {
     display: flex;
     background: grey;
@@ -342,7 +338,7 @@ h2 {
     width: 15%
 }
 
-.playerViewPlayerSectionHeader .icon, .playerViewPlayerSectionRow .icon {
+.playerView .icon, .playerView .icon {
     width: 5%
 }
 

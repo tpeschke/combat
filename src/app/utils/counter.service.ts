@@ -87,39 +87,80 @@ export class CounterService {
   formatFightersForPlayers(fighters) {
     let playerFighters = fighters.map(fighter => {
       let wound: any = fighter.health * 100 / fighter.max_health
-        , stressFromEncumb = 0
-        , { encumb } = fighter.selected
-        , multiplier = 0;
+        , stressCode = 0
+        , fatigue = 'A';
       if (wound === 0) {
         wound = '00'
-        multiplier = 1
+        fatigue = 'A'
       } else if (wound > 0 && wound < 25) {
         wound = 10
-        multiplier = 2
+        fatigue = 'H'
       } else if (wound >= 25 && wound < 50) {
         wound = 25
-        multiplier = 3
+        fatigue = 'B'
       } else if (wound >= 50 && wound < 75) {
         wound = 50
-        multiplier = 4
+        fatigue = 'W'
       } else if (wound >= 75 && wound < 100) {
         wound = 75
-        multiplier = 5
+        fatigue = 'C'
       } else if (wound >= 100) {
         wound = ''
-        multiplier = 6
+        fatigue = 'N'
       }
+      let stress: any = fighter.stress * 100 / fighter.stressthreshold
+      if (fighter.stressthreshold !== 0) {
+        if (stress === 0) {
+          stress = '00'
+          stressCode = 1
+        } else if (stress > 0 && stress < 25) {
+          stress = 10
+          stressCode = 2
+        } else if (stress >= 25 && stress < 50) {
+          stress = 25
+          stressCode = 3
+        } else if (stress >= 50 && stress < 75) {
+          stress = 50
+          stressCode = 4
+        } else if (stress >= 75 && stress < 100) {
+          stress = 75
+          stressCode = 5
+        } else if (stress >= 100) {
+          stress = ''
+          stressCode = 7
+        }
+      } else {
+        stress = '00'
+      }
+
+      let fatigued
+      if (fatigue === 'A') {
+        fatigued = fighter.selected.fatigue === 'A'
+      } else if (fatigue === 'H') {
+        fatigued = fighter.selected.fatigue === 'H' || fighter.selected.fatigue === 'A'
+      } else if (fatigue === 'B') {
+        fatigued = fighter.selected.fatigue === 'H' || fighter.selected.fatigue === 'A' || fighter.selected.fatigue === 'B'
+      } else if (fatigue === 'W') {
+        fatigued = fighter.selected.fatigue === 'H' || fighter.selected.fatigue === 'A' || fighter.selected.fatigue === 'B' || fighter.selected.fatigue === 'W'
+      } else if (fatigue === 'C') {
+        fatigued = fighter.selected.fatigue === 'H' || fighter.selected.fatigue === 'A' || fighter.selected.fatigue === 'B' || fighter.selected.fatigue === 'W' || fighter.selected.fatigue === 'C'
+      } else {
+        fatigued = false
+      }
+
       return {
         colorcode: fighter.colorcode,
         dead: fighter.dead,
         hidden: fighter.hidden,
         id: fighter.id,
         namefighter: fighter.namefighter,
-        stress: fighter.stress * 100 / fighter.stressthreshold,
+        stress,
         topcheck: '0',
         weapon: fighter.selected.weapon,
-        panicked: multiplier >= fighter.panic,
-        broken: fighter.stress + stressFromEncumb >= fighter.stressthreshold && fighter.stressthreshold > 0,
+        cautious: fighter.health + fighter.stress > fighter.caution && fighter.caution > 0,
+        panicked: stressCode >= fighter.panic,
+        fatigued,
+        broken: fighter.stress >= fighter.stressthreshold && fighter.stressthreshold > 0,
         wound
       }
     })
@@ -132,7 +173,7 @@ export class CounterService {
     this.sort()
   }
 
-  removeFighter(fighters, i, id ) {
+  removeFighter(fighters, i, id) {
     this.fieldService.sendBattleData({ hash: this.hash, type: 'removeFighter', value: id })
     this.fieldService.deleteFighter(id).subscribe(result => {
       fighters.splice(i, 1)

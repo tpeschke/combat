@@ -17,7 +17,7 @@ export class PlayerViewComponent implements OnInit {
     private router: Router
   ) { }
 
-  public canPlayersView = true
+  public canPlayersView = false
   public addFromOtherSite = false
   public hash;
   public count;
@@ -35,7 +35,7 @@ export class PlayerViewComponent implements OnInit {
     topcheck: '0',
     trauma: false,
     weapons: [],
-    newWeapon: {name: null, recovery: null}
+    newWeapon: { name: null, recovery: null }
   }
 
   ngOnInit() {
@@ -114,7 +114,7 @@ export class PlayerViewComponent implements OnInit {
         topcheck: '0',
         trauma: false,
         weapons: [],
-        newWeapon: {name: null, recovery: null}
+        newWeapon: { name: null, recovery: null }
       }
     }
   }
@@ -129,7 +129,7 @@ export class PlayerViewComponent implements OnInit {
       topcheck: '0',
       trauma: false,
       weapons: [],
-      newWeapon: {name: null, recovery: null}
+      newWeapon: { name: null, recovery: null }
     }
   }
 
@@ -244,8 +244,8 @@ export class PlayerViewComponent implements OnInit {
   addNewWeapon(playerid) {
     this.players.forEach(player => {
       if (player.id === playerid) {
-        player.weapons.push({...player.newWeapon, id: this.generalService.makeid()})
-        player.newWeapon = {name: null, recovery: null}
+        player.weapons.push({ ...player.newWeapon, id: this.generalService.makeid() })
+        player.newWeapon = { name: null, recovery: null }
       }
     })
     console.log(this.players)
@@ -272,7 +272,7 @@ export class PlayerViewComponent implements OnInit {
             topcheck: '0',
             trauma: false,
             weapons: [],
-            newWeapon: {name: null, recovery: null}
+            newWeapon: { name: null, recovery: null }
           }
           this.addFromOtherSite = false;
           this.id = null;
@@ -298,7 +298,7 @@ export class PlayerViewComponent implements OnInit {
             topcheck: '0',
             trauma: false,
             weapons: [],
-            newWeapon: {name: null, recovery: null}
+            newWeapon: { name: null, recovery: null }
           }
           this.addFromOtherSite = false;
           this.id = null;

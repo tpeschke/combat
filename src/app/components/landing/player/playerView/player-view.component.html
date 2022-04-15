@@ -206,6 +206,7 @@
         <div class="fighterRow header playerView">
           <p class="icon"> </p>
           <p class="icon"> </p>
+          <p class="icon"> </p>
           <p class="name">Name</p>
           <p>weapon</p>
         </div>
@@ -215,9 +216,12 @@
             <div class="icon">
               <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
             </div>
-            <div class="icon"><i class="fas fa-tint" [ngStyle]="{color: '#990000' + fighter.wound}"></i></div>
-            <p class="name" [ngClass]="{'broken' : fighter.broken, 'panicked' : fighter.panicked}">
-              {{fighter.namefighter}} <i *ngIf="fighter.fatigued" matTooltip="Fatigued" class="fas fa-heart-broken"></i>
+            <div class="icon" matTooltip="Damage"><i class="fas fa-tint" [ngStyle]="{color: '#990000' + fighter.wound}"></i></div>
+            <div class="icon" matTooltip="Stress"><i class="fas fa-tint" [ngStyle]="{color: '#00008b' + fighter.stress}"></i></div>
+            <p class="name" [ngClass]="{'broken' : fighter.broken, 'cautious' : fighter.cautious}">
+              {{fighter.namefighter}} 
+              <i *ngIf="fighter.fatigued" matTooltip="Fatigued" class="fas fa-heart-broken"></i>
+              <i *ngIf="fighter.panicked" matTooltip="Panicked" class="fas fa-heart-broken"></i>
             </p>
             <p>{{fighter.weapon}}</p>
           </div>
