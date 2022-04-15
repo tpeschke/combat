@@ -252,7 +252,7 @@ export class PlayerViewComponent implements OnInit {
   }
 
   addPlayerOrBeast() {
-    if (isNaN(this.id)) {
+    if (isNaN(+this.id)) {
       this.fieldService.getBeastForPlayer(this.id).subscribe((beast: any) => {
         if (beast.name !== '' && beast.recovery && this.newPlayer.action) {
           this.newPlayer = { ...this.newPlayer, ...beast };
@@ -278,7 +278,7 @@ export class PlayerViewComponent implements OnInit {
           this.id = null;
         }
       })
-    } else if (!isNaN(this.id)) {
+    } else if (!isNaN(+this.id)) {
       this.fieldService.getCharacterFromVault(this.id).subscribe((character: any) => {
         if (character.name !== '' && character.recovery && this.newPlayer.action) {
           this.newPlayer = { ...this.newPlayer, ...character };
