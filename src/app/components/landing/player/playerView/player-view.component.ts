@@ -252,8 +252,10 @@ export class PlayerViewComponent implements OnInit {
   }
 
   addPlayerOrBeast() {
-    if (isNaN(+this.id)) {
-      this.fieldService.getBeastForPlayer(this.id).subscribe((beast: any) => {
+    let id = this.id.replace(/\#/g, '').trim();
+    console.log(id)
+    if (isNaN(+id)) {
+      this.fieldService.getBeastForPlayer(id).subscribe((beast: any) => {
         if (beast.name !== '' && beast.recovery && this.newPlayer.action) {
           this.newPlayer = { ...this.newPlayer, ...beast };
           let count = 0
@@ -278,8 +280,8 @@ export class PlayerViewComponent implements OnInit {
           this.id = null;
         }
       })
-    } else if (!isNaN(+this.id)) {
-      this.fieldService.getCharacterFromVault(this.id).subscribe((character: any) => {
+    } else if (!isNaN(+id)) {
+      this.fieldService.getCharacterFromVault(id).subscribe((character: any) => {
         if (character.name !== '' && character.recovery && this.newPlayer.action) {
           this.newPlayer = { ...this.newPlayer, ...character };
           let count = 0
