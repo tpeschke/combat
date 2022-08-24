@@ -56,7 +56,7 @@ export class FieldService {
   }
 
   getFightersFromBestiary(hash) {
-    return this.http.get(local.endpointBase + '/api/beast/' + hash)
+    return this.http.get(local.endpointBase + '/api/beast/' + hash, {responseType: 'json'})
   }
 
   getFightersForPlayers(hash) {
