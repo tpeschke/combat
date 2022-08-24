@@ -61,7 +61,6 @@ export class AddFighterComponent implements OnInit {
   addByHash() {
     if (this.hash) {
       this.fieldService.getFightersFromBestiary(this.hash).subscribe((beast: any) => {
-        console.log(beast)
         let max_health = beast.vitality.toUpperCase() !== "N/A" ? beast.vitality : 10000
           , stressthreshold = typeof beast.stressthreshold === "number" ? beast.stressthreshold : 0
           , weapons = []
