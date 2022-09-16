@@ -38,45 +38,9 @@
     <div class="sword-icon-shell">
       <img class="sword-icon" src="../../../../../../../assets/stiletto.svg">
     </div>
-    <div class="weaponSquare" (click)="openWeaponSelect(fighter.id, fighter.weapons)">
+    <div class="weaponSquare {{!fighter.selected.maxrange ? 'meleeSquare' : 'rangedSquare'}}" (click)="openWeaponSelect(fighter.id, fighter.weapons)">
       <div class="weaponHeader">
         <p>{{fighter.selected.weapon}}</p><i class="fas fa-edit"></i>
-      </div>
-      <div *ngIf="fighter.selected.maxrange" class="rangesBox">
-        <div class="rangeRow">
-          <div>Penalty</div>
-          <div>Range (ft)</div>
-        </div>
-        <div class="rangeRow">
-          <div>0</div>
-          <div>5 - {{fighter.selected.maxrange / 6 | number:'1.0-0'}}</div>
-        </div>
-        <div class="rangeRow">
-          <div>-2</div>
-          <div>{{(fighter.selected.maxrange / 6) - 1 | number:'1.0-0'}} -
-            {{(fighter.selected.maxrange / 6) * 2 | number:'1.0-0'}}</div>
-        </div>
-        <div class="rangeRow">
-          <div>-4</div>
-          <div>{{((fighter.selected.maxrange / 6) * 2) - 1 | number:'1.0-0'}} -
-            {{(fighter.selected.maxrange / 6) *3 | number:'1.0-0'}}</div>
-        </div>
-        <div class="rangeRow">
-          <div>-8</div>
-          <div>{{((fighter.selected.maxrange / 6) * 3) - 1 | number:'1.0-0'}} -
-            {{(fighter.selected.maxrange / 6) *4 | number:'1.0-0'}}</div>
-        </div>
-        <div class="rangeRow">
-          <div>-16</div>
-          <div>{{((fighter.selected.maxrange / 6) * 4) - 1 | number:'1.0-0'}} -
-            {{(fighter.selected.maxrange / 6) *5 | number:'1.0-0'}}</div>
-        </div>
-        <div class="rangeRow">
-          <div>-32</div>
-          <div>
-            {{((fighter.selected.maxrange / 6) * 5) - 1 | number:'1.0-0'}} -
-            {{fighter.selected.maxrange | number:'1.0-0'}}</div>
-        </div>
       </div>
       <p class="speed">{{fighter.selected.speed}}</p>
       <p class="attack">{{fighter.selected.atk}}</p>
@@ -88,9 +52,9 @@
         <p *ngIf="fighter.selected.shield_dr && fighter.selected.shield_dr !== ' '" class="shield"><i
             class="fas fa-shield-alt shieldIcon"></i>{{fighter.selected.shield_dr}}</p>
       </div>
-      <p class="measure">{{fighter.selected.measure}}</p>
+      <p class="measure">{{fighter.selected.maxrange ? (fighter.selected.maxrange / 6 | number:'1.0-0') + ' ri' : fighter.selected.measure}}</p>
       <p class="damage">{{fighter.selected.damage}}</p>
-      <p class="parry">{{fighter.selected.parry}}</p>
+      <p *ngIf="!fighter.selected.maxrange" class="parry">{{fighter.selected.parry}}</p>
     </div>
   </div>
 
@@ -294,7 +258,7 @@
         <p>{{fighter.selected.weapon}}</p>
         <i class="fas fa-edit weaponEdit" (click)="openWeaponSelect(fighter.id, fighter.weapons)"></i>
       </div>
-      <div class="weaponSquare" (click)="openWeaponSelect(fighter.id, fighter.weapons)">
+      <div class="weaponSquare {{!fighter.selected.maxrange ? 'meleeSquare' : 'rangedSquare'}}" (click)="openWeaponSelect(fighter.id, fighter.weapons)">
         <p class="speed">{{fighter.selected.speed}}</p>
         <p class="attack">{{fighter.selected.atk}}</p>
         <p class="init">{{fighter.selected.init}}</p>
@@ -305,48 +269,10 @@
           <p *ngIf="fighter.selected.shield_dr" class="shield"><i
               class="fas fa-shield-alt shieldIcon"></i>{{fighter.selected.shield_dr}}</p>
         </div>
-        <p class="measure">{{fighter.selected.measure}}</p>
+        <p class="measure">{{fighter.selected.maxrange ? (fighter.selected.maxrange / 6 | number:'1.0-0') + ' ri' : fighter.selected.measure}}</p>
         <p class="damage">{{fighter.selected.damage}}</p>
-        <p class="parry">{{fighter.selected.parry}}</p>
+        <p *ngIf="!fighter.selected.maxrange" class="parry">{{fighter.selected.parry}}</p>
       </div>
-
-      <div *ngIf="fighter.selected.maxrange" class="rangesBox">
-        <div class="rangeRow">
-          <div>Penalty</div>
-          <div>Range (ft)</div>
-        </div>
-        <div class="rangeRow">
-          <div>0</div>
-          <div>5 - {{fighter.selected.maxrange / 6 | number:'1.0-0'}}</div>
-        </div>
-        <div class="rangeRow">
-          <div>-2</div>
-          <div>{{(fighter.selected.maxrange / 6) - 1 | number:'1.0-0'}} -
-            {{(fighter.selected.maxrange / 6) * 2 | number:'1.0-0'}}</div>
-        </div>
-        <div class="rangeRow">
-          <div>-4</div>
-          <div>{{((fighter.selected.maxrange / 6) * 2) - 1 | number:'1.0-0'}} -
-            {{(fighter.selected.maxrange / 6) *3 | number:'1.0-0'}}</div>
-        </div>
-        <div class="rangeRow">
-          <div>-8</div>
-          <div>{{((fighter.selected.maxrange / 6) * 3) - 1 | number:'1.0-0'}} -
-            {{(fighter.selected.maxrange / 6) *4 | number:'1.0-0'}}</div>
-        </div>
-        <div class="rangeRow">
-          <div>-16</div>
-          <div>{{((fighter.selected.maxrange / 6) * 4) - 1 | number:'1.0-0'}} -
-            {{(fighter.selected.maxrange / 6) *5 | number:'1.0-0'}}</div>
-        </div>
-        <div class="rangeRow">
-          <div>-32</div>
-          <div>
-            {{((fighter.selected.maxrange / 6) * 5) - 1 | number:'1.0-0'}} -
-            {{fighter.selected.maxrange | number:'1.0-0'}}</div>
-        </div>
-      </div>
-
 
       <p *ngIf="!editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Edit"
           [matTooltipDisabled]="tooltips.edit_fighter" class="fas fa-edit"></i></p>

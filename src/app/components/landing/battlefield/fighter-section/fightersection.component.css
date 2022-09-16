@@ -106,11 +106,18 @@ i:hover {
     height: 191px;
     background: whitesmoke;
     z-index: 1;
-    background-image: url('../../../../../assets/square.png');
     background-repeat: no-repeat;
     background-size: 200px;
     display: none;
     transition: 0s display;
+}
+
+.meleeSquare {
+    background-image: url('../../../../../assets/square.png');
+}
+
+.rangedSquare {
+    background-image: url('../../../../../assets/rangedsquare.png');
 }
 
 .weaponHeader {
@@ -210,7 +217,7 @@ i:hover {
     position: absolute;
     font-size: 35px;
     top: 70px;
-    right: 15px;
+    right: 8px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -224,7 +231,9 @@ i:hover {
 }
 
 .shield {
-    width: 65px
+    width: 65px;
+    border-top: 1px solid lightgrey;
+    padding-top: 5px;
 }
 
 .shieldIcon {
@@ -238,9 +247,13 @@ i:hover {
 
 .measure {
     position: absolute;
-    font-size: 35px;
-    bottom: 20px;
-    left: 10px;
+    font-size: 33px;
+    width: 74px;
+    left: 0px;
+    padding-left: 3px;
+    text-align: left;
+    bottom: 3px;
+    line-height: 25px;
 }
 
 .damage {

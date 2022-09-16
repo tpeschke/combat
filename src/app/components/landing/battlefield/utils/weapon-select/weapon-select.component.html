@@ -23,7 +23,7 @@
               Recovery: {{weapon.speed}}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <div class="weaponSquare">
+          <div class="weaponSquare {{!weapon.maxrange ? 'meleeSquare' : 'rangedSquare'}}">
             <input class="speed" (change)="changeWeaponPropertyInt(weapon.id, $event, 'speed')"
               value="{{weapon.speed}}">
             <input class="attack" (change)="changeWeaponPropertyInt(weapon.id, $event, 'atk')" value="{{weapon.atk}}">
@@ -39,51 +39,16 @@
                   value="{{weapon.shield_dr}}">
               </div>
             </div>
-            <input class="measure" (change)="changeWeaponPropertyInt(weapon.id, $event, 'measure')"
+            <input *ngIf="!weapon.maxrange" class="measure" (change)="changeWeaponPropertyInt(weapon.id, $event, 'measure')"
               value="{{weapon.measure}}">
+              <p *ngIf="weapon.maxrange" class="measure">{{(weapon.maxrange / 6 | number:'1.0-0') + ' ri'}}</p>
             <input class="damage" (change)="changeWeaponProperty(weapon.id, $event, 'damage')"
               value="{{weapon.damage}}">
-            <input class="parry" (change)="changeWeaponPropertyInt(weapon.id, $event, 'parry')"
+            <input *ngIf="!weapon.maxrange" class="parry" (change)="changeWeaponPropertyInt(weapon.id, $event, 'parry')"
               value="{{weapon.parry}}">
           </div>
 
-          <div *ngIf="weapon.maxrange" class="rangeShell">
-            <div class="rangeRow">
-              <div>Penalty</div>
-              <div>Range (ft)</div>
-            </div>
-            <div class="rangeRow">
-              <div>0</div>
-              <div>5 - {{weapon.maxrange / 6 | number:'1.0-0'}}</div>
-            </div>
-            <div class="rangeRow">
-              <div>-2</div>
-              <div>{{(weapon.maxrange / 6) - 1 | number:'1.0-0'}} - {{(weapon.maxrange / 6) * 2 | number:'1.0-0'}}</div>
-            </div>
-            <div class="rangeRow">
-              <div>-4</div>
-              <div>{{((weapon.maxrange / 6) * 2) - 1 | number:'1.0-0'}} - {{(weapon.maxrange / 6) *3 | number:'1.0-0'}}
-              </div>
-            </div>
-            <div class="rangeRow">
-              <div>-8</div>
-              <div>{{((weapon.maxrange / 6) * 3) - 1 | number:'1.0-0'}} - {{(weapon.maxrange / 6) *4 | number:'1.0-0'}}
-              </div>
-            </div>
-            <div class="rangeRow">
-              <div>-16</div>
-              <div>{{((weapon.maxrange / 6) * 4) - 1 | number:'1.0-0'}} - {{(weapon.maxrange / 6) *5 | number:'1.0-0'}}
-              </div>
-            </div>
-            <div class="rangeRow">
-              <div>-32</div>
-              <div>
-                {{((weapon.maxrange / 6) * 5) - 1 | number:'1.0-0'}} - <input class="maxrange"
-                  (change)="changeWeaponPropertyInt(weapon.id, $event, 'maxrange')" value="{{weapon.maxrange}}"></div>
-            </div>
-          </div>
-
-          <div *ngIf="!weapon.maxrange" class="NonRangedShell">
+          <div class="NonRangedShell">
             <p>Input a Max Range to Make This Weapon Ranged:</p>
             <input class="maxrange" (change)="changeWeaponPropertyInt(weapon.id, $event, 'maxrange')"
               value="{{weapon.maxrange}}">
