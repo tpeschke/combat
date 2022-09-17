@@ -29,8 +29,8 @@
             <input class="attack" (change)="changeWeaponPropertyInt(weapon.id, $event, 'atk')" value="{{weapon.atk}}">
             <input class="init" (change)="changeWeaponPropertyInt(weapon.id, $event, 'init')" value="{{weapon.init}}">
             <input class="defense" (change)="changeWeaponPropertyInt(weapon.id, $event, 'def')" value="{{weapon.def}}">
-            <input class="encumbrance" (change)="changeWeaponProperty(weapon.id, $event, 'fatigue')"
-              value="{{convertFatigue(weapon.encumb, weapon.fatigue)}}">
+            <input class="encumbrance" (change)="changeWeaponProperty(weapon.id, $event, 'damagetype')"
+              value="{{weapon.damagetype}}">
             <div class="damageReduction">
               <input class="armor" (change)="changeWeaponProperty(weapon.id, $event, 'dr')" value="{{weapon.dr}}">
               <div class="armorShell">

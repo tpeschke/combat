@@ -51,7 +51,23 @@
       <p (click)="jumpToCount(player.id)" class="icon"><i class="fas fa-forward"
           matTooltip="Jump to Current Second"></i></p>
 
-      <input (change)="changeAction(player.id, $event)" id="recovery" value="{{player.action}}">
+      <input *ngIf="player.action" (change)="changeAction(player.id, $event)" id="recovery" value="{{player.action}}">
+      <div *ngIf="!player.action" class="buttonShell buttonShellPlayer">
+        <button (click)="rollInitiative(player.id)" class="initButton">d{{player.initDice}}{{player.initMod === 0 ? '' : player.initMod > 0 ? '+' + player.initMod : player.initMod}}</button>
+        <div class="diceSelectShell">
+          <i class="fas fa-angle-down"></i>
+          <div class="diceSelect">
+            <p (click)="selectInitDice(0, player.id)">d0</p>
+            <p (click)="selectInitDice(1, player.id)">d1</p>
+            <p (click)="selectInitDice(4, player.id)">d4</p>
+            <p (click)="selectInitDice(6, player.id)">d6</p>
+            <p (click)="selectInitDice(8, player.id)">d8</p>
+            <p (click)="selectInitDice(10, player.id)">d10</p>
+            <p (click)="selectInitDice(12, player.id)">d12</p>
+            <p (click)="selectInitDice(20, player.id)">d20</p>
+          </div>
+        </div>
+      </div>
 
       <p *ngIf="!player.trauma" (click)="toggleTrauma(player.id)" class="icon"><i matTooltip="Trauma"
           class="fas fa-frown"></i></p>
@@ -59,27 +75,27 @@
 
       <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
     </div>
-    <!-- <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow mobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow mobile' : 'playerViewPlayerSectionRow mobile'">
-      <p id="playerViewPlayerName">{{player.name}}</p>
-      <div id="recoveryDiv">
-        <p>Recovery:</p>
-        <p (click)="increaseAction(player.id)" class="recoveryButton">{{player.recovery}}</p>
-        <input (change)="alterRecovery(player.id, $event)" id="recovery" placeholder="Edit Recovery">
-      </div>
-      <div>
-        <p (click)="jumpToCount(player.id)" class="icon"><i class="fas fa-forward" matTooltip="Jump to Current Second"></i></p>
-        <input (change)="changeAction(player.id, $event)" id="recovery" value="{{player.action}}">
-      </div>
-      <div>
-        <p *ngIf="!player.trauma" (click)="toggleTrauma(player.id)" class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
-        <input *ngIf="player.trauma" autofocus (blur)="addTrauma(player.id, $event)" id="trauma">
-        <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
-      </div>
-  </div> -->
+
     <div *ngIf="!addFromOtherSite" class="playerViewPlayerSectionRow">
       <input (change)="capturePlayerInfo('name', $event)" placeholder="Name" value="{{newPlayer.name}}">
       <input (change)="capturePlayerInfo('recovery', $event)" placeholder="Recovery" value="{{newPlayer.recovery}}">
-      <input (change)="capturePlayerInfo('action', $event)" placeholder="Initiative Roll" value="{{newPlayer.action}}">
+      <div class="buttonShell buttonShellPlayer">
+        <div class="initButton">d{{newPlayer.initDice}}</div>
+        <div class="diceSelectShell">
+          <i class="fas fa-angle-down"></i>
+          <div class="diceSelect">
+            <p (click)="selectInitDice(0, null)">d0</p>
+            <p (click)="selectInitDice(1, null)">d1</p>
+            <p (click)="selectInitDice(4, null)">d4</p>
+            <p (click)="selectInitDice(6, null)">d6</p>
+            <p (click)="selectInitDice(8, null)">d8</p>
+            <p (click)="selectInitDice(10, null)">d10</p>
+            <p (click)="selectInitDice(12, null)">d12</p>
+            <p (click)="selectInitDice(20, null)">d20</p>
+          </div>
+        </div>
+      </div>
+      <input (change)="capturePlayerInfo('initMod', $event)" placeholder="Initiative Mod" value="{{newPlayer.initMod}}">
       <p (click)="addPlayer()" class="icon"><i matTooltip="Add" class="fas fa-user-plus"></i></p>
       <p (click)="toggleAddFromOtherSite()"><i matTooltip="Add From Vault or Bestiary"
           class="fas fa-cloud-download-alt"></i></p>
@@ -88,10 +104,26 @@
 
     <div *ngIf="addFromOtherSite" class="playerViewPlayerSectionRow">
       <input (change)="captureId($event)" placeholder="Vault Character Id or Bestiary Combat Hash">
-      <input (change)="capturePlayerInfo('action', $event)" placeholder="Initiative Roll" value="{{newPlayer.action}}">
-      <p *ngIf="id && newPlayer.action" (click)="addPlayerOrBeast()" class="icon"><i matTooltip="Add"
+      <div class="buttonShell buttonShellPlayer">
+        <div class="initButton">d{{newPlayer.initDice}}</div>
+        <div class="diceSelectShell">
+          <i class="fas fa-angle-down"></i>
+          <div class="diceSelect">
+            <p (click)="selectInitDice(0, null)">d0</p>
+            <p (click)="selectInitDice(1, null)">d1</p>
+            <p (click)="selectInitDice(4, null)">d4</p>
+            <p (click)="selectInitDice(6, null)">d6</p>
+            <p (click)="selectInitDice(8, null)">d8</p>
+            <p (click)="selectInitDice(10, null)">d10</p>
+            <p (click)="selectInitDice(12, null)">d12</p>
+            <p (click)="selectInitDice(20, null)">d20</p>
+          </div>
+        </div>
+      </div>
+      <input (change)="capturePlayerInfo('initMod', $event)" placeholder="Initiative Mod" value="{{newPlayer.initMod}}">
+      <p *ngIf="id" (click)="addPlayerOrBeast()" class="icon"><i matTooltip="Add"
           class="fas fa-user-plus"></i></p>
-      <p *ngIf="!id || !newPlayer.action" class="icon"></p>
+      <p *ngIf="!id" class="icon"></p>
       <p (click)="toggleAddFromOtherSite()" class="icon"><i matTooltip="Go Back" class="fas fa-window-close"></i></p>
     </div>
   </div>
@@ -121,6 +153,9 @@
     <div *ngIf="players.length === 0" class="playerViewPlayerSectionHeader">
       <p id="playerViewPlayerName">Add Character</p>
     </div>
+
+
+
     <div *ngFor="let player of players"
       [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow non-mobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow non-mobile' : 'playerViewPlayerSectionRow non-mobile'">
       <p id="playerViewPlayerName">{{player.name}}</p>
@@ -154,7 +189,23 @@
       <p (click)="jumpToCount(player.id)" class="icon"><i class="fas fa-forward"
           matTooltip="Jump to Current Second"></i></p>
 
-      <input (change)="changeAction(player.id, $event)" id="recovery" value="{{player.action}}">
+      <input *ngIf="player.action" (change)="changeAction(player.id, $event)" id="recovery" value="{{player.action}}">
+      <div *ngIf="!player.action" class="buttonShell buttonShellPlayer">
+        <button (click)="rollInitiative(player.id)" class="initButton">d{{player.initDice}}{{player.initMod === 0 ? '' : player.initMod > 0 ? '+' + player.initMod : player.initMod}}</button>
+        <div class="diceSelectShell">
+          <i class="fas fa-angle-down"></i>
+          <div class="diceSelect">
+            <p (click)="selectInitDice(0, player.id)">d0</p>
+            <p (click)="selectInitDice(1, player.id)">d1</p>
+            <p (click)="selectInitDice(4, player.id)">d4</p>
+            <p (click)="selectInitDice(6, player.id)">d6</p>
+            <p (click)="selectInitDice(8, player.id)">d8</p>
+            <p (click)="selectInitDice(10, player.id)">d10</p>
+            <p (click)="selectInitDice(12, player.id)">d12</p>
+            <p (click)="selectInitDice(20, player.id)">d20</p>
+          </div>
+        </div>
+      </div>
 
       <p *ngIf="!player.trauma" (click)="toggleTrauma(player.id)" class="icon"><i matTooltip="Trauma"
           class="fas fa-frown"></i></p>
@@ -162,27 +213,26 @@
 
       <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
     </div>
-    <!-- <div *ngFor="let player of players" [ngClass]="player.action === count ? 'activeThisSecond playerViewPlayerSectionRow mobile' : player.topcheck === '1' ? 'fighterTop playerViewPlayerSectionRow mobile' : 'playerViewPlayerSectionRow mobile'">
-      <p id="playerViewPlayerName">{{player.name}}</p>
-      <div id="recoveryDiv">
-        <p>Recovery:</p>
-        <p (click)="increaseAction(player.id)" class="recoveryButton">{{player.recovery}}</p>
-        <input (change)="alterRecovery(player.id, $event)" id="recovery" placeholder="Edit Recovery">
-      </div>
-      <div>
-        <p (click)="jumpToCount(player.id)" class="icon"><i class="fas fa-forward" matTooltip="Jump to Current Second"></i></p>
-        <input (change)="changeAction(player.id, $event)" id="recovery" value="{{player.action}}">
-      </div>
-      <div>
-        <p *ngIf="!player.trauma" (click)="toggleTrauma(player.id)" class="icon"><i matTooltip="Trauma" class="fas fa-frown"></i></p>
-        <input *ngIf="player.trauma" autofocus (blur)="addTrauma(player.id, $event)" id="trauma">
-        <p (click)="removePlayer(player.id)" class="icon"><i matTooltip="Kill" class="fas fa-skull-crossbones"></i></p>
-      </div>
-  </div> -->
     <div *ngIf="!addFromOtherSite" class="playerViewPlayerSectionRow">
       <input (change)="capturePlayerInfo('name', $event)" placeholder="Name" value="{{newPlayer.name}}">
       <input (change)="capturePlayerInfo('recovery', $event)" placeholder="Recovery" value="{{newPlayer.recovery}}">
-      <input (change)="capturePlayerInfo('action', $event)" placeholder="Initiative Roll" value="{{newPlayer.action}}">
+      <div class="buttonShell buttonShellPlayer">
+        <div class="initButton">d{{newPlayer.initDice}}</div>
+        <div class="diceSelectShell">
+          <i class="fas fa-angle-down"></i>
+          <div class="diceSelect">
+            <p (click)="selectInitDice(0, null)">d0</p>
+            <p (click)="selectInitDice(1, null)">d1</p>
+            <p (click)="selectInitDice(4, null)">d4</p>
+            <p (click)="selectInitDice(6, null)">d6</p>
+            <p (click)="selectInitDice(8, null)">d8</p>
+            <p (click)="selectInitDice(10, null)">d10</p>
+            <p (click)="selectInitDice(12, null)">d12</p>
+            <p (click)="selectInitDice(20, null)">d20</p>
+          </div>
+        </div>
+      </div>
+      <input (change)="capturePlayerInfo('initMod', $event)" placeholder="Initiative Mod" value="{{newPlayer.initMod}}">
       <p (click)="addPlayer()" class="icon"><i matTooltip="Add" class="fas fa-user-plus"></i></p>
       <p (click)="toggleAddFromOtherSite()"><i matTooltip="Add From Vault or Bestiary"
           class="fas fa-cloud-download-alt"></i></p>
@@ -191,10 +241,26 @@
 
     <div *ngIf="addFromOtherSite" class="playerViewPlayerSectionRow">
       <input (change)="captureId($event)" placeholder="Vault Character Id or Bestiary Combat Hash">
-      <input (change)="capturePlayerInfo('action', $event)" placeholder="Initiative Roll" value="{{newPlayer.action}}">
-      <p *ngIf="id && newPlayer.action" (click)="addPlayerOrBeast()" class="icon"><i matTooltip="Add"
+      <div class="buttonShell buttonShellPlayer">
+        <button (click)="rollInitiative(player.id)" class="initButton">d{{player.initDice}}{{player.initMod === 0 ? '' : player.initMod > 0 ? '+' + player.initMod : player.initMod}}</button>
+        <div class="diceSelectShell">
+          <i class="fas fa-angle-down"></i>
+          <div class="diceSelect">
+            <p (click)="selectInitDice(0, player.id)">d0</p>
+            <p (click)="selectInitDice(1, player.id)">d1</p>
+            <p (click)="selectInitDice(4, player.id)">d4</p>
+            <p (click)="selectInitDice(6, player.id)">d6</p>
+            <p (click)="selectInitDice(8, player.id)">d8</p>
+            <p (click)="selectInitDice(10, player.id)">d10</p>
+            <p (click)="selectInitDice(12, player.id)">d12</p>
+            <p (click)="selectInitDice(20, player.id)">d20</p>
+          </div>
+        </div>
+      </div>
+      <input (change)="capturePlayerInfo('initMod', $event)" placeholder="Initiative Mod" value="{{newPlayer.initMod}}">
+      <p *ngIf="id" (click)="addPlayerOrBeast()" class="icon"><i matTooltip="Add"
           class="fas fa-user-plus"></i></p>
-      <p *ngIf="!id || !newPlayer.action" class="icon"></p>
+      <p *ngIf="!id" class="icon"></p>
       <p (click)="toggleAddFromOtherSite()" class="icon"><i matTooltip="Go Back" class="fas fa-window-close"></i></p>
     </div>
   </div>
@@ -216,10 +282,12 @@
             <div class="icon">
               <div [ngStyle]="{background: fighter.colorcode}" class="fighterColor"></div>
             </div>
-            <div class="icon" matTooltip="Damage"><i class="fas fa-tint" [ngStyle]="{color: '#990000' + fighter.wound}"></i></div>
-            <div class="icon" matTooltip="Stress"><i class="fas fa-tint" [ngStyle]="{color: '#00008b' + fighter.stress}"></i></div>
+            <div class="icon" matTooltip="Damage"><i class="fas fa-tint"
+                [ngStyle]="{color: '#990000' + fighter.wound}"></i></div>
+            <div class="icon" matTooltip="Stress"><i class="fas fa-tint"
+                [ngStyle]="{color: '#00008b' + fighter.stress}"></i></div>
             <p class="name" [ngClass]="{'broken' : fighter.broken, 'cautious' : fighter.cautious}">
-              {{fighter.namefighter}} 
+              {{fighter.namefighter}}
               <i *ngIf="fighter.fatigued" matTooltip="Fatigued" class="fas fa-heart-broken"></i>
               <i *ngIf="fighter.panicked" matTooltip="Panicked" class="fas fa-heart-broken"></i>
             </p>

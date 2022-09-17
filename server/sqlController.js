@@ -42,6 +42,7 @@ getEncounter = (db, encounterHash, hash) => {
                         } else {
                             val.selected = selected[0]
                         }
+                        console.log(weapons)
                         return { ...val, weapons }
                     })))
     
@@ -73,7 +74,7 @@ saveEncounter = (db, userId, { meta, fighters, statuses }) => {
             fighters.forEach(val => {
                 db.upsert.fighter(val.namefighter, val.colorcode, typeof val.actioncount === 'number' ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.stressthreshold, val.id, meta.id).then(result => {
                     val.weapons.forEach(w => {
-                        tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.fatigue, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id).then().catch(e => console.log(e)))
+                        tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.fatigue, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id, w.damagetype).then().catch(e => console.log(e)))
                         if (w.maxrange) {
                             tempArray.push(db.upsert.ranges(w.id, w.maxrange).then().catch(e => console.log(e)))
                         } else if (w.maxrange === 0) {
@@ -248,7 +249,7 @@ module.exports = {
         fighters.forEach(val => {
             db.upsert.fighter(val.namefighter, val.colorcode, typeof val.actioncount === 'number' ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.stressthreshold, val.caution, val.id, meta.id).then(result => {
                 val.weapons.forEach(w => {
-                    tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.fatigue, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id).then())
+                    tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.fatigue, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, w.parry, w.weapontype, w.id, w.damagetype).then())
                     if (w.maxrange) {
                         tempArray.push(db.upsert.ranges(w.id, w.maxrange).then())
                     } else if (w.maxrange === 0) {

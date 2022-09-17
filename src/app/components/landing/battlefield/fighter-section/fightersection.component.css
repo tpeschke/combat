@@ -5,6 +5,10 @@
     margin-bottom: 15px;
 }
 
+.playerViewPlayerSectionRow:last-child {
+    border-top: 1px solid grey
+}
+
 .fighterRow {
     display: flex;
     justify-content: space-between;
@@ -209,7 +213,7 @@ i:hover {
 .encumbrance {
     position: absolute;
     font-size: 30px;
-    top: 79px;
+    top: 86px;
     left: 93px;
 }
 
@@ -420,6 +424,10 @@ h3 {
     position: relative;
 }
 
+.buttonShellPlayer {
+    width: 15%;
+}
+
 button {
     width: 10%;
     border: none;
@@ -443,7 +451,13 @@ button:hover {
 }
 
 .initButton {
-    width: 70%;
+    min-width: 70%;
+    width: 10%;
+    border: none;
+    padding: 0;
+    background: none;
+    font-family: 'ancient' !important;
+    text-align: center;
 }
 
 .buttonShell i {

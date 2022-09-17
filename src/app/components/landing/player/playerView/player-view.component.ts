@@ -31,6 +31,8 @@ export class PlayerViewComponent implements OnInit {
     name: null,
     recovery: null,
     action: null,
+    initMod: null,
+    initDice: '0',
     selectedId: null,
     topcheck: '0',
     trauma: false,
@@ -92,17 +94,16 @@ export class PlayerViewComponent implements OnInit {
   }
 
   capturePlayerInfo(type, event) {
-    if (type === 'name') {
-      this.newPlayer[type] = event.target.value
-    } else {
+    if (type === 'recovery') {
       this.newPlayer[type] = +event.target.value.replace(/\D/g, '')
+    } else {
+      this.newPlayer[type] = event.target.value
     }
   }
 
   addPlayer() {
     let { name, recovery, action } = this.newPlayer
-    if (name !== '' && recovery && action) {
-      this.newPlayer.action = this.newPlayer.action + this.count;
+    if (name !== '' && recovery) {
       this.newPlayer.id = this.generalService.makeid();
       this.players.push(this.newPlayer)
       this.newPlayer = {
@@ -110,6 +111,8 @@ export class PlayerViewComponent implements OnInit {
         name: null,
         recovery: null,
         action: null,
+        initMod: null,
+        initDice: '0',
         selectedId: null,
         topcheck: '0',
         trauma: false,
@@ -125,6 +128,8 @@ export class PlayerViewComponent implements OnInit {
       name: null,
       recovery: null,
       action: null,
+      initMod: null,
+      initDice: '0',
       selectedId: null,
       topcheck: '0',
       trauma: false,
@@ -248,12 +253,10 @@ export class PlayerViewComponent implements OnInit {
         player.newWeapon = { name: null, recovery: null }
       }
     })
-    console.log(this.players)
   }
 
   addPlayerOrBeast() {
     let id = this.id.replace(/\#/g, '').trim();
-    console.log(id)
     if (isNaN(+id)) {
       this.fieldService.getBeastForPlayer(id).subscribe((beast: any) => {
         if (beast.name !== '' && beast.recovery && this.newPlayer.action) {
@@ -271,6 +274,8 @@ export class PlayerViewComponent implements OnInit {
             recovery: null,
             selectedId: null,
             action: null,
+            initMod: null,
+            initDice: '0',
             topcheck: '0',
             trauma: false,
             weapons: [],
@@ -297,6 +302,8 @@ export class PlayerViewComponent implements OnInit {
             recovery: null,
             selectedId: null,
             action: null,
+            initMod: null,
+            initDice: '0',
             topcheck: '0',
             trauma: false,
             weapons: [],
@@ -306,6 +313,29 @@ export class PlayerViewComponent implements OnInit {
           this.id = null;
         }
       })
+    }
+  }
+
+  selectInitDice(dice, id) {
+    if (!id) {
+      this.newPlayer.initDice = dice
+    } else {
+      for (let i = 0; i < this.players.length; i++) {
+        if (this.players[i].id === id) {
+          this.players[i].initDice = dice
+          i = this.players.length
+        }
+      }
+    }
+  }
+
+  rollInitiative(id) {
+    for (let i = 0; i < this.players.length; i++) {
+      if (this.players[i].id === id) {
+        let { initDice, initMod } = this.players[i]
+        this.players[i].action = this.generalService.rollDice(`1d${initDice}${initMod < 0 ? initMod : '+' + initMod}`)
+        i = this.players.length
+      }
     }
   }
 }
