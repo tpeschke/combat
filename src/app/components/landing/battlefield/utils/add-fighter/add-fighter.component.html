@@ -26,7 +26,7 @@
   </mat-form-field>
   <p>/</p>
   <mat-form-field>
-    <input (change)="captureChangeInt($event.target.value, 'max_health')" matInput placeholder="Max Vitality*"
+    <input (change)="captureChange($event, 'max_health')" matInput placeholder="Max Vitality*"
       value="{{fighter.max_health}}">
   </mat-form-field>
 </div>
