@@ -158,7 +158,6 @@ export class AddFighterComponent implements OnInit {
 
   addFighter() {
     if (this.checkIfFighterIsValid()) {
-      console.log(this.fighter.max_health)
       if (this.multiAdd && this.multiAdd > 1) {
         let colors = ['#C91010', '#1076C9', '#2FC910', '#C97310', '#9510C9', '#EB75E1', '#E5EB75']
         let newFighters = []
@@ -167,7 +166,6 @@ export class AddFighterComponent implements OnInit {
           if (isNaN(+fighterCopy.max_health)) {
             fighterCopy.max_health = this.generalService.rollDice(fighterCopy.max_health);
           }
-          console.log(fighterCopy.max_health)
           fighterCopy.weapons = fighterCopy.weapons.map(weapon => { return { ...weapon, id: this.generalService.makeid() } })
           if (this.numberEach) { fighterCopy.namefighter = fighterCopy.namefighter + ` ${i + 1}` }
           if (this.uniqueColors) { i > 6 ? fighterCopy.colorcode = this.generalService.genHexString() : fighterCopy.colorcode = colors[i] }
