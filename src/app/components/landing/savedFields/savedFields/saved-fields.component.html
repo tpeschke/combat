@@ -14,7 +14,7 @@
       <p>{{field.name}}</p>
       <p>{{field.count}}</p>
       <p>{{field.fightercount}}</p>
-      <p>{{field.deadcount}}</p>
+      <p>{{field.deadcount ? field.deadcount : 0}}</p>
       <p><i (click)="deleteConfirm($event, field.id)" class="fas fa-trash"></i></p>
     </div>
 
@@ -23,7 +23,7 @@
       <div>
         <p>Count: {{field.count}}</p>
         <p>Fighter: {{field.fightercount}}</p>
-        <p>Field: {{field.deadcount}}</p>
+        <p>Field: {{field.deadcount ? field.deadcount : 0}}</p>
         <p><i (click)="deleteConfirm($event, field.id)" class="fas fa-trash"></i></p>
       </div>
     </div>
