@@ -38,7 +38,6 @@ input {
     text-align: center;
     border-bottom: 1px solid grey;
     padding: 0;
-    font-family: 'ancient';
 }
 
 input:focus, button:focus {
@@ -100,6 +99,10 @@ i:hover {
 .weaponSquareShell {
     position: relative;
     text-align: center;
+}
+
+.weaponSquareShell p {
+    font-family: unset;
 }
 
 .weaponSquare {
@@ -184,47 +187,54 @@ i:hover {
 
 .speed {
     position: absolute;
-    font-size: 35px;
+    font-size: 25px;
     top: 20px;
     left: 10px;
 }
 
 .attack {
     position: absolute;
-    font-size: 35px;
-    top: 20px;
-    left: 90px;
+    font-size: 25px;
+    top: 27px;
+    left: 65px;
+    width: 65px;
 }
 
 .init {
     position: absolute;
-    font-size: 35px;
+    font-size: 25px;
     top: 20px;
     right: 10px;
 }
 
 .defense {
     position: absolute;
-    font-size: 35px;
-    top: 78px;
-    left: 35px;
+    font-size: 25px;
+    top: 64px;
+    left: 9px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 76px;
 }
 
 .encumbrance {
     position: absolute;
-    font-size: 30px;
+    font-size: 25px;
     top: 86px;
     left: 93px;
 }
 
 .damageReduction {
     position: absolute;
-    font-size: 35px;
+    font-size: 25px;
     top: 70px;
     right: 8px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     width: 65px;
     height: 55px;
@@ -234,15 +244,22 @@ i:hover {
     width: 65px;
 }
 
-.shield {
-    width: 65px;
-    border-top: 1px solid lightgrey;
+.coverShell {
     padding-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.coverShell .shield, .damageReduction .shield {
+    border-top: 1px solid lightgrey;
+    width: 65px;
+    font-size: 13px;
 }
 
 .shieldIcon {
-    font-size: 13px;
-    margin-right: 5px;
+    font-size: 9px;
 }
 
 .shield:hover {
@@ -251,18 +268,17 @@ i:hover {
 
 .measure {
     position: absolute;
-    font-size: 33px;
+    font-size: 25px;
     width: 74px;
-    left: 0px;
-    padding-left: 3px;
+    left: 10px;
     text-align: left;
-    bottom: 3px;
+    bottom: 15px;
     line-height: 25px;
 }
 
 .damage {
     position: absolute;
-    font-size: 25px;
+    font-size: 15px;
     bottom: 20px;
     left: 65px;
     display: flex;
@@ -275,9 +291,9 @@ i:hover {
 
 .parry {
     position: absolute;
-    font-size: 35px;
-    bottom: 20px;
-    right: 10px;
+    font-size: 25px;
+    bottom: 15px;
+    right: 20px;
 }
 
 .weaponSquareShell:hover .weaponSquare {

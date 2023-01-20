@@ -28,13 +28,20 @@
               value="{{weapon.speed}}">
             <input class="attack" (change)="changeWeaponPropertyInt(weapon.id, $event, 'atk')" value="{{weapon.atk}}">
             <input class="init" (change)="changeWeaponPropertyInt(weapon.id, $event, 'init')" value="{{weapon.init}}">
-            <input class="defense" (change)="changeWeaponPropertyInt(weapon.id, $event, 'def')" value="{{weapon.def}}">
+            <div class="defense">
+              <input class="defense-inner" (change)="changeWeaponProperty(weapon.id, $event, 'def')" value="{{weapon.def}}">
+              <div class="coverShell">
+                <i class="fa-solid fa-shield shieldIcon"></i>
+                <input class="shield" (change)="changeWeaponProperty(weapon.id, $event, 'cover')"
+                  value="{{weapon.cover}}">
+              </div>
+            </div>
             <input class="encumbrance" (change)="changeWeaponProperty(weapon.id, $event, 'damagetype')"
               value="{{weapon.damagetype}}">
             <div class="damageReduction">
               <input class="armor" (change)="changeWeaponProperty(weapon.id, $event, 'dr')" value="{{weapon.dr}}">
               <div class="armorShell">
-                <i class="fas fa-shield-alt shieldIcon"></i>
+                <i class="fa-solid fa-shield shieldIcon"></i>
                 <input class="shield" (change)="changeWeaponProperty(weapon.id, $event, 'shield_dr')"
                   value="{{weapon.shield_dr}}">
               </div>

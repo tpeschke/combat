@@ -114,41 +114,41 @@ h3 {
 
 .speed {
     position: absolute;
-    font-size: 35px;
-    top: 20px;
+    font-size: 28px;
+    top: 13px;
 }
 
 .attack {
     position: absolute;
-    font-size: 35px;
+    font-size: 28px;
     top: 20px;
     left: 78px;
 }
 
 .init {
     position: absolute;
-    font-size: 35px;
+    font-size: 28px;
     top: 20px;
     right: 0px;
 }
 
 .defense {
     position: absolute;
-    font-size: 35px;
-    top: 78px;
-    left: 25px;
+    font-size: 28px;
+    top: 59px;
+    left: 14px;
 }
 
 .encumbrance {
     position: absolute;
-    font-size: 30px;
-    top: 86px;
-    left: 81px;
+    font-size: 25px;
+    top: 80px;
+    left: 80px;
 }
 
 .damageReduction {
     position: absolute;
-    font-size: 35px;
+    font-size: 28px;
     top: 70px;
     right: 15px;
     display: flex;
@@ -161,21 +161,26 @@ h3 {
 
 .armor {
     width: 65px;
-    font-size: 25px;
+    font-size: 14px;
+    text-align: center;
+}
+.defense-inner {
+    width: 65px;
+    font-size: 14px;
     text-align: center;
 }
 
+
 .shield {
-    width: 65px;
-    font-size: 25px;
+    width: 50px;
+    font-size: 11px;
     text-align: center;
     border-top: 1px solid lightgrey;
     padding-top: 5px;
 }
 
 .shieldIcon {
-    font-size: 13px;
-    margin-right: 5px;
+    font-size: 9px;
 }
 
 .shield:hover {
@@ -184,7 +189,7 @@ h3 {
 
 .measure {
     position: absolute;
-    font-size: 35px;
+    font-size: 28px;
     bottom: 20px;
     height: 25px;
     width: 55px;
@@ -193,7 +198,7 @@ h3 {
 
 .damage {
     position: absolute;
-    font-size: 25px;
+    font-size: 15px;
     bottom: 20px;
     left: 65px;
     display: flex;
@@ -206,7 +211,7 @@ h3 {
 
 .parry {
     position: absolute;
-    font-size: 35px;
+    font-size: 28px;
     bottom: 20px;
     right: 0px;
 }
@@ -223,20 +228,20 @@ input {
     text-align: center;
     border-bottom: 1px solid grey;
     padding: 0;
-    font-family: 'ancient';
 }
 
 input:focus{
     outline: none;
 }
 
-.armorShell {
+.armorShell, .coverShell {
     display: flex;
     align-items: center;
 }
 
 .armorShell input {
-    width: 35px
+    width: 40px;
+    border-top: none
 }
 
 .weaponName {
