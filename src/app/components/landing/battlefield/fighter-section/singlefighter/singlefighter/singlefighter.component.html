@@ -60,7 +60,7 @@
       <p class="measure">{{fighter.selected.maxrange ? (fighter.selected.maxrange / 6 | number:'1.0-0') + ' ri' :
         fighter.selected.measure}}</p>
       <p class="damage">{{fighter.selected.damage}}</p>
-      <p *ngIf="!fighter.selected.maxrange" class="parry">{{fighter.selected.parry}}</p>
+      <p *ngIf="!fighter.selected.maxrange" class="parry">{{fighter.selected.parry === 99 ? 'EUA' : fighter.selected.parry}}</p>
     </div>
   </div>
 
@@ -291,7 +291,7 @@
         <p class="measure">{{fighter.selected.maxrange ? (fighter.selected.maxrange / 6 | number:'1.0-0') + ' ri' :
           fighter.selected.measure}}</p>
         <p class="damage">{{fighter.selected.damage}}</p>
-        <p *ngIf="!fighter.selected.maxrange" class="parry">{{fighter.selected.parry}}</p>
+        <p *ngIf="!fighter.selected.maxrange" class="parry">{{fighter.selected.parry === 99 ? 'EUA' : fighter.selected.parry}}</p>
       </div>
 
       <p *ngIf="!editOn" (click)="toggleEdit()" class="icon"><i matTooltip="Edit"

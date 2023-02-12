@@ -294,7 +294,9 @@ i:hover {
     position: absolute;
     font-size: 25px;
     bottom: 15px;
-    right: 20px;
+    right: 10px;
+    text-align: right;
+    width: 50px;
 }
 
 .weaponSquareShell:hover .weaponSquare {
