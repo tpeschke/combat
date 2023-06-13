@@ -364,8 +364,18 @@ export class SinglefighterComponent implements OnInit {
     }
   }
 
+  selectFatigueThreshold(event) {
+    let { fighters } = this.counterService
+    for (let i = 0; i < fighters.length; i++) {
+      if (fighters[i].id === this.fighter.id) {
+        fighters[i].fatigue = event
+        i = fighters.length
+      }
+    }
+  }
+
   calculateFatigue(woundCode) {
-    let fatigue = this.convertFatigue(this.fighter.selected.fatigue)
+    let fatigue = this.convertFatigue(this.fighter.fatigue)
       , oldFatigue = this.fatigued
 
     if (woundCode === 'A') {
@@ -378,6 +388,8 @@ export class SinglefighterComponent implements OnInit {
       this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B' || fatigue === 'W'
     } else if (woundCode === 'C') {
       this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B' || fatigue === 'W' || fatigue === 'C'
+    } else if (woundCode === 'N') {
+      this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B' || fatigue === 'W' || fatigue === 'C' || fatigue === 'C'
     } else {
       this.fatigued = false
     }

@@ -13,9 +13,11 @@ import { AddFighterComponent } from './utils/add-fighter/add-fighter.component';
 import { AddStatusComponent } from './utils/add-status/add-status.component';
 import { StatusesComponent } from './utils/statuses/statuses.component';
 import { PanicThresholdsPipe } from './utils/panic-thresholds.pipe';
+import { FatigueThresholdPipe } from './utils/fatigue-threshold.pipe';
+import { PanicShortThresholdPipe } from './utils/panicShortThreshold.pipe';
 
 @NgModule({
-  declarations: [BattlefieldComponent, CounterComponent, FightersectionComponent, WeaponSelectComponent, SinglefighterComponent, AddFighterComponent, AddStatusComponent, StatusesComponent, PanicThresholdsPipe],
+  declarations: [BattlefieldComponent, CounterComponent, FightersectionComponent, WeaponSelectComponent, SinglefighterComponent, AddFighterComponent, AddStatusComponent, StatusesComponent, PanicThresholdsPipe, FatigueThresholdPipe, PanicShortThresholdPipe],
   imports: [
     CommonModule,
     MatCardModule,

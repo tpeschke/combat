@@ -59,6 +59,22 @@
   </div>
 </div>
 
+<div class="buttonShell panicShell">
+  <p>Fatigue Threshold: </p>
+  <div class="initButton">{{fighter.fatigue | fatigueThreshold}}</div>
+  <div class="diceSelectShell">
+    <i class="fas fa-angle-down"></i>
+    <div class="diceSelect panicSelect">
+      <p (click)="selectFatigueThreshold('A')">Always</p>
+      <p (click)="selectFatigueThreshold('H')">Hurt</p>
+      <p (click)="selectFatigueThreshold('B')">Bloodied</p>
+      <p (click)="selectFatigueThreshold('W')">Wounded</p>
+      <p (click)="selectFatigueThreshold('C')">Critical</p>
+      <p (click)="selectFatigueThreshold('N')">Never</p>
+    </div>
+  </div>
+</div>
+
 <div class="weaponSelecterShell">
   <mat-form-field>
     <input (change)="captureChangeInt($event.target.value, 'caution')" matInput placeholder="Caution Threshold"

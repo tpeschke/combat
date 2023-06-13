@@ -31,6 +31,7 @@ export class AddFighterComponent implements OnInit {
     stress: 0,
     stressthreshold: 0,
     acting: '0',
+    fatigue: 'C',
     panic: 7,
     caution: 0,
     weapons: [{
@@ -92,6 +93,7 @@ export class AddFighterComponent implements OnInit {
           max_health,
           dead: '0',
           stress: 0,
+          fatigue: beast.fatigue,
           caution: beast.caution,
           panic: beast.panic,
           stressthreshold,
@@ -131,6 +133,10 @@ export class AddFighterComponent implements OnInit {
 
   selectPanicThreshold(panic) {
     this.fighter.panic = panic
+  }
+
+  selectFatigueThreshold(fatigue) {
+    this.fighter.fatigue = fatigue
   }
 
   openWeaponSelect() {
@@ -197,6 +203,7 @@ export class AddFighterComponent implements OnInit {
         dead: '0',
         acting: '0',
         stressthreshold: 0,
+        fatigue: 'C',
         panic: 7,
         caution: 0,
         weapons: [{
