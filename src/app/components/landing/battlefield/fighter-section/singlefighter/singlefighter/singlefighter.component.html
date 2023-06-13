@@ -15,7 +15,7 @@
       [(colorPicker)]="colorChange" (colorPickerChange)="captureColor($event)" class="fighterColor editOn"></div>
   </div>
 
-  <p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'cautious' : cautious}">{{fighter.namefighter}}
+  <p *ngIf="!editOn" class="name" [ngClass]="{'cautious' : cautious}">{{fighter.namefighter}}
     <i *ngIf="fatigued" matTooltip="Fatigued" class="fas fa-heart-broken"></i>
     <i *ngIf="panicked" matTooltip="Panicked" class="fas fa-heart-broken"></i>
   </p>
@@ -176,7 +176,7 @@
             [(colorPicker)]="colorChange" (colorPickerChange)="captureColor($event)" class="fighterColor editOn"></div>
         </div>
 
-        <p *ngIf="!editOn" class="name" [ngClass]="{'broken' : broken, 'cautious' : cautious}">{{fighter.namefighter}}
+        <p *ngIf="!editOn" class="name" [ngClass]="{'cautious' : cautious}">{{fighter.namefighter}}
         </p>
         <input *ngIf="editOn" (change)="captureChange($event, 'nameChange')" (keydown)="$event.stopPropagation()"
           class="name nameInput" value="{{nameChange}}">

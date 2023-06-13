@@ -390,7 +390,11 @@ export class SinglefighterComponent implements OnInit {
   calculatePanic(stressCode) {
     let oldPanic = this.panicked
 
-    this.panicked = stressCode >= this.fighter.panic
+    if (this.fighter.panic === 0) {
+      this.panicked = false
+    } else {
+      this.panicked = stressCode >= this.fighter.panic
+    }
 
     if (this.panicked != oldPanic) {
       this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.panicked, id: this.fighter.id, fighterProperty: 'panicked' })

@@ -286,7 +286,7 @@
                 [ngStyle]="{color: '#990000' + fighter.wound}"></i></div>
             <div class="icon" matTooltip="Stress"><i class="fas fa-tint"
                 [ngStyle]="{color: '#00008b' + fighter.stress}"></i></div>
-            <p class="name" [ngClass]="{'broken' : fighter.broken, 'cautious' : fighter.cautious}">
+            <p class="name" [ngClass]="{'cautious' : fighter.cautious}">
               {{fighter.namefighter}}
               <i *ngIf="fighter.fatigued" matTooltip="Fatigued" class="fas fa-heart-broken"></i>
               <i *ngIf="fighter.panicked" matTooltip="Panicked" class="fas fa-heart-broken"></i>
