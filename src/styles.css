@@ -10,8 +10,8 @@
 	src: url('./assets/jancient.ttf') format("truetype");
   }
   @font-face {
-	font-family: 'Baldur';
-	src: url('./assets/Baldur.ttf') format("truetype");
+	font-family: 'hamlet';
+	src: url('./assets/Hamletornot.ttf') format("truetype");
   }
 
 html, body, div, span, applet, object, iframe,
@@ -88,18 +88,21 @@ p {
 
 h1 {
 	color: #990000;
-	font-family: 'Baldur';
+	font-family: 'hamlet';
 	font-size: 20px;
+	letter-spacing: 1px;
 }
 
 h2 {
 	color: white;
 	font-size: 17px;
-	font-family: 'Baldur';
+	font-family: 'hamlet';
+	letter-spacing: 1px;
 }
 
 h5 {
-	font-family: 'Baldur';
+	font-family: 'hamlet';
+	letter-spacing: 1px;
 	font-size: 20px;
 	margin: 10px 0;
     border-bottom: 2px solid;
