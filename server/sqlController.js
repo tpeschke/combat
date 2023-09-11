@@ -195,7 +195,11 @@ module.exports = {
 
     },
     getBeastbyHash: (req, res) => {
-        axios.get(config.beastiaryEndpoint + '/api/combat/' + req.params.hash).then(result => res.send(result.data)).catch(e => res.send(e))
+        let queryParams = ''
+        if (req.user) {
+            queryParams = `?secretKey=${config.combatCounterSecretKey}&userpatreon=${req.user.patreon}&userid=${req.user.id}`
+        }
+        axios.get(config.beastiaryEndpoint + '/api/combat/' + req.params.hash + queryParams).then(result => res.send(result.data)).catch(e => res.send(e))
     },
     getCharacterFromVault: (req, res) => {
         axios.get(config.vaultEndpoint + '/api/character/' + req.params.id).then(result => res.send(result.data))
