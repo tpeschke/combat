@@ -33,6 +33,8 @@ export class AddFighterComponent implements OnInit {
     acting: '0',
     fatigue: 'C',
     panic: 7,
+    fatiguenumber: null,
+    panicnumber: null,
     caution: 0,
     weapons: [{
       id: this.generalService.makeid(),
@@ -62,41 +64,49 @@ export class AddFighterComponent implements OnInit {
   addByHash() {
     if (this.hash) {
       this.fieldService.getFightersFromBestiary(this.hash).subscribe((beast: any) => {
-        let max_health = beast.vitality.toUpperCase() !== "N/A" ? beast.vitality : 10000
-          , stressthreshold = typeof beast.stressthreshold === "number" ? beast.stressthreshold : 0
-          , weapons = []
-          , noBase = true
+        let weapons = []
           , selected = null
-        beast.combat.forEach(val => {
-          if (val.weapon !== 'Base') {
-            let maxrange = val.ranges ? val.ranges.thirtytwo : null;
-            weapons.push({ ...val, id: this.generalService.makeid(), weapon: val.weapon, speed: val.spd, selected: '0', fatigue: val.fatigue, maxrange })
-            weapons.push({ ...val, id: this.generalService.makeid(), weapon: `${val.weapon} (IG)`, speed: val.spd + Math.ceil(val.measure / 2), selected: '0', fatigue: val.fatigue, maxrange })
-          } else {
-            noBase = false;
-            let newId = this.generalService.makeid()
-            weapons.push({ ...val, id: newId, weapon: "Unarmed", speed: 9 + +val.spd, selected: '1', fatigue: val.fatigue, damage: `d6+${+val.damage + 1}` })
-            selected = { ...val, id: newId, weapon: "Unarmed", speed: 9 + +val.spd, selected: '1', fatigue: val.fatigue, damage: `d6+${+val.damage + 1}` }
-            weapons.push({ ...val, id: this.generalService.makeid(), weapon: val.weapon, speed: val.spd, selected: '0', fatigue: val.fatigue })
-          }
+
+        beast.combatStatArray.forEach(({ combatSquare }) => {
+          const { weaponname, defaultweaponname, recovery, attack, initiative, defense, cover, damageType, dr, damage, measure, range, parry, shieldDr} = combatSquare
+          weapons.push({
+            id: this.generalService.makeid(),
+            weapon: weaponname ? weaponname : defaultweaponname,
+            speed: recovery,
+            atk: attack,
+            init: initiative,
+            def: defense,
+            dr,
+            shield_dr: shieldDr,
+            measure,
+            damage,
+            parry,
+            weapontype: range ? 'r' : 'm',
+            damagetype: damageType,
+            cover,
+            selected: '0',
+            maxrange: range ? range * 6 : null
+          })
         })
-        if (weapons.length === 1 || noBase) {
-          weapons[0].selected = '1'
-          selected = weapons[0]
-        }
+
+        weapons[0].selected = '1'
+        selected = weapons[0]
+
         this.fighter = {
           id: null,
           hidden: '0',
           colorcode: '#000000',
           namefighter: beast.name,
           health: 0,
-          max_health,
+          max_health: beast.phyiscalAndStress.physical.diceString ? beast.phyiscalAndStress.physical.diceString : 10000,
           dead: '0',
           stress: 0,
-          fatigue: beast.fatigue,
-          caution: beast.caution,
-          panic: beast.panic,
-          stressthreshold,
+          fatigue: beast.phyiscalAndStress.physical.fatigue === 'N' ? 'N' : null,
+          panic: beast.phyiscalAndStress.mental.panic === 'N' ? 7 : null,
+          fatiguenumber: beast.phyiscalAndStress.physical.fatigue !== 'N' ? beast.phyiscalAndStress.physical.fatigue : null,
+          caution: beast.phyiscalAndStress.mental.caution !,
+          panicnumber: beast.phyiscalAndStress.mental.panic !== 'N' ? beast.phyiscalAndStress.mental.panic : null,
+          stressthreshold: beast.phyiscalAndStress.mental.stress !== "N" ? beast.phyiscalAndStress.mental.stress : 0,
           acting: '0',
           weapons,
           selected,
@@ -204,6 +214,8 @@ export class AddFighterComponent implements OnInit {
         acting: '0',
         stressthreshold: 0,
         fatigue: 'C',
+        fatiguenumber: null,
+        panicnumber: null,
         panic: 7,
         caution: 0,
         weapons: [{
@@ -233,7 +245,7 @@ export class AddFighterComponent implements OnInit {
       && this.fighter.max_health
       && this.fighter.selected.speed > 0
       && !isNaN(+this.fighter.selected.init)
-      && (this.fighter.selected.fatigue === 'A' || this.fighter.selected.fatigue === 'H' || this.fighter.selected.fatigue === 'B' || this.fighter.selected.fatigue === 'W' || this.fighter.selected.fatigue === 'C' || this.fighter.selected.fatigue === 'N')
+      && ((this.fighter.fatiguenumber && this.fighter.fatiguenumber > 0) || (this.fighter.fatigue === 'A' || this.fighter.fatigue === 'H' || this.fighter.fatigue === 'B' || this.fighter.fatigue === 'W' || this.fighter.fatigue === 'C' || this.fighter.fatigue === 'N'))
       && this.fighter.selected.weapon !== ''
 
     this.errors = []
@@ -242,7 +254,11 @@ export class AddFighterComponent implements OnInit {
     if (this.fighter.max_health < this.fighter.health) { this.errors.push("Damage Can't Be Greater Than Max Vitality") }
     if (this.fighter.selected.speed < 0) { this.errors.push("Weapon Recovery Required") }
     if (isNaN(+this.fighter.selected.init)) { this.errors.push("Weapon Initiative Required") }
-    if (this.fighter.selected.fatigue !== 'A' && this.fighter.selected.fatigue !== 'H' && this.fighter.selected.fatigue !== 'B' && this.fighter.selected.fatigue !== 'W' && this.fighter.selected.fatigue !== 'C' && this.fighter.selected.fatigue !== 'N') { this.errors.push("Fatigue needs to be an A, H, B, W, C, or N") }
+    if (this.fighter.fatiguenumber) {
+      if (this.fighter.fatiguenumber > 0) { this.errors.push("Fatigue needs to be a Positive Number") }
+    } else {
+      if (this.fighter.fatigue !== 'A' && this.fighter.fatigue !== 'H' && this.fighter.fatigue !== 'B' && this.fighter.fatigue !== 'W' && this.fighter.fatigue !== 'C' && this.fighter.fatigue !== 'N') { this.errors.push("Fatigue needs to be an A, H, B, W, C, or N") }
+    }
 
     return isValid
   }

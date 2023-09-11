@@ -143,3 +143,12 @@ i {
     display: flex;
     flex-direction: column;
 }
+
+.thresholds-shell {
+    display: flex;
+    justify-content: space-between;
+}
+
+.thresholds-shell div:last-child {
+    margin-left: 5px;
+}

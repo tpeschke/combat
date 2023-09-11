@@ -59,12 +59,9 @@
     <input *ngIf="fighter.woundCategory <= 0" (change)="changeDamage($event, fighter.id)" value="{{fighter.health}}"
       class="inputWithoutCategory">
     <p *ngIf="fighter.woundCategory === 1" matTooltip="Hurt" [matTooltipDisabled]="tooltips.wound_category_tier">H</p>
-    <p *ngIf="fighter.woundCategory === 25" matTooltip="Bloodied" [matTooltipDisabled]="tooltips.wound_category_tier">B
-    </p>
-    <p *ngIf="fighter.woundCategory === 50" matTooltip="Wounded" [matTooltipDisabled]="tooltips.wound_category_tier">W
-    </p>
-    <p *ngIf="fighter.woundCategory === 75" matTooltip="Critical" [matTooltipDisabled]="tooltips.wound_category_tier">C
-    </p>
+    <p *ngIf="fighter.woundCategory === 25" matTooltip="Bloodied" [matTooltipDisabled]="tooltips.wound_category_tier">B</p>
+    <p *ngIf="fighter.woundCategory === 50" matTooltip="Wounded" [matTooltipDisabled]="tooltips.wound_category_tier">W</p>
+    <p *ngIf="fighter.woundCategory === 75" matTooltip="Critical" [matTooltipDisabled]="tooltips.wound_category_tier">C</p>
     <div *ngIf="fighter.woundCategory === 100" matTooltip="Dead" [matTooltipDisabled]="tooltips.wound_category_tier"
       class="bleedingOutShell"><i class="fas fa-tint"></i>
     </div>
@@ -73,7 +70,7 @@
     <input id="editInput" matTooltip="Max Vitality" (change)="captureChange($event, 'maxHealthChange')"
       (keydown)="$event.stopPropagation()" value="{{maxHealthChange}}">
   </div>
-  <div *ngIf="editOn" class="panicSelectShell">
+  <div *ngIf="editOn && !fighter.fatiguenumber" class="panicSelectShell">
     <p>{{fighter.fatigue}}</p>
     <i class="fas fa-angle-down"></i>
     <div class="diceSelect">
@@ -86,19 +83,20 @@
     </div>
   </div>
 
+  <div *ngIf="editOn && fighter.fatiguenumber" class="inputShell">
+    <input id="editInput" matTooltip="Fatigue Threshold" (change)="captureChange($event, 'fatigueNumberChange')"
+      (keydown)="$event.stopPropagation()" value="{{fighter.fatiguenumber}}">
+  </div>
+
   <div *ngIf="!editOn" class="inputShell">
     <input *ngIf="fighter.stressCategory > 0" (change)="changeStress($event, fighter.id)" class="stressInput"
       value={{fighter.stress}}>
     <input *ngIf="fighter.stressCategory <= 0" (change)="changeStress($event, fighter.id)" value="{{fighter.stress}}"
       class="inputWithoutCategory">
-    <p *ngIf="fighter.stressCategory === 1" matTooltip="Unsure" [matTooltipDisabled]="tooltips.wound_category_tier">U
-    </p>
-    <p *ngIf="fighter.stressCategory === 25" matTooltip="Nervous" [matTooltipDisabled]="tooltips.wound_category_tier">N
-    </p>
-    <p *ngIf="fighter.stressCategory === 50" matTooltip="Shaken" [matTooltipDisabled]="tooltips.wound_category_tier">S
-    </p>
-    <p *ngIf="fighter.stressCategory === 75" matTooltip="Breaking" [matTooltipDisabled]="tooltips.wound_category_tier">B
-    </p>
+    <p *ngIf="fighter.stressCategory === 1" matTooltip="Unsure" [matTooltipDisabled]="tooltips.wound_category_tier">U</p>
+    <p *ngIf="fighter.stressCategory === 25" matTooltip="Nervous" [matTooltipDisabled]="tooltips.wound_category_tier">N</p>
+    <p *ngIf="fighter.stressCategory === 50" matTooltip="Shaken" [matTooltipDisabled]="tooltips.wound_category_tier">S</p>
+    <p *ngIf="fighter.stressCategory === 75" matTooltip="Breaking" [matTooltipDisabled]="tooltips.wound_category_tier">B</p>
     <div *ngIf="fighter.stressCategory === 100" matTooltip="Broken" [matTooltipDisabled]="tooltips.wound_category_tier"
       class="bleedingOutShell"><i class="fas fa-tint"></i>
     </div>
@@ -109,8 +107,8 @@
       (change)="captureChange($event, 'stressThresholdChange')" (keydown)="$event.stopPropagation()"
       value="{{stessThresholdChange}}">
   </div>
-
-  <div *ngIf="editOn" class="panicSelectShell">
+  
+  <div *ngIf="editOn && !fighter.panicnumber" class="panicSelectShell">
     <p>{{fighter.panic | panicShortThreshold}}</p>
     <i class="fas fa-angle-down"></i>
     <div class="diceSelect">
@@ -121,6 +119,11 @@
       <p (click)="selectPanicThreshold(5)">Breaking</p>
       <p (click)="selectPanicThreshold(7)">Never</p>
     </div>
+  </div>
+
+  <div *ngIf="editOn && fighter.panicnumber" class="inputShell">
+    <input id="editInput" matTooltip="Panic Threshold" (change)="captureChange($event, 'panicNumberChange')"
+      (keydown)="$event.stopPropagation()" value="{{fighter.panicnumber}}">
   </div>
 
   <button *ngIf="!fighter.actioncount.length" (click)="increaseAction()">{{fighter.selected.speed}}</button>

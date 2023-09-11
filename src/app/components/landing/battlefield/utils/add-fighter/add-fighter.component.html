@@ -43,7 +43,7 @@
   </mat-form-field>
 </div>
 
-<div class="buttonShell panicShell">
+<div *ngIf="fighter.panic" class="buttonShell panicShell">
   <p>Panic Threshold: </p>
   <div class="initButton">{{fighter.panic | panicThresholds}}</div>
   <div class="diceSelectShell">
@@ -59,7 +59,7 @@
   </div>
 </div>
 
-<div class="buttonShell panicShell">
+<div *ngIf="fighter.fatigue" class="buttonShell panicShell">
   <p>Fatigue Threshold: </p>
   <div class="initButton">{{fighter.fatigue | fatigueThreshold}}</div>
   <div class="diceSelectShell">
@@ -72,6 +72,22 @@
       <p (click)="selectFatigueThreshold('C')">Critical</p>
       <p (click)="selectFatigueThreshold('N')">Never</p>
     </div>
+  </div>
+</div>
+
+<div class="thresholds-shell" *ngIf="fighter.panicnumber || fighter.fatiguenumber">
+  <div *ngIf="fighter.panicnumber">
+    <mat-form-field>
+      <input (change)="captureChangeInt($event.target.value, 'panicnumber')" matInput placeholder="Panic Threshold"
+        value="{{fighter.panicnumber}}">
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="fighter.fatiguenumber">
+    <mat-form-field>
+      <input (change)="captureChangeInt($event.target.value, 'fatiguenumber')" matInput placeholder="Fatigue Threshold"
+        value="{{fighter.fatiguenumber}}">
+    </mat-form-field>
   </div>
 </div>
 

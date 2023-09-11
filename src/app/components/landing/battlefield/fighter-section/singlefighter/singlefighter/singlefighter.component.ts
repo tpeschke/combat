@@ -33,6 +33,8 @@ export class SinglefighterComponent implements OnInit {
   public nameChange;
   public colorChange;
   public maxHealthChange;
+  public fatigueNumberChange;
+  public panicNumberChange;
   public stessThresholdChange;
   public tooltips;
 
@@ -40,6 +42,8 @@ export class SinglefighterComponent implements OnInit {
     this.nameChange = this.fighter.namefighter
     this.colorChange = this.fighter.colorcode
     this.maxHealthChange = this.fighter.max_health
+    this.fatigueNumberChange = this.fighter.fatiguenumber
+    this.panicNumberChange = this.fighter.panicnumber
     this.stessThresholdChange = this.fighter.stressthreshold
     this.calculateWoundCategory();
     this.calculateStressCategory();
@@ -318,7 +322,7 @@ export class SinglefighterComponent implements OnInit {
   }
 
   toggleEdit() {
-    if (this.editOn && this.nameChange || this.colorChange || this.maxHealthChange || this.stessThresholdChange) {
+    if (this.editOn && this.nameChange || this.colorChange || this.maxHealthChange || this.stessThresholdChange || this.fatigueNumberChange) {
       let { fighters } = this.counterService
       for (let i = 0; i < fighters.length; i++) {
         if (fighters[i].id === this.fighter.id) {
@@ -327,6 +331,8 @@ export class SinglefighterComponent implements OnInit {
           fighters[i].colorcode = this.colorChange
           this.fieldService.sendBattleData({ hash: this.counterService.hash, type: 'fighterChange', value: this.colorChange, id: this.fighter.id, fighterProperty: 'colorcode' })
           fighters[i].max_health = this.maxHealthChange
+          fighters[i].fatiguenumber = this.fatigueNumberChange
+          fighters[i].panicnumber = this.panicNumberChange
           this.calculateWoundCategory()
           this.calculateStressCategory()
           let wound = this.fighter.woundCategory === 0 ? '00' : this.fighter.woundCategory;
@@ -378,20 +384,24 @@ export class SinglefighterComponent implements OnInit {
     let fatigue = this.convertFatigue(this.fighter.fatigue)
       , oldFatigue = this.fatigued
 
-    if (woundCode === 'A') {
-      this.fatigued = fatigue === 'A'
-    } else if (woundCode === 'H') {
-      this.fatigued = fatigue === 'H' || fatigue === 'A'
-    } else if (woundCode === 'B') {
-      this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B'
-    } else if (woundCode === 'W') {
-      this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B' || fatigue === 'W'
-    } else if (woundCode === 'C') {
-      this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B' || fatigue === 'W' || fatigue === 'C'
-    } else if (woundCode === 'N') {
-      this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B' || fatigue === 'W' || fatigue === 'C' || fatigue === 'C'
+    if (this.fighter.fatiguenumber) {
+      this.fatigued = this.fighter.health >= this.fighter.fatiguenumber
     } else {
-      this.fatigued = false
+      if (woundCode === 'A') {
+        this.fatigued = fatigue === 'A'
+      } else if (woundCode === 'H') {
+        this.fatigued = fatigue === 'H' || fatigue === 'A'
+      } else if (woundCode === 'B') {
+        this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B'
+      } else if (woundCode === 'W') {
+        this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B' || fatigue === 'W'
+      } else if (woundCode === 'C') {
+        this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B' || fatigue === 'W' || fatigue === 'C'
+      } else if (woundCode === 'N') {
+        this.fatigued = fatigue === 'H' || fatigue === 'A' || fatigue === 'B' || fatigue === 'W' || fatigue === 'C' || fatigue === 'C'
+      } else {
+        this.fatigued = false
+      }
     }
 
     if (this.fatigued != oldFatigue) {
@@ -401,11 +411,14 @@ export class SinglefighterComponent implements OnInit {
 
   calculatePanic(stressCode) {
     let oldPanic = this.panicked
-
-    if (this.fighter.panic === 0) {
-      this.panicked = false
+    if (this.fighter.panicnumber) {
+      this.panicked = this.fighter.stress >= this.fighter.panicnumber
     } else {
-      this.panicked = stressCode >= this.fighter.panic
+      if (this.fighter.panic === 0) {
+        this.panicked = false
+      } else {
+        this.panicked = stressCode >= this.fighter.panic
+      }
     }
 
     if (this.panicked != oldPanic) {

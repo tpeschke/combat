@@ -72,7 +72,7 @@ saveEncounter = (db, userId, { meta, fighters, statuses }) => {
         db.upsert.field(userId, meta.name, meta.hash, meta.count).then(field => {
             meta.id = field[0].id
             fighters.forEach(val => {
-                db.upsert.fighter(val.namefighter, val.colorcode, typeof val.actioncount === 'number' ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.stressthreshold, val.id, meta.id, val.fatigue).then(result => {
+                db.upsert.fighter(val.namefighter, val.colorcode, typeof val.actioncount === 'number' ? `${val.actioncount}` : `${val.actioncount[0]},0`, val.topcheck, val.acting, val.dead, val.hidden, val.max_health, val.health, val.stress, val.panic, val.stressthreshold, val.id, meta.id, val.fatigue, val.fatiguenumber, val.panicnumber).then(result => {
                     val.weapons.forEach(w => {
                         tempArray.push(db.upsert.weapon(val.id, w.weapon, w.selected, w.speed, w.fatigue, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, isNaN(w.parry) ? 99 : w.parry, w.weapontype, w.id, w.damagetype, w.cover).then().catch(e => console.log(e)))
                         if (w.maxrange) {
@@ -249,9 +249,9 @@ module.exports = {
         if (meta.encounter) {
             tempArray.push(db.upsert.encounter(meta.hash, meta.encounter).then())
         }
-        fighters.forEach(({namefighter, colorcode, actioncount, topcheck, acting, dead, hidden, max_health, health, stress, panic, stressthreshold, caution, id: fighterid, fatigue, weapons}) => {
+        fighters.forEach(({namefighter, colorcode, actioncount, topcheck, acting, dead, hidden, max_health, health, stress, panic, stressthreshold, caution, id: fighterid, fatigue, weapons, fatiguenumber, panicnumber}) => {
             const actioncountValue = typeof actioncount === 'number' ? `${actioncount}` : `${actioncount[0]},0`
-            db.upsert.fighter(namefighter, colorcode, actioncountValue, topcheck, acting, dead, hidden, max_health, health, stress, panic, stressthreshold, caution, fighterid, meta.id, fatigue).then(result => {
+            db.upsert.fighter(namefighter, colorcode, actioncountValue, topcheck, acting, dead, hidden, max_health, health, stress, panic, stressthreshold, caution, fighterid, meta.id, fatigue, fatiguenumber, panicnumber).then(result => {
                 weapons.forEach(w => {
                     tempArray.push(db.upsert.weapon(fighterid, w.weapon, w.selected, w.speed, w.fatigue, w.atk, w.init, w.def, w.dr, w.shield_dr, w.measure, w.damage, isNaN(w.parry) ? 99 : w.parry, w.weapontype, w.id, w.damagetype, w.cover).then())
                     if (w.maxrange) {
